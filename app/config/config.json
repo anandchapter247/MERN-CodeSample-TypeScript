@@ -1,0 +1,20 @@
+{
+    "development": {
+        "host"     : "localhost",
+        "user"     : "root",
+        "password" : "",
+        "database" : "my_blog"
+    },
+    "test": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "my_blog"
+    },
+    "production": {
+        "host": "localhost",
+        "user": "root",
+        "password": "",
+        "database": "my_blog"
+    }
+}
