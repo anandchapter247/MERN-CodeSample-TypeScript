@@ -1,25 +1,32 @@
-import { Store, createStore, applyMiddleware, Action } from "redux";
-import { routerMiddleware } from "react-router-redux";
-import { History } from "history";
-import { IRootState } from "../interfaces";
-import logger from "redux-logger";
-import { RootReducer } from "../reducers";
+import { Store, createStore, applyMiddleware, Action, Middleware } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+import { History } from 'history';
+import { IRootState } from '../interfaces';
+import logger from 'redux-logger';
+import { RootReducer } from '../reducers';
+import { createLogicMiddleware } from 'redux-logic';
+import { AllLogics } from '../logic';
 
 export default function configureStore(
   history: History,
-  initialState?: IRootState
+  initialState?: IRootState,
 ): Store<IRootState> {
-  const middlewares: any[] = [routerMiddleware(history)];
-  const isProd: boolean = process.env.NODE_ENV === "production";
+  const logicMiddleware: Middleware = createLogicMiddleware(AllLogics);
+  const middlewares: Middleware[] = [
+    routerMiddleware(history),
+    logicMiddleware,
+  ];
+  const isProd: boolean = process.env.NODE_ENV === 'production';
   if (!isProd) {
     middlewares.push(logger);
   }
+
   const middleware: any = applyMiddleware(...middlewares);
 
   const store: Store<any, Action> = createStore(
     RootReducer as any,
     initialState as any,
-    middleware
+    middleware,
   ) as Store<IRootState>;
 
   return store;
@@ -35,6 +42,6 @@ export function omit<T extends object, K extends keyof T>(
       }
       return res;
     },
-    {} as Omit<T, K>
+    {} as Omit<T, K>,
   );
 }

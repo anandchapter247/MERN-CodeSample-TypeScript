@@ -1,0 +1,239 @@
+// Styles
+// CoreUI Icons Set
+@import "~@coreui/icons/css/coreui-icons.css";
+// Import Flag Icons Set
+@import "~flag-icon-css/css/flag-icon.min.css";
+// Import Font Awesome Icons Set
+@import "~font-awesome/css/font-awesome.min.css";
+// Import Simple Line Icons Set
+@import "~simple-line-icons/css/simple-line-icons.css";
+// Import Main styles for this application
+@import "./scss/style.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+  .brand-logo {
+    display: inline-block;
+    min-width: 190px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .min-height650 {
+    min-height: 650px;
+  }
+  .height17 {
+    min-height: 17px;
+  }
+  .footer {
+    background: #f1f1f1;
+  }
+  .label {
+    margin-bottom: 0rem;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .breadcrum-block {
+    .breadcrumb {
+      background-color: transparent;
+      border-radius: 0px;
+      padding: 0px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+  }
+  .filter-block {
+    padding: 7px 0;
+    margin-bottom: 15px;
+    border-radius: 0.25rem;
+  }
+  .badge {
+    text-transform: capitalize;
+  }
+  .form-control {
+    border-color: #dddddd;
+  }
+  .card {
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      h4 {
+        margin: 0px;
+      }
+    }
+  }
+  th,
+  td {
+    font-size: 14px;
+  }
+  .table th,
+  .table td {
+    padding: 4px;
+    vertical-align: middle;
+  }
+  .table td {
+    font-size: 13px;
+  }
+  .table-checkbox-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .table .checkboxli {
+    width: 30px;
+    position: relative;
+    z-index: 9;
+    padding-right: 0;
+    left: 0;
+    top: 0px;
+  }
+  .table-checkbox-wrap select.commonstatus {
+    height: 28px;
+    top: -4px;
+    border-radius: 0px;
+    left: 0;
+    padding-right: 0;
+    position: absolute;
+    text-indent: 10px;
+    border: 0;
+    background: #fdfdfd;
+    font-size: 13px;
+    line-height: 13px;
+    padding: 0;
+    padding-left: 10px;
+  }
+  .coloum-checkbox {
+    left: 0px;
+  }
+  /* Form - Custom Checkbox */
+  .checkbox-custom {
+    position: relative;
+    padding: 0 0 0 25px;
+    margin-bottom: 7px;
+    margin-top: 0;
+  }
+
+  .checkbox-custom.checkbox-inline {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .form-group .checkbox-custom.checkbox-inline {
+    margin-top: 7px;
+    padding-top: 0;
+  }
+
+  .checkbox-custom:last-child,
+  .checkbox-custom:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .checkbox-custom input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    margin: -6px 0 0 0;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .checkbox-custom input[type="checkbox"]:checked + label:after {
+    position: absolute;
+    display: inline-block;
+    font-family: "FontAwesome";
+    font-weight: 400;
+    content: "\F00C";
+    top: 50%;
+    left: 4px;
+    margin-top: -5px;
+    font-size: 11px;
+    line-height: 1;
+    width: 16px;
+    height: 16px;
+    color: #333;
+  }
+
+  .checkbox-custom input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+  }
+
+  .checkbox-custom input[type="checkbox"]:disabled:checked + label:after {
+    color: #999;
+  }
+
+  .checkbox-custom input[type="checkbox"]:disabled + label {
+    cursor: not-allowed;
+  }
+
+  .checkbox-custom input[type="checkbox"]:disabled + label:before {
+    background-color: #eee;
+  }
+
+  .checkbox-custom label {
+    cursor: pointer;
+    margin-bottom: 0;
+    text-align: left;
+    line-height: 1.5;
+  }
+
+  .checkbox-custom label:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -9px;
+    width: 19px;
+    height: 18px;
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+    background: #fff;
+  }
+  .status-btn-wrap {
+    .btn {
+      padding: 6px 12px;
+      line-height: 1;
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+  .action-btn-wrap {
+    .btn {
+      width: 25px;
+      height: 25px;
+      line-height: 0px;
+      text-align: center;
+      font-size: 15px;
+      padding: 0;
+      color: #232323;
+      background: #dcdcdc;
+      margin: 0 3px;
+      .fa {
+        line-height: 1;
+      }
+    }
+    .red {
+      color: red;
+    }
+  }
+}
+
+.view-link {
+  cursor: pointer;
+}
+.view-link:hover {
+  text-decoration: underline;
+}

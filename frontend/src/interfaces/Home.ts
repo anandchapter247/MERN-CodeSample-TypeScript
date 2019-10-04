@@ -1,4 +1,6 @@
-export interface IHomeComponentProps {
-  name: string;
+import { RouteComponentProps } from 'react-router';
+
+export interface IHomeComponentProps extends RouteComponentProps {
+  name?: string;
 }
 export interface IHomeComponentState {}

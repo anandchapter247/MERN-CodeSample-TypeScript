@@ -1,5 +1,3 @@
-import { ILoginModal } from "../interfaces";
+import { ILoginModal } from '../interfaces';
 
-export const LoginInitialState: ILoginModal = {
-  isLoading: true
-};
+export const LoginInitialState: ILoginModal = { email: '', password: '' };
