@@ -9,6 +9,7 @@ import {
   IOrganizationProps,
   IOrganizationData,
 } from '../../../interfaces/Organization';
+import { ConfirmBox } from '../../../Helper';
 
 class Organization extends Component<IOrganizationProps, IOrganizationState> {
   constructor(props: IOrganizationProps) {
@@ -24,6 +25,19 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
   componentDidMount = () => {
     console.log('did mount calling');
     this.props.getOrganization();
+  };
+  handleStatus = async (id: string, isActive: boolean) => {
+    const { value } = await ConfirmBox({
+      title: 'Are you sure?',
+      text: isActive
+        ? 'Do you want to activate this organization?'
+        : 'Do you want to deactivate this organization?',
+    });
+    if (!value) {
+      return;
+    } else {
+      // Api call
+    }
   };
   render() {
     const { currentPage, pageLimit } = this.state;
@@ -54,12 +68,16 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
                       <td>{organization.firstName}</td>
                       <td>{organization.lastName}</td>
                       <td>{organization.email}</td>
-                      <td>Mark</td>
+                      <td>{organization.wildCardDomain}</td>
                       <td>
                         <Button
                           type='button'
                           color={organization.isActive ? 'primary' : 'danger'}
                           className='btn btn-sm'
+                          onClick={() => this.handleStatus(organization && organization._id
+                            ? organization._id
+                            : '',
+                          !organization.isActive,)}
                         >
                           {organization.isActive ? 'Active' : 'Deactive'}
                         </Button>

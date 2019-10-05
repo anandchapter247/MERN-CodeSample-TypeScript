@@ -10,7 +10,7 @@ import {
   hideLoader,
 } from '../actions';
 import { ApiRoutes, AppRoutes } from '../config';
-import { ApiHelper } from '../Helper/ApiHelper';
+import { ApiHelper } from '../Helper';
 /**
  *
  */
