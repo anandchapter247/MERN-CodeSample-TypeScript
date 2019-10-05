@@ -6,4 +6,5 @@ export const AppRoutes: IAppRoutes = {
   HOME: '/dashboard',
   MY_PROFILE: '/my-profile',
   ORGANIZATION: '/organization',
+  EMAILTEMPLATE: '/email-template',
 };
