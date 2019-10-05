@@ -15,7 +15,7 @@ export class SuccessHandlerHelper {
   };
 
   constructor(data: AxiosResponse<any>) {
-    this.rawData = data.data;
+    this.rawData = data;
     this.setSucccess();
   }
 

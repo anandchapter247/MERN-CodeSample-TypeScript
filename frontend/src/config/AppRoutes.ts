@@ -4,4 +4,6 @@ export const AppRoutes: IAppRoutes = {
   MAIN: '/',
   LOGIN: '/login',
   HOME: '/dashboard',
+  MY_PROFILE: '/my-profile',
+  ORGANIZATION: '/organization',
 };

@@ -11,6 +11,11 @@ export default {
       url: '/',
     },
     {
+      name: 'Organization',
+      icon: 'fa fa-users',
+      url: '/organization',
+    },
+    {
       name: 'Settings',
       icon: 'fa fa-cog',
       url: '/',

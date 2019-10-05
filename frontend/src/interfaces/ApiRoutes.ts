@@ -8,5 +8,10 @@ export interface IApiRoutesValues {
 }
 
 export interface IApiRoutes {
-  USER_LOGIN: IApiRoutesValues;
+  ADMIN_LOGIN: IApiRoutesValues;
+  ADMIN_PROFILE: IApiRoutesValues;
+  ADMIN_PROFILE_UPDATE: IApiRoutesValues;
+  ADMIN_CHANGE_PASSWORD: IApiRoutesValues;
+  GET_ORGANIZATION: IApiRoutesValues;
+  ADD_ORGANIZATION: IApiRoutesValues;
 }

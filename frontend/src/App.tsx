@@ -1,17 +1,14 @@
 import React, { Suspense } from 'react';
 import './App.scss';
 import { Provider } from 'react-redux';
-import { Switch, Route } from 'react-router';
 import { createBrowserHistory } from 'history';
 import { Store } from 'redux';
 import { Router } from 'react-router';
-import { AppRoutes } from './config';
 import configureStore from './store';
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const DefaultLayout = React.lazy(() =>
-  import('./app/containers/DefaultLayout/DefaultLayout'),
-);
-const Login = React.lazy(() => import('./app/containers/Auth'));
+const AppRoutesComponent = React.lazy(() => import('./routes'));
 
 const history = createBrowserHistory();
 const store: Store = configureStore(history);
@@ -22,21 +19,14 @@ const App: React.FC = () => {
       <Provider store={store}>
         <Router history={history}>
           <Suspense fallback={'Loading..'}>
-            <Switch>
-              <Suspense fallback={'Loading...'}>
-                <Route
-                  exact
-                  path={AppRoutes.LOGIN}
-                  render={props => <Login {...props} />}
-                />
-                <Route
-                  path={AppRoutes.MAIN}
-                  render={props => <DefaultLayout {...props} />}
-                />
-              </Suspense>
-            </Switch>
+            <AppRoutesComponent />
           </Suspense>
         </Router>
+        <ToastContainer autoClose={8000}
+          hideProgressBar
+          pauseOnFocusLoss={false}
+          pauseOnHover={false}
+          transition={Slide} />
       </Provider>
     </>
   );

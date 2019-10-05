@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import './Loader.css';
+import './Loader.scss';
 
 const FullPageLoader = () => {
   return (

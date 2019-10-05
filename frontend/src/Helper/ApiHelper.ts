@@ -12,7 +12,7 @@ export class ApiHelper {
 
   constructor() {
     this._portalGateway = API_ENDPOINT;
-    this._apiVersion = '/';
+    this._apiVersion = '';
   }
   setHost = (host: string) => {
     this._portalGateway = host;
@@ -42,14 +42,14 @@ export class ApiHelper {
     let url: string = this._apiVersion + service + endpoint;
     options.headers = { 'Content-Type': 'application/json' };
     if (authenticated) {
-      options.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
+      const storageSession = localStorage.getItem('token');
+      options.headers.Authorization = storageSession;
     }
-
     // html query for "GET", json body for others.
     if (queryOptions && typeof queryOptions === 'object') {
       let queryParams = [] as string[];
       Object.keys(queryOptions).map(key => {
-        queryParams.push(`${key}=${(<any>queryOptions)[key]}`);
+        queryParams.push(`${key}=${(queryOptions as any)[key]}`);
         return key;
       });
       url += `?${queryParams.join('&')}`;
@@ -72,13 +72,17 @@ export class ApiHelper {
 
         throw errorObject;
       }
-      const data: SuccessHandlerHelper = new SuccessHandlerHelper(response);
+      const data: SuccessHandlerHelper = new SuccessHandlerHelper(
+        response.data,
+      );
       return data.data;
     } catch (err) {
       if (Axios.isCancel(err)) {
         console.log('%s Req Cancelled', err);
       }
-      const errorHelper: ErrorHandlerHelper = new ErrorHandlerHelper(err);
+      const errorHelper: ErrorHandlerHelper = new ErrorHandlerHelper(
+        err.response,
+      );
       return errorHelper.error;
     }
   }

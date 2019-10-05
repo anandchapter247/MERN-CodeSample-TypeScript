@@ -60,3 +60,40 @@ export const ValidateAdminToken = async (
     });
   }
 };
+
+/**
+ * User Token
+ */
+export const ValidateUserToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<any> => {
+  const token: string = req.headers['authorization']
+    ? req.headers['authorization'].toString()
+    : '';
+  console.log(token, '|||||||||||||||');
+  if (!token) {
+    return res.status(401).json({
+      message: 'Unauthorized, Please provide authentication token!',
+    });
+  }
+  try {
+    const tokenData: IUserTokenData = VerifyJWT(
+      token,
+      JWTSecrete,
+    ) as IUserTokenData;
+    console.log(tokenData, '|||||||tokenData||||||||');
+    const currentUser: Document | null | any = await UserModel.findOne({
+      isDeleted: false,
+      _id: Mongoose.Types.ObjectId(tokenData.id),
+    });
+    console.log(currentUser, '|||||||currentUser||||||||');
+    req.currentUser = currentUser;
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      message: 'Your login session has been expired, Please login again.',
+    });
+  }
+};

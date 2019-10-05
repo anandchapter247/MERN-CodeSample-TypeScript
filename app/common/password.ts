@@ -25,4 +25,20 @@ const generateSalt = (length = 10): string => {
  */
 const JWTSecrete: string = "qwertyuiop[]lkjhgfdazxcvbnm,./!@#$%^&*()";
 
-export { encryptPassword, comparePassword, generateSalt, JWTSecrete };
+/* Function to get client IP */
+const getIpAddress = (req: Request | any )=> {
+  var ip: string| null = null;
+  try {
+    ip =
+      (req.headers["x-forwarded-for"] || "").split(",").pop() ||
+      req.connection.remoteAddress ||
+      req.socket.remoteAddress ||
+      req.connection.socket.remoteAddress;
+  } catch (ex) {
+    console.log(ex);
+    ip = null;
+  }
+  return ip;
+};
+
+export { encryptPassword, comparePassword, generateSalt, JWTSecrete, getIpAddress };

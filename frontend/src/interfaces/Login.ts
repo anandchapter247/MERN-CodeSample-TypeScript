@@ -1,13 +1,22 @@
 import { RouteComponentProps } from 'react-router';
-import { LoginRequest } from '../actions';
+import { IredirectPath } from './DefaultLayout';
 
 export interface ILoginModal {
+  isLoading: boolean;
+  isLoggedIn: boolean;
+  userData?: object;
+  error?: object;
+}
+
+export interface ILoginActionData {
   email: string;
   password: string;
 }
 
 export interface ILoginProps extends RouteComponentProps {
-  onLogin: (data: ILoginModal) => void;
+  loginReducer?: ILoginModal;
+  onLogin: (data: ILoginActionData) => void;
+  redirectTo?: (path: IredirectPath) => void;
 }
 
 export interface ILoginErrors {

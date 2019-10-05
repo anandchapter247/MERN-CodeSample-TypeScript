@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import {
-  ILoginState,
-  ILoginProps,
-  IRootState,
-  ILoginModal,
-} from '../../../interfaces';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import {
   Button,
   Card,
@@ -15,12 +11,17 @@ import {
   Form,
   InputGroup,
 } from 'react-bootstrap';
-import { loginValidator } from '../../../Helper/validator';
-import { connect } from 'react-redux';
+import {
+  ILoginState,
+  ILoginProps,
+  IRootState,
+  ILoginActionData,
+} from '../../../interfaces';
+import { loginValidator } from '../../components/validator';
 import { LoginRequest } from '../../../actions';
-import { Dispatch } from 'redux';
 
 class Login extends Component<ILoginProps, ILoginState> {
+  toastId: any = null;
   constructor(props: ILoginProps) {
     super(props);
     this.state = {
@@ -32,7 +33,14 @@ class Login extends Component<ILoginProps, ILoginState> {
       },
     };
   }
-
+  componentDidMount() {
+    console.log('did mount');
+    console.log(this.props);
+    if (localStorage.getItem('token') && this.props.redirectTo) {
+      console.log('ffffffffffffffffffff');
+      this.props.redirectTo({ path: '/dashboard' });
+    }
+  }
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     this.setState({
@@ -55,7 +63,7 @@ class Login extends Component<ILoginProps, ILoginState> {
     // To validate form fields
     const { isValid, errors } = loginValidator(data);
     if (isValid) {
-      this.props.onLogin(data);
+      await this.props.onLogin(data);
     } else {
       this.setState({
         errors,
@@ -151,7 +159,7 @@ const mapStateToProps: any = (state: IRootState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    onLogin: (data: ILoginModal) => {
+    onLogin: (data: ILoginActionData) => {
       dispatch(LoginRequest(data));
     },
   };

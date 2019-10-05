@@ -1,5 +1,5 @@
 import Validator, { ValidationTypes } from 'js-object-validation';
-import { message } from '../messages';
+import { message } from '../../common/messages';
 
 export const loginValidator = (data: any) => {
   const validations = {

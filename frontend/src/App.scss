@@ -229,11 +229,117 @@ body {
       color: red;
     }
   }
+  .img-avatar.menu{
+    height:35px;
+    margin: 0 auto;
+  }
+  .dropdown.nav-item{
+    list-style-type: none;
+  }
 }
 
+.btn-submit{
+  background: #365196;
+  border: 1px solid #365196;
+}
+.btn-submit:hover {
+  background: #ebfaf9;
+  color: #365196;
+}
 .view-link {
   cursor: pointer;
 }
 .view-link:hover {
   text-decoration: underline;
+}
+.mandatory {
+  color: #ef2b3d;
+}
+
+/* Toaster custom color & animation */
+.Toastify__toast-container {
+  padding: 0px !important;
+  width: auto !important;
+  .Toastify__toast  {
+    font-size: 16px;
+    padding: 16px 24px;
+    width: 360px;
+    margin: auto;
+    color:#002A5A;
+    @media screen and (max-width: 400px) {
+      width: 80%;
+    }
+    &.Toastify__toast--success {
+      background: #C2FFCF;
+      box-shadow: 0 10px 18px 0 rgba(0,42,90,0.10);
+      border-radius: 10px;
+      color:#002A5A;
+      .Toastify__toast-body{
+        padding-left: 40px;
+        position: relative;
+        &::before {
+          background: url(assets/img/check-blue.svg) no-repeat;
+          background-size: 23px;
+          position: absolute;
+          content: "";
+          top: 50%;
+          transform: translate(50%, -50%);
+          left: -13px;
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+
+    &.Toastify__toast--error {
+      background: #FFC2C2;
+      box-shadow: 0 10px 18px 0 rgba(0,42,90,0.10);
+      border-radius: 10px;
+      color:#002A5A;
+      .Toastify__toast-body{
+        padding-left: 40px;
+        position: relative;
+        &::before {
+          background: url(assets/img/close-blue.svg) no-repeat;
+          background-size: 23px;
+          position: absolute;
+          content: "";
+          top: 50%;
+          transform: translate(50%, -50%);
+          left: -13px;
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+
+    &.Toastify__toast--warning {
+      background: #FFF1C2;
+      box-shadow: 0 10px 18px 0 rgba(0,42,90,0.10);
+      border-radius: 10px;
+      color:#002A5A;
+      .Toastify__toast-body{
+        padding-left: 40px;
+        position: relative;
+        &::before {
+          background: url(assets/img/close-blue.svg) no-repeat;
+          background-size: 23px;
+          position: absolute;
+          content: "";
+          top: 50%;
+          transform: translate(50%, -50%);
+          left: -13px;
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+  }
+  .Toastify__close-button {
+    color: #002a5a;
+    opacity: 1;
+    position: absolute;
+    right:12px;
+    top:8px;
+  }
 }
