@@ -14,4 +14,6 @@ export interface IApiRoutes {
   ADMIN_CHANGE_PASSWORD: IApiRoutesValues;
   GET_ORGANIZATION: IApiRoutesValues;
   ADD_ORGANIZATION: IApiRoutesValues;
+  ADD_TEMPLATE: IApiRoutesValues;
+  UPDATE_TEMPLATE: IApiRoutesValues;
 }

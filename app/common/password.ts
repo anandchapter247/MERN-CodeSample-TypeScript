@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
-import crypto, { Hash } from "crypto";
+import crypto, { Cipher, Decipher } from "crypto";
+
 /**
  * Encrypt the password using bcrypt algo
  */
@@ -18,6 +19,29 @@ const comparePassword = (password: string, hash: string): boolean => {
  */
 const generateSalt = (length = 10): string => {
   return bcrypt.genSaltSync(length);
+};
+
+/**
+ * Encrypt Email and Id
+ */
+var algorithm = "aes-256-cbc";
+var password = "password";
+const encrypt = (text: any): Promise<any> => {
+  const cipher: Cipher = crypto.createCipher(algorithm, password);
+  var crypted: any = cipher.update(text.toString(), "utf8", "hex");
+  crypted += cipher.final("hex");
+  return crypted;
+};
+/**
+|--------------------------------------------------
+| Dycript Email and Id
+|--------------------------------------------------
+*/
+const decrypt = (text: any): Promise<any>   => {
+  const decipher: Decipher = crypto.createDecipher(algorithm, password);
+  var dec: any = decipher.update(text, "hex", "utf8");
+  dec += decipher.final("utf8");
+  return dec;
 };
 
 /**
@@ -41,4 +65,4 @@ const getIpAddress = (req: Request | any )=> {
   return ip;
 };
 
-export { encryptPassword, comparePassword, generateSalt, JWTSecrete, getIpAddress };
+export { encryptPassword, comparePassword, generateSalt, encrypt, decrypt, JWTSecrete, getIpAddress };

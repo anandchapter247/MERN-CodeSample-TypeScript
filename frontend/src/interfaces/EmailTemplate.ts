@@ -3,3 +3,9 @@ export interface ITemplateState{
     subject:string,
     content:any;
 }
+
+export interface ITemplateModal{
+    isLoading:boolean;
+    isError:boolean;
+    templateData:any;
+}

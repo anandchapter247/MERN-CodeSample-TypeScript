@@ -5,6 +5,7 @@ import { handleActions } from 'redux-actions';
 import { profileInfoReducer } from './ProfileInfo';
 import { changePasswordReducer } from './ChangePassword';
 import { organizationReducer } from './Organization';
+import { templateReducer } from './EmailTemplate';
 
 export const mainReducer = handleActions(
   {
@@ -28,4 +29,5 @@ export const RootReducer: Reducer<IRootState, AnyAction> = combineReducers<
   profileInfoReducer: profileInfoReducer as any,
   changePasswordReducer: changePasswordReducer as any,
   OrganizationReducer: organizationReducer as any,
+  TemplateReducer: templateReducer as any,
 });

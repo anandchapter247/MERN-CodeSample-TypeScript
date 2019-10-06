@@ -7,7 +7,6 @@ import {
   JWTSecrete,
   ValidationFormatter,
   Email,
-  AvailiableTemplates,
   encrypt,
   decrypt,
   getIpAddress,
@@ -354,7 +353,7 @@ const forgotPassword = async (req: Request, res: Response): Promise<any> => {
       },
     );
     const email = new Email(req);
-    await email.setTemplate(AvailiableTemplates.FORGOTPASSWORD, {
+    await email.setTemplate('FORGOTPASSWORD', {
       firstName: result.firstName,
       lastName: result.lastName,
       email: body.email,

@@ -38,4 +38,18 @@ export const ApiRoutes: IApiRoutes = {
     method: 'POST',
     authenticate: true,
   },
+
+  // Email Template
+  ADD_TEMPLATE: {
+    service: '/email-templates',
+    url: '/add',
+    method: 'POST',
+    authenticate: true,
+  },
+  UPDATE_TEMPLATE: {
+    service: '/email-templates',
+    url: '/update',
+    method: 'put',
+    authenticate: true,
+  },
 };
