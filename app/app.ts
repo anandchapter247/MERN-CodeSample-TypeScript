@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors';
 import * as bodyParser from "body-parser";
 import router from "./routes";
 import { connect } from "mongoose";
@@ -18,6 +19,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+const corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token', 'authorization'],
+};
+app.use(cors(corsOption));
 
 // path for API
 app.use("/api/v1", router);
