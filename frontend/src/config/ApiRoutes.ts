@@ -52,4 +52,11 @@ export const ApiRoutes: IApiRoutes = {
     method: 'put',
     authenticate: true,
   },
+
+  EXPORT_REPORT:{
+    service: '/organization',
+    url: '/export-report',
+    method: 'GET',
+    authenticate: true,
+  }
 };

@@ -37,10 +37,14 @@ export class ApiHelper {
     authenticated: boolean = false,
     queryOptions?: string,
     body?: any,
+    responseType?:any
   ) {
     let options: AxiosRequestConfig = { method: method };
     let url: string = this._apiVersion + service + endpoint;
     options.headers = { 'Content-Type': 'application/json' };
+    if (responseType === 'blob') {
+      options.responseType = 'blob';
+    }
     if (authenticated) {
       const storageSession = localStorage.getItem('token');
       options.headers.Authorization = storageSession;

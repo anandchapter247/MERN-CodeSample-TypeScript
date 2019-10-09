@@ -5,6 +5,7 @@ export * from './ProfileInfo';
 export * from './ChangePassword';
 export * from './Organization';
 export * from './EmailTemplate';
+export * from './Report';
 
 //
 export const redirectTo = createAction('REDIRET_TO');

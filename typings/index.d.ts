@@ -9,3 +9,5 @@ declare namespace Express {
     };
   }
 }
+
+declare module 'node-excel-export';
