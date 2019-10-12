@@ -1,13 +1,13 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 import { Document } from 'mongoose';
 import { Request } from 'express';
 
 let transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: 'gmail',
   auth: {
-    user: "test.chapter247@gmail.com",
-    pass: "chapter247@@"
-  }
+    user: 'test.chapter247@gmail.com',
+    pass: 'chapter247@@',
+  },
 });
 
 class Email {
@@ -19,27 +19,30 @@ class Email {
   webURL: any;
   adminURL: any;
   constructor(req: Request) {
-    this.body = "";
-    this.subject = "";
+    this.body = '';
+    this.subject = '';
     this.to = [];
-    this.cc = "";
-    const host = req && req.headers && req.headers.referer ? req.headers.referer.split("/") : [];
-    this.host = [host[0] || "", host[1] || "", host[2] || ""].join("/");
-    this.webURL = "";
-    this.adminURL = ""
+    this.cc = '';
+    const host =
+      req && req.headers && req.headers.referer
+        ? req.headers.referer.split('/')
+        : [];
+    this.host = [host[0] || '', host[1] || '', host[2] || ''].join('/');
+    this.webURL = '';
+    this.adminURL = '';
   }
 
   async setTemplate(templateName: string, replaceObject: any): Promise<any> {
-    if (!templateName) {
-      throw new Error("Please provide template name");
-    }
-    let content:any = "";
+    // if (!templateName) {
+    //   throw new Error('Please provide template name');
+    // }
+    let content: any = templateName;
 
     // To replace variables dynamically
     for (const key in replaceObject) {
       if (replaceObject.hasOwnProperty(key)) {
         const val = replaceObject[key];
-        content = content.replace(new RegExp(`{${key}}`, "g"), val);
+        content = content.replace(new RegExp(`{${key}}`, 'g'), val);
       }
     }
     this.body = content;
@@ -57,20 +60,18 @@ class Email {
   }
   async sendEmail(email: string): Promise<any> {
     if (!email) {
-      throw new Error("Please provide email.");
+      throw new Error('Please provide email.');
     }
     const mailOption = {
-      from: "Dr. Polly <test.chapter247@gmail.com>",
+      from: 'Dr. Polly <test.chapter247@gmail.com>',
       to: email,
       cc: this.cc,
       subject: this.subject,
-      html: this.body
+      html: this.body,
     };
     let resp = transporter.sendMail(mailOption);
     return resp;
   }
 }
 
-export {
-  Email,
-}
+export { Email };

@@ -1,4 +1,4 @@
-import { AppRoutes } from "./config";
+import { AppRoutes } from './config';
 
 export default {
   items: [

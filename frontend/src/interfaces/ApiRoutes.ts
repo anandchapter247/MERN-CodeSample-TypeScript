@@ -17,6 +17,8 @@ export interface IApiRoutes {
   ADD_ORGANIZATION: IApiRoutesValues;
   ADD_TEMPLATE: IApiRoutesValues;
   UPDATE_TEMPLATE: IApiRoutesValues;
+  GET_TEMPLATE: IApiRoutesValues;
+  VIEW_TEMPLATE: IApiRoutesValues;
 
-  EXPORT_REPORT:IApiRoutesValues;
+  EXPORT_REPORT: IApiRoutesValues;
 }

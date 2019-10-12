@@ -9,7 +9,7 @@ import {
   IOrganizationProps,
   IOrganizationData,
 } from '../../../interfaces/Organization';
-import { ConfirmBox, logger } from '../../../Helper';
+import { ConfirmBox } from '../../../Helper';
 import TooltipComponent from '../../components/ToolTipComponent';
 import { TooltipText } from '../../common';
 import { Form } from 'react-bootstrap';
@@ -54,14 +54,11 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
                 <Form.Group className='col-sm-12'>
                   <div className='checkbox'>
                     <label>
-                      <input
-                        type='checkbox'
-                        name={'isHide'}
-                        value={'true'}
-                      />
+                      <input type='checkbox' name={'isHide'} value={'true'} />
                       <span className='checkbox-material'>
                         <span className='check' />
-                      </span>#
+                      </span>
+                      #
                     </label>
                   </div>
                 </Form.Group>
@@ -79,25 +76,27 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
             this.props.organizationReducer.organizationData &&
             this.props.organizationReducer.organizationData.length ? (
               this.props.organizationReducer.organizationData.map(
-                (organization: IOrganizationData,index:number) => {
+                (organization: IOrganizationData, index: number) => {
                   return (
                     <tr key={organization._id}>
-                      <td><Form.Group className='col-sm-12'>
-                      <div className='checkbox'>
-                        <label>
-                          <input
-                            type='checkbox'
-                            name={'isHide'}
-                            value={'true'}
-                            id={`user${index}`}
-
-                          />
-                          <span className='checkbox-material'>
-                            <span className='check' />
-                          </span>{count++}
-                        </label>
-                      </div>
-                    </Form.Group></td>
+                      <td>
+                        <Form.Group className='col-sm-12'>
+                          <div className='checkbox'>
+                            <label>
+                              <input
+                                type='checkbox'
+                                name={'isHide'}
+                                value={'true'}
+                                id={`user${index}`}
+                              />
+                              <span className='checkbox-material'>
+                                <span className='check' />
+                              </span>
+                              {count++}
+                            </label>
+                          </div>
+                        </Form.Group>
+                      </td>
                       <td>{organization.firstName}</td>
                       <td>{organization.lastName}</td>
                       <td>{organization.email}</td>
@@ -107,10 +106,14 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
                           type='button'
                           color={organization.isActive ? 'primary' : 'danger'}
                           className='btn btn-sm'
-                          onClick={() => this.handleStatus(organization && organization._id
-                            ? organization._id
-                            : '',
-                          !organization.isActive,)}
+                          onClick={() =>
+                            this.handleStatus(
+                              organization && organization._id
+                                ? organization._id
+                                : '',
+                              !organization.isActive,
+                            )
+                          }
                         >
                           {organization.isActive ? 'Active' : 'Deactive'}
                         </Button>
@@ -127,10 +130,7 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
                               type='button'
                               className='btn login-icon '
                               onClick={() => {
-                                if (
-                                  organization &&
-                                  organization._id
-                                ) {
+                                if (organization && organization._id) {
                                   this.props.proxyLogin({
                                     id: organization._id,
                                   });

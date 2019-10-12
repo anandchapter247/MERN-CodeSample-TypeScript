@@ -14,5 +14,7 @@ export interface IAppRoutes {
   HOME: string;
   MY_PROFILE: string;
   ORGANIZATION: string;
-  EMAILTEMPLATE:string;
+  EMAILTEMPLATE: string;
+  ADD_TEMPLATE: string;
+  EDIT_TEMPLATE: string;
 }

@@ -25,14 +25,14 @@ export const ApiRoutes: IApiRoutes = {
     method: 'PUT',
     authenticate: true,
   },
-    // Proxy Login
-    ADMIN_PROXY_LOGIN: {
-      service: '/auth',
-      url: '/admin-proxy-login',
-      method: 'POST',
-      authenticate: true,
-    },
-  
+  // Proxy Login
+  ADMIN_PROXY_LOGIN: {
+    service: '/auth',
+    url: '/admin-proxy-login',
+    method: 'POST',
+    authenticate: true,
+  },
+
   // Oragnization Module related APIs
   GET_ORGANIZATION: {
     service: '/organization',
@@ -60,11 +60,23 @@ export const ApiRoutes: IApiRoutes = {
     method: 'put',
     authenticate: true,
   },
+  GET_TEMPLATE: {
+    service: '/email-templates',
+    url: '/get',
+    method: 'get',
+    authenticate: true,
+  },
+  VIEW_TEMPLATE: {
+    service: '/email-templates',
+    url: '/view',
+    method: 'get',
+    authenticate: true,
+  },
 
-  EXPORT_REPORT:{
+  EXPORT_REPORT: {
     service: '/organization',
     url: '/export-report',
     method: 'GET',
     authenticate: true,
-  }
+  },
 };

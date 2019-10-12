@@ -3,6 +3,7 @@ import { AppRoutes } from '../config';
 import Organization from '../app/containers/Organization';
 // import EmailTemplates from '../app/containers/EmailTemplates';
 import AddTemplate from '../app/containers/EmailTemplates/AddTemplate';
+import EmailTemplates from '../app/containers/EmailTemplates';
 
 const Home = React.lazy(() => import('../app/containers/Home'));
 const Login = React.lazy(() => import('../app/containers/Auth'));
@@ -37,6 +38,18 @@ const routes = [
   {
     path: AppRoutes.EMAILTEMPLATE,
     name: 'Email Template',
+    component: EmailTemplates,
+    exact: true,
+  },
+  {
+    path: AppRoutes.ADD_TEMPLATE,
+    name: 'Add Template',
+    component: AddTemplate,
+    exact: true,
+  },
+  {
+    path: AppRoutes.EDIT_TEMPLATE,
+    name: 'Update Template',
     component: AddTemplate,
     exact: true,
   },

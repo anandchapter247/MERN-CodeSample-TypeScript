@@ -11,7 +11,7 @@ const EmailTemplateSchema: Schema = new Schema({
     type: String,
   },
   designContent: {
-    type: String,
+    type: Object,
   },
   createdAt: {
     type: Date,

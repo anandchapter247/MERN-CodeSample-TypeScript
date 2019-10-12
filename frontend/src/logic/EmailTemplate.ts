@@ -8,6 +8,9 @@ import {
   addTemplateFailed,
   updateTemplateSuccess,
   updateTemplateFailed,
+  viewTemplateSuccess,
+  getTemplateSuccess,
+  getTemplateFailed,
 } from '../actions';
 import { ApiHelper } from '../Helper/ApiHelper';
 import { ApiRoutes } from '../config';
@@ -18,7 +21,7 @@ const addTemplate = createLogic({
   type: TemplateActionTypes.ADD_TEMPLATE_REQUEST,
   async process(data, dispatch: any, done) {
     console.log('******************');
-    const action:any = data.action;
+    const action: any = data.action;
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
       ApiRoutes.ADD_TEMPLATE.service,
@@ -34,7 +37,7 @@ const addTemplate = createLogic({
       dispatch(hideLoader());
       dispatch(
         addTemplateSuccess({
-          organizationData: response.data.data,
+          templateInfo: response.data.data,
         }),
       );
       done();
@@ -51,39 +54,116 @@ const addTemplate = createLogic({
 });
 
 const updateTemplate = createLogic({
-    type: TemplateActionTypes.UPDATE_TEMPLATE_REQUEST,
-    async process(data, dispatch: any, done) {
-      console.log('******************');
-      const action:any = data.action;
-      dispatch(showLoader());
-      const response = await new ApiHelper().FetchFromServer(
-        ApiRoutes.UPDATE_TEMPLATE.service,
-        ApiRoutes.UPDATE_TEMPLATE.url,
-        ApiRoutes.UPDATE_TEMPLATE.method,
-        ApiRoutes.UPDATE_TEMPLATE.authenticate,
-        undefined,
-        action.payload,
+  type: TemplateActionTypes.UPDATE_TEMPLATE_REQUEST,
+  async process(data, dispatch: any, done) {
+    console.log('******************');
+    const action: any = data.action;
+    dispatch(showLoader());
+    const response = await new ApiHelper().FetchFromServer(
+      ApiRoutes.UPDATE_TEMPLATE.service,
+      ApiRoutes.UPDATE_TEMPLATE.url,
+      ApiRoutes.UPDATE_TEMPLATE.method,
+      ApiRoutes.UPDATE_TEMPLATE.authenticate,
+      undefined,
+      action.payload,
+    );
+    console.log(response);
+    if (response && !response.isError) {
+      console.log('dfdsfdfds');
+      dispatch(hideLoader());
+      dispatch(
+        updateTemplateSuccess({
+          templateInfo: response.data.data,
+        }),
       );
+      done();
+    } else {
       console.log(response);
-      if (response && !response.isError) {
-        console.log('dfdsfdfds');
-        dispatch(hideLoader());
-        dispatch(
-          updateTemplateSuccess({
-            organizationData: response.data.data,
-          }),
-        );
-        done();
-      } else {
-        console.log(response);
-        if (!toast.isActive(toastId)) {
-          toastId = toast.error(response.messages[0]);
-        }
-        dispatch(hideLoader());
-        dispatch(updateTemplateFailed());
-        done();
+      if (!toast.isActive(toastId)) {
+        toastId = toast.error(response.messages[0]);
       }
-    },
+      dispatch(hideLoader());
+      dispatch(updateTemplateFailed());
+      done();
+    }
+  },
 });
 
-export const TemplateLogics = [addTemplate,updateTemplate];
+const getTemplates = createLogic({
+  type: TemplateActionTypes.GET_TEMPLATE_REQUEST,
+  async process(data, dispatch: any, done) {
+    console.log('******************');
+    const action: any = data.action;
+    dispatch(showLoader());
+    const response = await new ApiHelper().FetchFromServer(
+      ApiRoutes.GET_TEMPLATE.service,
+      ApiRoutes.GET_TEMPLATE.url,
+      ApiRoutes.GET_TEMPLATE.method,
+      ApiRoutes.GET_TEMPLATE.authenticate,
+      undefined,
+      action.payload,
+    );
+    console.log(response);
+    if (response && !response.isError) {
+      console.log('dfdsfdfds');
+      dispatch(hideLoader());
+      dispatch(
+        getTemplateSuccess({
+          templateData: response.data.data,
+        }),
+      );
+      done();
+    } else {
+      console.log(response);
+      if (!toast.isActive(toastId)) {
+        toastId = toast.error(response.messages[0]);
+      }
+      dispatch(hideLoader());
+      dispatch(getTemplateFailed());
+      done();
+    }
+  },
+});
+
+const viewTemplate = createLogic({
+  type: TemplateActionTypes.VIEW_TEMPLATE_REQUEST,
+  async process(data, dispatch: any, done) {
+    console.log('******************');
+    const action: any = data.action;
+    dispatch(showLoader());
+    const response = await new ApiHelper().FetchFromServer(
+      ApiRoutes.VIEW_TEMPLATE.service,
+      ApiRoutes.VIEW_TEMPLATE.url,
+      ApiRoutes.VIEW_TEMPLATE.method,
+      ApiRoutes.VIEW_TEMPLATE.authenticate,
+      action.payload,
+      undefined,
+    );
+    console.log(response);
+    if (response && !response.isError) {
+      console.log('dfdsfdfds');
+      dispatch(hideLoader());
+      dispatch(
+        viewTemplateSuccess({
+          templateInfo: response.data.data,
+        }),
+      );
+      done();
+    } else {
+      console.log(response);
+      if (!toast.isActive(toastId)) {
+        toastId = toast.error(response.messages[0]);
+      }
+      dispatch(hideLoader());
+      dispatch(viewTemplateSuccess());
+      done();
+    }
+  },
+});
+
+export const TemplateLogics = [
+  addTemplate,
+  updateTemplate,
+  getTemplates,
+  viewTemplate,
+];

@@ -86,6 +86,8 @@ const adminDetails = async (req: Request, res: Response): Promise<any> => {
     const { currentUser } = req;
     if (currentUser) {
       const result = await AdminModel.findById(currentUser.id);
+      console.log(result, '+++++++++++');
+
       return res.status(200).json({
         responseCode: 200,
         data: result,
@@ -369,6 +371,21 @@ const forgotPassword = async (req: Request, res: Response): Promise<any> => {
       data: updateToken,
       success: true,
     });
+
+    // Fetch email template from db
+    // const emailData: any = await EmailTemplateModel.findOne({
+    //   templateName: 'Registration',
+    // });
+    // console.log(emailData, ':::::::::::::::');
+
+    // const email = new Email(req);
+    // await email.setTemplate(emailData.htmlContent, {
+    //   first_name: 'Aayushi',
+    //   email_address: 'ayushij.chapter247@gmail.com',
+    //   password: '12345678',
+    // });
+    // console.log('email', email);
+    // await email.sendEmail('ayushij.chapter247@gmail.com');
   } catch (error) {
     const code = error.code ? error.code : 500;
     res.status(code).json({
