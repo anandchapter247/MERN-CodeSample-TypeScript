@@ -12,6 +12,7 @@ export interface IApiRoutes {
   ADMIN_PROFILE: IApiRoutesValues;
   ADMIN_PROFILE_UPDATE: IApiRoutesValues;
   ADMIN_CHANGE_PASSWORD: IApiRoutesValues;
+  ADMIN_PROXY_LOGIN: IApiRoutesValues;
   GET_ORGANIZATION: IApiRoutesValues;
   ADD_ORGANIZATION: IApiRoutesValues;
   ADD_TEMPLATE: IApiRoutesValues;

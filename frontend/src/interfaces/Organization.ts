@@ -1,3 +1,6 @@
+import { IProxyLoginActionData } from "./Login";
+import { RouteComponentProps } from "react-router";
+
 export interface IOrganizationData {
   organizationName: string;
   wildCardDomain: string;
@@ -23,7 +26,8 @@ export interface IOrganizationState {
   pageNeighbours: number;
 }
 
-export interface IOrganizationProps {
+export interface IOrganizationProps extends RouteComponentProps{
   organizationReducer?: IOrganizationModel;
   getOrganization: () => void;
+  proxyLogin: (payload: IProxyLoginActionData) => void;
 }

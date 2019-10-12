@@ -29,3 +29,7 @@ export interface ILoginState {
   password: string;
   errors: ILoginErrors;
 }
+
+export interface IProxyLoginActionData {
+  id: string;
+}

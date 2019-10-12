@@ -237,7 +237,118 @@ body {
     list-style-type: none;
   }
 }
+.checkbox {
+  display: inline-block;
+  transform: translateZ(0); 
+  label {
+    cursor: pointer;
+    padding-left: 0; 
+    font-weight: 500;
+  }
 
+  input[type=checkbox] {
+    opacity: 0;
+    position: absolute;
+    margin: 0;
+    z-index: -1;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    left: 0;
+    pointer-events: none;
+  }
+
+  .checkbox-material {
+    vertical-align: middle;
+    position: relative;
+    top: 4px;
+    padding-right: 15px;
+    &:before {
+      position: absolute;
+      left: 8px;
+      top: 2px;
+      content: "";
+      background-color: rgba(0,0,0,0.5);
+      height: 4px;
+      width: 4px;
+      border-radius: 100%;
+      z-index: 1;
+      opacity: 0;
+      margin: 0;
+    }
+
+    .check {
+      position: relative;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid;
+      border-radius: 2px;
+      overflow: hidden;
+      z-index: 1;
+      color: #f38e43;
+    }
+    .check:before {
+      position: absolute;
+      content: "";
+      transform: rotate(45deg);
+      display: block;
+      margin-top: -4px;
+      margin-left: 6px;
+      width: 0;
+      height: 0;
+      box-shadow:
+        0 0 0 0,
+        0 0 0 0,
+        0 0 0 0,
+        0 0 0 0,
+        0 0 0 0,
+        0 0 0 0,
+        0 0 0 0 inset;
+      animation: checkbox-off 0.3s forwards ease-out;
+    }
+  }
+
+  input[type=checkbox]:focus + .checkbox-material .check:after {
+    opacity: 0.2;
+  }
+  input[type=checkbox]:checked + .checkbox-material .check:before {
+    box-shadow:
+      0 0 0 10px,
+      10px -10px 0 10px,
+      32px 0px 0 20px,
+      0px 32px 0 20px,
+      -5px 5px 0 10px,
+      20px -12px 0 11px;
+    animation: checkbox-on 0.3s forwards ease-out;
+  }
+  
+  input[type=checkbox]:not(:checked) + .checkbox-material:before {
+    animation: rippleOff 0.3s forwards ease-out;
+  }
+  input[type=checkbox]:checked + .checkbox-material:before {
+    animation: rippleOn 0.3s forwards ease-out;
+  }
+
+  // Ripple effect on click
+  input[type=checkbox]:not(:checked) + .checkbox-material .check:after {
+    animation: rippleOff 0.3s forwards ease-out;
+  }
+  input[type=checkbox]:checked + .checkbox-material .check:after {
+    animation: rippleOn 0.3s forwards ease-out;
+  }
+
+  // Style for disabled inputs
+  input[type=checkbox][disabled]:not(:checked) ~ .checkbox-material .check:before,
+  input[type=checkbox][disabled] + .circle {
+    opacity: 0.5;
+  }
+  input[type=checkbox][disabled] + .checkbox-material .check:after {
+    background-color: rgba(0,0,0,0.84);
+    transform: rotate(-45deg);
+  }
+
+}
 .btn-submit{
   background: #365196;
   border: 1px solid #365196;

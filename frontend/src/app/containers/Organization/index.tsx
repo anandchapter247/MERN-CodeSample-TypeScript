@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { Table, Button } from 'react-bootstrap';
-import { IRootState } from '../../../interfaces';
+import { IRootState, IProxyLoginActionData } from '../../../interfaces';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { getOrganizationRequest } from '../../../actions';
+import { getOrganizationRequest, proxyLoginRequest } from '../../../actions';
 import {
   IOrganizationState,
   IOrganizationProps,
   IOrganizationData,
 } from '../../../interfaces/Organization';
-import { ConfirmBox } from '../../../Helper';
+import { ConfirmBox, logger } from '../../../Helper';
+import TooltipComponent from '../../components/ToolTipComponent';
+import { TooltipText } from '../../common';
+import { Form } from 'react-bootstrap';
 
 class Organization extends Component<IOrganizationProps, IOrganizationState> {
   constructor(props: IOrganizationProps) {
@@ -47,7 +50,22 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
+              <th>
+                <Form.Group className='col-sm-12'>
+                  <div className='checkbox'>
+                    <label>
+                      <input
+                        type='checkbox'
+                        name={'isHide'}
+                        value={'true'}
+                      />
+                      <span className='checkbox-material'>
+                        <span className='check' />
+                      </span>#
+                    </label>
+                  </div>
+                </Form.Group>
+              </th>
               <th>First Name</th>
               <th>Last Name</th>
               <th>email</th>
@@ -61,10 +79,25 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
             this.props.organizationReducer.organizationData &&
             this.props.organizationReducer.organizationData.length ? (
               this.props.organizationReducer.organizationData.map(
-                (organization: IOrganizationData) => {
+                (organization: IOrganizationData,index:number) => {
                   return (
                     <tr key={organization._id}>
-                      <td>{count++}</td>
+                      <td><Form.Group className='col-sm-12'>
+                      <div className='checkbox'>
+                        <label>
+                          <input
+                            type='checkbox'
+                            name={'isHide'}
+                            value={'true'}
+                            id={`user${index}`}
+
+                          />
+                          <span className='checkbox-material'>
+                            <span className='check' />
+                          </span>{count++}
+                        </label>
+                      </div>
+                    </Form.Group></td>
                       <td>{organization.firstName}</td>
                       <td>{organization.lastName}</td>
                       <td>{organization.email}</td>
@@ -86,6 +119,28 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
                         <button type='button' className='btn btn-sm'>
                           <i className='fa fa-eye' />
                         </button>
+                        <TooltipComponent
+                          dataPlacement={'top'}
+                          message={TooltipText.proxyLogin}
+                          children={
+                            <button
+                              type='button'
+                              className='btn login-icon '
+                              onClick={() => {
+                                if (
+                                  organization &&
+                                  organization._id
+                                ) {
+                                  this.props.proxyLogin({
+                                    id: organization._id,
+                                  });
+                                }
+                              }}
+                            >
+                              <i className='icon-lock-open' />
+                            </button>
+                          }
+                        />
                       </td>
                     </tr>
                   );
@@ -113,6 +168,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     getOrganization: () => {
       dispatch(getOrganizationRequest());
+    },
+    proxyLogin: (data: IProxyLoginActionData) => {
+      dispatch(proxyLoginRequest(data));
     },
   };
 };

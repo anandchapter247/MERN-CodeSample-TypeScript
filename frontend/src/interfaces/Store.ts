@@ -14,4 +14,5 @@ export interface IRootState {
   changePasswordReducer: IChangePasswordModal;
   OrganizationReducer: IOrganizationModel;
   TemplateReducer:ITemplateModal;
+  ProxyLoginReducer:ILoginModal;
 }

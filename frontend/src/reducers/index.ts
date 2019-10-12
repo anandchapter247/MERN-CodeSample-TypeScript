@@ -6,6 +6,7 @@ import { profileInfoReducer } from './ProfileInfo';
 import { changePasswordReducer } from './ChangePassword';
 import { organizationReducer } from './Organization';
 import { templateReducer } from './EmailTemplate';
+import { proxyLoginReducer } from './ProxyLogin';
 
 export const mainReducer = handleActions(
   {
@@ -30,4 +31,5 @@ export const RootReducer: Reducer<IRootState, AnyAction> = combineReducers<
   changePasswordReducer: changePasswordReducer as any,
   OrganizationReducer: organizationReducer as any,
   TemplateReducer: templateReducer as any,
+  ProxyLoginReducer: proxyLoginReducer as any,
 });

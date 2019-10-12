@@ -6,6 +6,7 @@ export * from './ChangePassword';
 export * from './Organization';
 export * from './EmailTemplate';
 export * from './Report';
+export * from './ProxyLogin';
 
 //
 export const redirectTo = createAction('REDIRET_TO');

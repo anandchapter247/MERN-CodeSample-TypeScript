@@ -25,6 +25,14 @@ export const ApiRoutes: IApiRoutes = {
     method: 'PUT',
     authenticate: true,
   },
+    // Proxy Login
+    ADMIN_PROXY_LOGIN: {
+      service: '/auth',
+      url: '/admin-proxy-login',
+      method: 'POST',
+      authenticate: true,
+    },
+  
   // Oragnization Module related APIs
   GET_ORGANIZATION: {
     service: '/organization',
