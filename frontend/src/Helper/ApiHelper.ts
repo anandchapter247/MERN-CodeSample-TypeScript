@@ -90,4 +90,80 @@ export class ApiHelper {
       return errorHelper.error;
     }
   }
+
+  UploadImage = async (service: string, endpoint: string, body: any, jsonData: string[] = []) => {
+    let fd = new FormData();
+
+    for (const k in body) {
+      if (body.hasOwnProperty(k)) {
+        const element = body[k];
+        if (
+          k === 'characteristic' ||
+          k === 'audio' ||
+          k === 'video' ||
+          k === 'removedAttachments' ||
+          k === 'courseId' ||
+          k === 'moduleId' ||
+          k === 'organizationId' ||
+          k === 'text' ||
+          jsonData.indexOf(k) > -1
+        ) {
+          console.log(element, ';;;;;;;;;;;;;;;;;;;');
+          fd.append(k, JSON.stringify(element));
+        } else if (k === 'lessonAttachments') {
+          console.log('lessonAttachmentslessonAttachments', element);
+          for (var x = 0; x < element.length; x++) {
+            fd.append('lessonAttachments[]', element[x]);
+          }
+        } else if (k === 'whySectionImage') {
+          console.log('whySectionImage', element);
+          for (var x = 0; x < element.length; x++) {
+            //if (typeof element[x] !== "string") {
+            fd.append(`whySectionImage[${x}]`, element[x]);
+            //}
+          }
+        }
+        else {
+          fd.append(k, element);
+        }
+      }
+    }
+    let url: string = this._apiVersion + service + endpoint;
+    let options: AxiosRequestConfig = { method: 'POST' };
+    options.headers = {};
+    const storageSession = localStorage.getItem('token');
+    options.headers.Authorization = storageSession;
+
+    try {
+      let response: AxiosResponse<any> = await Axios.post(
+        `${this._portalGateway}${url}`,
+        fd,
+        {
+          headers: options.headers,
+        },
+      );
+
+      if (response.status < 200 || response.status >= 300) {
+        let errorObject: any = {
+          code: response.status,
+          response: response.data,
+        };
+
+        throw errorObject;
+      }
+      const data: SuccessHandlerHelper = new SuccessHandlerHelper(
+        response.data,
+      );
+      return data.data;
+    } catch (err) {
+      if (Axios.isCancel(err)) {
+      }
+      const errorHelper: ErrorHandlerHelper = new ErrorHandlerHelper(
+        err.response,
+      );
+      return errorHelper.error;
+    }
+  };
 }
+
+

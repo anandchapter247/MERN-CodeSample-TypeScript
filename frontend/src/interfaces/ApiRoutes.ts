@@ -21,4 +21,12 @@ export interface IApiRoutes {
   VIEW_TEMPLATE: IApiRoutesValues;
 
   EXPORT_REPORT: IApiRoutesValues;
+
+    /**
+   * CMS Page
+   */
+
+  ADD_HOME_PAGE: IApiRoutesValues;
+  VIEW_HOME_PAGE: IApiRoutesValues;
+  UPDATE_HOME_PAGE: IApiRoutesValues;
 }

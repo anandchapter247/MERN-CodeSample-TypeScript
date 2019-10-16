@@ -15,4 +15,5 @@ export interface IRootState {
   OrganizationReducer: IOrganizationModel;
   TemplateReducer:ITemplateModal;
   ProxyLoginReducer:ILoginModal;
+  homePageReducer:ILoginModal;
 }

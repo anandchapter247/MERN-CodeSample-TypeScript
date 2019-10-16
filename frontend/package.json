@@ -29,16 +29,20 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
     "classnames": "^2.2.6",
+    "draft-js": "^0.11.1",
+    "draftjs-to-html": "^0.8.4",
     "file-saver": "^2.0.2",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "history": "^4.9.0",
+    "html-to-draftjs": "^1.4.0",
     "js-object-validation": "^1.0.16",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-chartjs-2": "^2.8.0",
     "react-dom": "^16.8.6",
+    "react-draft-wysiwyg": "^1.13.2",
     "react-email-editor": "^1.0.0",
     "react-redux": "^7.1.0",
     "react-router": "^5.0.1",
@@ -77,6 +81,10 @@
   },
   "devDependencies": {
     "@types/chart.js": "^2.8.7",
-    "@types/react-chartjs-2": "^2.5.7"
+    "@types/draft-js": "^0.10.37",
+    "@types/draftjs-to-html": "^0.8.0",
+    "@types/html-to-draftjs": "^1.4.0",
+    "@types/react-chartjs-2": "^2.5.7",
+    "@types/react-draft-wysiwyg": "^1.12.3"
   }
 }

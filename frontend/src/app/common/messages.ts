@@ -33,4 +33,11 @@ export const message = {
   RequiredCard: 'Please enter valid card number',
   RequiredCvv: 'Please enter valid CVV',
   RequiredExpireDate: 'Please enter valid expiration date',
+
+    //Home Page Section
+    Title: "Please enter title",
+    buttonText: "Please enter button text",
+    content: "Please enter description",
+    image: "Please enter image",
+    VideoURL: "Please enter video url"
 };
