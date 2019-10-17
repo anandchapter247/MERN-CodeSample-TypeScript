@@ -454,3 +454,56 @@ body {
     top:8px;
   }
 }
+.fileinput-preview {
+  border: 2px dotted #ddd;
+  padding: 15px 15px;
+  margin-bottom: 20px;
+  width: 300px;
+  position: relative;
+  text-align: center; 
+  img{
+     width:150px;
+  }
+  .file-upload {
+    position: relative;
+    display: block;
+    .file-upload-label {
+      display: inline-block;
+      width:auto;
+      padding: 8px 20px;
+      color: #365196;
+      background: transparent;
+      border: 1px solid #365196;
+      border-radius: .4em;
+      margin-top:10px;
+      transition: background .3s;
+      
+      &:hover {
+         cursor: pointer;
+         color:#fff;
+         background: #244391;
+      }
+    }
+    .file-upload-input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width:0;
+      height: 100%;
+      opacity: 0;
+    } 
+  }
+}
+.demo-editor{
+  /* height: 350px; */
+  min-height: 300px;
+  max-height: 350px;
+  overflow-x: hidden;
+}
+.demo-home-editor{
+  min-height: 200px;
+  max-height: 350px;
+  overflow-x: hidden;
+}

@@ -17,5 +17,17 @@ export default {
       icon: 'fa fa-envelope',
       url: AppRoutes.EMAILTEMPLATE,
     },
+    {
+      name: 'CMS',
+      icon: 'icon-grid',
+      url: AppRoutes.ADD_HOME_PAGE,
+      children: [
+        {
+          name: "Home Page",
+          url: AppRoutes.ADD_HOME_PAGE,
+          icon: "icon-home",
+        },
+      ],
+    },
   ],
 };

@@ -353,8 +353,10 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                     <Card.Body className='row section-div'>
                       <h4 className="col-sm-12 heading-title">Main Banner:</h4>
                       <div className='col-sm-6'>
-
                         <Form.Group>
+                            <Form.Label className='floating-label '>
+                              Title
+                            </Form.Label>
                           <InputGroup>
                             <input
                               type={'text'}
@@ -364,9 +366,6 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                               placeholder={' '}
                               onChange={this.handleChange}
                             />
-                            <Form.Label className='floating-label '>
-                              Title
-                         </Form.Label>
                             {errors.mainSectionTitle ? (
                               <div className={'text-danger error-text'}>
                                 {errors.mainSectionTitle}
@@ -376,6 +375,9 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                         </Form.Group>
 
                         <Form.Group>
+                            <Form.Label className='floating-label'>
+                              Button Text
+                            </Form.Label>
                           <InputGroup>
                             <input
                               type={'text'}
@@ -385,9 +387,7 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                               placeholder={' '}
                               onChange={this.handleChange}
                             />
-                            <Form.Label className='floating-label'>
-                              Button Text
-                      </Form.Label>
+                            
                             {errors.mainSectionButtonText ? (
                               <div className={'text-danger error-text'}>
                                 {errors.mainSectionButtonText}
@@ -471,17 +471,17 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                       </div> */}
                     </Card.Body>
                   </div>
-
                   <div className="col-md-12 ">
                     <Card.Body className='row section-div'>
                       <h4 className='col-md-12 heading-title'>How It Works:</h4>
-
                       {
                         howItWorks && howItWorks.section && howItWorks.section.map((section: any, index) => {
                           return <>
-
-                            <div className='col-sm-4'>
+                            <div className='col-sm-6'>
                               <Form.Group>
+                                <Form.Label>
+                                    Heading
+                                </Form.Label>
                                 <InputGroup>
                                   <input
                                     type={'text'}
@@ -491,13 +491,13 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                                     placeholder={' '}
                                     onChange={(e: any) => this.howItWorkHandleChange(e, index, "heading")}
                                   />
-                                  <Form.Label className='floating-label '>
-                                    Heading
-                              </Form.Label>
                                 </InputGroup>
-                              </Form.Group>
-
+                              </Form.Group></div>
+                              <div className='col-sm-6'>
                               <Form.Group>
+                              <Form.Label>
+                                    Title
+                              </Form.Label>
                                 <InputGroup>
                                   <input
                                     type={'text'}
@@ -507,14 +507,9 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                                     placeholder={' '}
                                     onChange={(e: any) => this.howItWorkHandleChange(e, index, "title")}
                                   />
-                                  <Form.Label className='floating-label '>
-                                    Title
-                              </Form.Label>
                                 </InputGroup>
-                              </Form.Group>
-
-
-                              <div>
+                              </Form.Group></div>
+                              <div className="col-md-12">
                                 <Form.Label className='simple-label mb-3'>
                                   Description
                            </Form.Label>
@@ -546,8 +541,6 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                                   onEditorStateChange={(content) => this.onHowEditorStateChange(content, index)}
                                 />
                               </div>
-                            </div>
-
                           </>
                         })
                       }
@@ -571,6 +564,9 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                       <div className='col-sm-6'>
 
                         <Form.Group>
+                        <Form.Label className='floating-label '>
+                              Title
+                           </Form.Label>
                           <InputGroup>
                             <input
                               type={'text'}
@@ -580,9 +576,7 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                               placeholder={' '}
                               onChange={this.owrStoryHandleChange}
                             />
-                            <Form.Label className='floating-label '>
-                              Title
-                           </Form.Label>
+                            
                             {errors.ourStoryTitle ? (
                               <div className={'text-danger error-text'}>
                                 {errors.ourStoryTitle}
@@ -592,6 +586,9 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                         </Form.Group>
 
                         <Form.Group>
+                        <Form.Label className='floating-label '>
+                              Video URL
+                            </Form.Label>
                           <InputGroup>
                             <input
                               type={'text'}
@@ -601,9 +598,7 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                               placeholder={' '}
                               onChange={this.owrStoryHandleChange}
                             />
-                            <Form.Label className='floating-label '>
-                              Video URL
-                            </Form.Label>
+                            
                             {errors.ourStoryVideoLink ? (
                               <div className={'text-danger error-text'}>
                                 {errors.ourStoryVideoLink}
@@ -664,10 +659,13 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                       {
                         why && why.section && why.section.map((section: any, index: number) => {
                           return <>
-                            <h5 className='col-md-12 mb-4 mt-n3'>Section {index + 1}:</h5>
+                            {/* <h5 className='col-md-12 mb-4 mt-n3'>Section {index + 1}:</h5> */}
 
                             <div className='col-sm-6'>
-                              <Form.Group >
+                              <Form.Group>
+                              <Form.Label className='floating-label '>
+                                    Title
+                             </Form.Label>
                                 <InputGroup>
                                   <input
                                     type={'text'}
@@ -677,9 +675,7 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                                     placeholder={' '}
                                     onChange={(e: any) => this.whyHandleChange(e, index, "title")}
                                   />
-                                  <Form.Label className='floating-label '>
-                                    Title
-                             </Form.Label>
+                                  
                                 </InputGroup>
                               </Form.Group>
 
@@ -707,6 +703,9 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                               {section && section.content.map((content: any, ind: number) => {
                                 return <>
                                   <Form.Group >
+                                  <Form.Label className='floating-label '>
+                                        Subheading {ind + 1}
+                                      </Form.Label>
                                     <InputGroup>
                                       <input
                                         type={'text'}
@@ -716,9 +715,7 @@ class AddHomePage extends Component<IAddHomePageProps, IAddHomePageState> {
                                         placeholder={' '}
                                         onChange={(e: any) => this.whyHandleContentChange(e, index, ind, "text")}
                                       />
-                                      <Form.Label className='floating-label '>
-                                        Subheading {ind + 1}
-                                      </Form.Label>
+                                      
                                     </InputGroup>
                                   </Form.Group>
                                 </>

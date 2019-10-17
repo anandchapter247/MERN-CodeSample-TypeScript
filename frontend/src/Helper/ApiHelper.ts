@@ -91,6 +91,7 @@ export class ApiHelper {
     }
   }
 
+  // Function to upload file in form data
   UploadImage = async (service: string, endpoint: string, body: any, jsonData: string[] = []) => {
     let fd = new FormData();
 
@@ -108,15 +109,12 @@ export class ApiHelper {
           k === 'text' ||
           jsonData.indexOf(k) > -1
         ) {
-          console.log(element, ';;;;;;;;;;;;;;;;;;;');
           fd.append(k, JSON.stringify(element));
         } else if (k === 'lessonAttachments') {
-          console.log('lessonAttachmentslessonAttachments', element);
           for (var x = 0; x < element.length; x++) {
             fd.append('lessonAttachments[]', element[x]);
           }
         } else if (k === 'whySectionImage') {
-          console.log('whySectionImage', element);
           for (var x = 0; x < element.length; x++) {
             //if (typeof element[x] !== "string") {
             fd.append(`whySectionImage[${x}]`, element[x]);

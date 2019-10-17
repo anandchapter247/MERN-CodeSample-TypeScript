@@ -4,6 +4,7 @@ import Organization from '../app/containers/Organization';
 // import EmailTemplates from '../app/containers/EmailTemplates';
 import AddTemplate from '../app/containers/EmailTemplates/AddTemplate';
 import EmailTemplates from '../app/containers/EmailTemplates';
+import HomePage from '../app/containers/CMS/HomePage';
 
 const Home = React.lazy(() => import('../app/containers/Home'));
 const Login = React.lazy(() => import('../app/containers/Auth'));
@@ -52,6 +53,12 @@ const routes = [
     name: 'Update Template',
     component: AddTemplate,
     exact: true,
+  },
+  {
+    path: AppRoutes.ADD_HOME_PAGE,
+    name: 'Home Page',
+    component: HomePage,
+    exact: true
   },
 ];
 

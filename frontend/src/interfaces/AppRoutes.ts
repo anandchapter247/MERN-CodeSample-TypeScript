@@ -17,4 +17,5 @@ export interface IAppRoutes {
   EMAILTEMPLATE: string;
   ADD_TEMPLATE: string;
   EDIT_TEMPLATE: string;
+  ADD_HOME_PAGE: string;
 }

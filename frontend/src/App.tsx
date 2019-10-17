@@ -7,6 +7,7 @@ import { Router } from 'react-router';
 import configureStore from './store';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const AppRoutesComponent = React.lazy(() => import('./routes'));
 
