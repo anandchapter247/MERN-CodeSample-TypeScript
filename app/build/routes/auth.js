@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const controllers_1 = require("./../controllers");
+const validations_1 = require("../validations");
+const common_1 = require("../common");
+const AuthRouter = express_1.default.Router();
+AuthRouter.post('/login', validations_1.LoginValidation, controllers_1.login);
+AuthRouter.get('/details', common_1.ValidateAdminToken, controllers_1.adminDetails);
+AuthRouter.put('/update', common_1.ValidateAdminToken, validations_1.ProfileValidation, controllers_1.adminProfile);
+AuthRouter.put('/change-password', common_1.ValidateAdminToken, validations_1.ChangePasswordValidation, controllers_1.adminChangePassword);
+AuthRouter.post('/admin-proxy-login', common_1.ValidateAdminToken, controllers_1.adminProxyLogin);
+AuthRouter.post('/user-login', validations_1.LoginValidation, controllers_1.userLogin);
+AuthRouter.post('/forgot-password', validations_1.ForgotPassValidation, controllers_1.forgotPassword);
+AuthRouter.get('/link-verified', controllers_1.linkVerified);
+AuthRouter.put('/reset-password', validations_1.ResetPasswordValidation, controllers_1.resetPassword);
+AuthRouter.post('/student-login', validations_1.LoginValidation, controllers_1.studentLogin);
+AuthRouter.put('/student-change-password', common_1.ValidateUserToken, validations_1.ChangePasswordValidation, controllers_1.userChangePassword);
+exports.default = AuthRouter;

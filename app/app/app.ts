@@ -3,7 +3,7 @@ import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import router from './routes';
 import { connect } from 'mongoose';
-
+import path from "path";
 // Create a new express application instance
 const app: express.Application = express();
 
@@ -27,13 +27,13 @@ const corsOption = {
   exposedHeaders: ['x-auth-token', 'authorization'],
 };
 app.use(cors(corsOption));
-
+app.use(express.static(path.join(__dirname,"public")));
 // path for API
 app.use('/api/v1', router);
 
 // rooute for home page
-app.get('/', function(req, res) {
-  res.send('Hello World!');
+app.get('**', function(req, res) {
+  res.sendFile(path.join(__dirname, "public","index.html"));
 });
 
 app.listen(8080, function() {
