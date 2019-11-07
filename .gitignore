@@ -3,3 +3,8 @@ package-lock.json
 yarn.lock
 .vscode
 .git
+build/
+lib/
+bin/
+dist/
+api-docs/

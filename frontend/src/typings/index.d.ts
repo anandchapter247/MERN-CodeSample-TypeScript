@@ -9,5 +9,5 @@ declare module "@font-awesome";
 declare module "@simple-line-icons";
 
 declare interface Array<T> {
-  group: (key: string, value: any[]) => Array<T>;
+  group: (key: string) => Array<T>;
 }
