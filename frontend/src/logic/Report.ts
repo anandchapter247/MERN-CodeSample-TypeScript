@@ -1,14 +1,10 @@
-import { createLogic } from 'redux-logic';
-import { toast } from 'react-toastify';
-import FileSaver from 'file-saver';
-import moment from 'moment';
-import {
-  showLoader,
-  hideLoader,
-  ReportActionTypes,
-} from '../actions';
-import { ApiHelper } from '../Helper/ApiHelper';
-import { ApiRoutes } from '../config';
+import { createLogic } from "redux-logic";
+import { toast } from "react-toastify";
+import FileSaver from "file-saver";
+import moment from "moment";
+import { showLoader, hideLoader, ReportActionTypes } from "../actions";
+import { ApiHelper } from "../helper/ApiHelper";
+import { ApiRoutes } from "../config";
 
 let toastId: any = null;
 
@@ -25,16 +21,16 @@ const ExportReportLogic = createLogic({
       ApiRoutes.EXPORT_REPORT.authenticate,
       action.payload,
       undefined,
-      'blob',
+      "blob"
     );
     if (response && !response.isError) {
       let blob = new Blob([response.data], {
         type:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       });
       FileSaver.saveAs(
         blob,
-        moment().format('YYYY_MM_DD') + '_student_report.xlsx',
+        moment().format("YYYY_MM_DD") + "_student_report.xlsx"
       );
       dispatch(hideLoader());
       // dispatch(
@@ -57,7 +53,7 @@ const ExportReportLogic = createLogic({
       // );
       done();
     }
-  },
+  }
 });
 
 export const ReportLogics = [ExportReportLogic];

@@ -1,5 +1,5 @@
-import { createLogic } from 'redux-logic';
-import { toast } from 'react-toastify';
+import { createLogic } from "redux-logic";
+import { toast } from "react-toastify";
 import {
   showLoader,
   hideLoader,
@@ -10,17 +10,17 @@ import {
   updateTemplateFailed,
   viewTemplateSuccess,
   getTemplateSuccess,
-  getTemplateFailed,
-} from '../actions';
-import { ApiHelper } from '../Helper/ApiHelper';
-import { ApiRoutes } from '../config';
+  getTemplateFailed
+} from "../actions";
+import { ApiHelper } from "../helper/ApiHelper";
+import { ApiRoutes } from "../config";
 
 let toastId: any = null;
 
 const addTemplate = createLogic({
   type: TemplateActionTypes.ADD_TEMPLATE_REQUEST,
   async process(data, dispatch: any, done) {
-    console.log('******************');
+    console.log("******************");
     const action: any = data.action;
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
@@ -29,16 +29,16 @@ const addTemplate = createLogic({
       ApiRoutes.ADD_TEMPLATE.method,
       ApiRoutes.ADD_TEMPLATE.authenticate,
       undefined,
-      action.payload,
+      action.payload
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log('dfdsfdfds');
+      console.log("dfdsfdfds");
       dispatch(hideLoader());
       dispatch(
         addTemplateSuccess({
-          templateInfo: response.data.data,
-        }),
+          templateInfo: response.data.data
+        })
       );
       done();
     } else {
@@ -50,13 +50,13 @@ const addTemplate = createLogic({
       dispatch(addTemplateFailed());
       done();
     }
-  },
+  }
 });
 
 const updateTemplate = createLogic({
   type: TemplateActionTypes.UPDATE_TEMPLATE_REQUEST,
   async process(data, dispatch: any, done) {
-    console.log('******************');
+    console.log("******************");
     const action: any = data.action;
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
@@ -65,16 +65,16 @@ const updateTemplate = createLogic({
       ApiRoutes.UPDATE_TEMPLATE.method,
       ApiRoutes.UPDATE_TEMPLATE.authenticate,
       undefined,
-      action.payload,
+      action.payload
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log('dfdsfdfds');
+      console.log("dfdsfdfds");
       dispatch(hideLoader());
       dispatch(
         updateTemplateSuccess({
-          templateInfo: response.data.data,
-        }),
+          templateInfo: response.data.data
+        })
       );
       done();
     } else {
@@ -86,13 +86,13 @@ const updateTemplate = createLogic({
       dispatch(updateTemplateFailed());
       done();
     }
-  },
+  }
 });
 
 const getTemplates = createLogic({
   type: TemplateActionTypes.GET_TEMPLATE_REQUEST,
   async process(data, dispatch: any, done) {
-    console.log('******************');
+    console.log("******************");
     const action: any = data.action;
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
@@ -101,16 +101,16 @@ const getTemplates = createLogic({
       ApiRoutes.GET_TEMPLATE.method,
       ApiRoutes.GET_TEMPLATE.authenticate,
       undefined,
-      action.payload,
+      action.payload
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log('dfdsfdfds');
+      console.log("dfdsfdfds");
       dispatch(hideLoader());
       dispatch(
         getTemplateSuccess({
-          templateData: response.data.data,
-        }),
+          templateData: response.data.data
+        })
       );
       done();
     } else {
@@ -122,13 +122,13 @@ const getTemplates = createLogic({
       dispatch(getTemplateFailed());
       done();
     }
-  },
+  }
 });
 
 const viewTemplate = createLogic({
   type: TemplateActionTypes.VIEW_TEMPLATE_REQUEST,
   async process(data, dispatch: any, done) {
-    console.log('******************');
+    console.log("******************");
     const action: any = data.action;
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
@@ -137,16 +137,16 @@ const viewTemplate = createLogic({
       ApiRoutes.VIEW_TEMPLATE.method,
       ApiRoutes.VIEW_TEMPLATE.authenticate,
       action.payload,
-      undefined,
+      undefined
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log('dfdsfdfds');
+      console.log("dfdsfdfds");
       dispatch(hideLoader());
       dispatch(
         viewTemplateSuccess({
-          templateInfo: response.data.data,
-        }),
+          templateInfo: response.data.data
+        })
       );
       done();
     } else {
@@ -158,12 +158,12 @@ const viewTemplate = createLogic({
       dispatch(viewTemplateSuccess());
       done();
     }
-  },
+  }
 });
 
 export const TemplateLogics = [
   addTemplate,
   updateTemplate,
   getTemplates,
-  viewTemplate,
+  viewTemplate
 ];
