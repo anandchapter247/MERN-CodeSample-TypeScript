@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import { Table, Button } from 'react-bootstrap';
-import { IRootState, IProxyLoginActionData } from '../../../interfaces';
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { getOrganizationRequest, proxyLoginRequest } from '../../../actions';
+import React, { Component } from "react";
+import { Table, Button } from "react-bootstrap";
+import { IRootState, IProxyLoginActionData } from "../../../interfaces";
+import { Dispatch } from "redux";
+import { connect } from "react-redux";
+import { getOrganizationRequest, proxyLoginRequest } from "../../../actions";
 import {
   IOrganizationState,
   IOrganizationProps,
-  IOrganizationData,
-} from '../../../interfaces/Organization';
-import { ConfirmBox } from '../../../Helper';
-import TooltipComponent from '../../components/ToolTipComponent';
-import { TooltipText } from '../../common';
-import { Form } from 'react-bootstrap';
+  IOrganizationData
+} from "../../../interfaces/Organization";
+import { ConfirmBox } from "../../../helper";
+import TooltipComponent from "../../components/ToolTipComponent";
+import { TooltipText } from "../../common";
+import { Form } from "react-bootstrap";
 
 class Organization extends Component<IOrganizationProps, IOrganizationState> {
   constructor(props: IOrganizationProps) {
@@ -22,19 +22,19 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
       totalRecords: 0,
       currentPage: 1,
       pageLimit: 10,
-      pageNeighbours: 1,
+      pageNeighbours: 1
     };
   }
   componentDidMount = () => {
-    console.log('did mount calling');
+    console.log("did mount calling");
     this.props.getOrganization();
   };
   handleStatus = async (id: string, isActive: boolean) => {
     const { value } = await ConfirmBox({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: isActive
-        ? 'Do you want to activate this organization?'
-        : 'Do you want to deactivate this organization?',
+        ? "Do you want to activate this organization?"
+        : "Do you want to deactivate this organization?"
     });
     if (!value) {
       return;
@@ -51,12 +51,12 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
           <thead>
             <tr>
               <th>
-                <Form.Group className='col-sm-12'>
-                  <div className='checkbox'>
+                <Form.Group className="col-sm-12">
+                  <div className="checkbox">
                     <label>
-                      <input type='checkbox' name={'isHide'} value={'true'} />
-                      <span className='checkbox-material'>
-                        <span className='check' />
+                      <input type="checkbox" name={"isHide"} value={"true"} />
+                      <span className="checkbox-material">
+                        <span className="check" />
                       </span>
                       #
                     </label>
@@ -80,17 +80,17 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
                   return (
                     <tr key={organization._id}>
                       <td>
-                        <Form.Group className='col-sm-12'>
-                          <div className='checkbox'>
+                        <Form.Group className="col-sm-12">
+                          <div className="checkbox">
                             <label>
                               <input
-                                type='checkbox'
-                                name={'isHide'}
-                                value={'true'}
+                                type="checkbox"
+                                name={"isHide"}
+                                value={"true"}
                                 id={`user${index}`}
                               />
-                              <span className='checkbox-material'>
-                                <span className='check' />
+                              <span className="checkbox-material">
+                                <span className="check" />
                               </span>
                               {count++}
                             </label>
@@ -103,52 +103,52 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
                       <td>{organization.wildCardDomain}</td>
                       <td>
                         <Button
-                          type='button'
-                          color={organization.isActive ? 'primary' : 'danger'}
-                          className='btn btn-sm'
+                          type="button"
+                          color={organization.isActive ? "primary" : "danger"}
+                          className="btn btn-sm"
                           onClick={() =>
                             this.handleStatus(
                               organization && organization._id
                                 ? organization._id
-                                : '',
-                              !organization.isActive,
+                                : "",
+                              !organization.isActive
                             )
                           }
                         >
-                          {organization.isActive ? 'Active' : 'Deactive'}
+                          {organization.isActive ? "Active" : "Deactive"}
                         </Button>
                       </td>
                       <td>
-                        <button type='button' className='btn btn-sm'>
-                          <i className='fa fa-eye' />
+                        <button type="button" className="btn btn-sm">
+                          <i className="fa fa-eye" />
                         </button>
                         <TooltipComponent
-                          dataPlacement={'top'}
+                          dataPlacement={"top"}
                           message={TooltipText.proxyLogin}
                           children={
                             <button
-                              type='button'
-                              className='btn login-icon '
+                              type="button"
+                              className="btn login-icon "
                               onClick={() => {
                                 if (organization && organization._id) {
                                   this.props.proxyLogin({
-                                    id: organization._id,
+                                    id: organization._id
                                   });
                                 }
                               }}
                             >
-                              <i className='icon-lock-open' />
+                              <i className="icon-lock-open" />
                             </button>
                           }
                         />
                       </td>
                     </tr>
                   );
-                },
+                }
               )
             ) : (
               <tr>
-                <td colSpan={10} className='text-center'>
+                <td colSpan={10} className="text-center">
                   No Event found
                 </td>
               </tr>
@@ -161,7 +161,7 @@ class Organization extends Component<IOrganizationProps, IOrganizationState> {
 }
 
 const mapStateToProps: any = (state: IRootState) => ({
-  organizationReducer: state.OrganizationReducer,
+  organizationReducer: state.OrganizationReducer
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -171,11 +171,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
     proxyLogin: (data: IProxyLoginActionData) => {
       dispatch(proxyLoginRequest(data));
-    },
+    }
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(Organization);

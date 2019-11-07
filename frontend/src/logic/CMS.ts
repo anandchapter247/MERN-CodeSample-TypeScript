@@ -1,5 +1,5 @@
-import { createLogic } from 'redux-logic';
-import { toast } from 'react-toastify';
+import { createLogic } from "redux-logic";
+import { toast } from "react-toastify";
 import {
   showLoader,
   hideLoader,
@@ -8,11 +8,10 @@ import {
   updateHomePageFailed,
   updateHomePageSuccess,
   viewHomePageSuccess,
-  viewHomePageFailed,
-} from '../actions';
-import { ApiHelper } from '../Helper/ApiHelper';
-import { ApiRoutes, AppRoutes } from '../config';
-
+  viewHomePageFailed
+} from "../actions";
+import { ApiHelper } from "../helper/ApiHelper";
+import { ApiRoutes, AppRoutes } from "../config";
 
 let toastId: any = null;
 
@@ -27,7 +26,7 @@ const viewHomePage = createLogic({
       ApiRoutes.VIEW_HOME_PAGE.method,
       ApiRoutes.VIEW_HOME_PAGE.authenticate,
       action.payload,
-      undefined,
+      undefined
     );
     if (response && !response.isError) {
       const { data } = response.data;
@@ -36,8 +35,8 @@ const viewHomePage = createLogic({
       dispatch(hideLoader());
       dispatch(
         viewHomePageSuccess({
-          homePageInfo: data,
-        }),
+          homePageInfo: data
+        })
       );
       done();
     } else {
@@ -48,7 +47,7 @@ const viewHomePage = createLogic({
       dispatch(viewHomePageFailed());
       done();
     }
-  },
+  }
 });
 
 /**
@@ -77,8 +76,8 @@ const updateHomePage = createLogic({
       }
       dispatch(
         updateHomePageSuccess({
-          moduleData: data,
-        }),
+          moduleData: data
+        })
       );
       //dispatch(redirectTo({ path: AppRoutes }));
       done();
@@ -90,11 +89,7 @@ const updateHomePage = createLogic({
       dispatch(updateHomePageFailed());
       done();
     }
-  },
+  }
 });
 
-
-export const HomePageLogic = [
-  viewHomePage,
-  updateHomePage
-];
+export const HomePageLogic = [viewHomePage, updateHomePage];

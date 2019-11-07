@@ -1,14 +1,14 @@
-import { createLogic } from 'redux-logic';
-import { toast } from 'react-toastify';
+import { createLogic } from "redux-logic";
+import { toast } from "react-toastify";
 import {
   ChangePasswordActionTypes,
   showLoader,
   hideLoader,
   changePasswordSuccess,
-  changePasswordFailed,
-} from '../actions';
-import { ApiHelper } from '../Helper/ApiHelper';
-import { ApiRoutes } from '../config';
+  changePasswordFailed
+} from "../actions";
+import { ApiHelper } from "../helper/ApiHelper";
+import { ApiRoutes } from "../config";
 
 let toastId: any = null;
 
@@ -16,7 +16,7 @@ const ChangePasswordLogic = createLogic({
   type: ChangePasswordActionTypes.CHANGE_PASSWORD_REQUEST,
   async process(data, dispatch: any, done) {
     const action: any = data.action;
-    console.log('******************');
+    console.log("******************");
     toast.dismiss();
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
@@ -25,11 +25,11 @@ const ChangePasswordLogic = createLogic({
       ApiRoutes.ADMIN_CHANGE_PASSWORD.method,
       ApiRoutes.ADMIN_CHANGE_PASSWORD.authenticate,
       undefined,
-      action.payload,
+      action.payload
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log('dfdsfdfds');
+      console.log("dfdsfdfds");
       dispatch(hideLoader());
       dispatch(changePasswordSuccess());
       if (!toast.isActive(toastId)) {
@@ -44,12 +44,12 @@ const ChangePasswordLogic = createLogic({
       }
       dispatch(
         changePasswordFailed({
-          isError: true,
-        }),
+          isError: true
+        })
       );
       done();
     }
-  },
+  }
 });
 
 export const ChangePasswordLogics = [ChangePasswordLogic];

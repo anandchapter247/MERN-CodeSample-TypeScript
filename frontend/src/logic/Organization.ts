@@ -1,21 +1,21 @@
-import { createLogic } from 'redux-logic';
-import { toast } from 'react-toastify';
+import { createLogic } from "redux-logic";
+import { toast } from "react-toastify";
 import {
   showLoader,
   hideLoader,
   OrganizationActionTypes,
   getOrganizationFailed,
-  getOrganizationSuccess,
-} from '../actions';
-import { ApiHelper } from '../Helper/ApiHelper';
-import { ApiRoutes } from '../config';
+  getOrganizationSuccess
+} from "../actions";
+import { ApiHelper } from "../helper/ApiHelper";
+import { ApiRoutes } from "../config";
 
 let toastId: any = null;
 
 const getOrganization = createLogic({
   type: OrganizationActionTypes.GET_ORGANIZATION_REQUEST,
   async process(data, dispatch: any, done) {
-    console.log('******************');
+    console.log("******************");
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
       ApiRoutes.GET_ORGANIZATION.service,
@@ -23,16 +23,16 @@ const getOrganization = createLogic({
       ApiRoutes.GET_ORGANIZATION.method,
       ApiRoutes.GET_ORGANIZATION.authenticate,
       undefined,
-      undefined,
+      undefined
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log('dfdsfdfds');
+      console.log("dfdsfdfds");
       dispatch(hideLoader());
       dispatch(
         getOrganizationSuccess({
-          organizationData: response.data.data,
-        }),
+          organizationData: response.data.data
+        })
       );
       done();
     } else {
@@ -44,7 +44,7 @@ const getOrganization = createLogic({
       dispatch(getOrganizationFailed());
       done();
     }
-  },
+  }
 });
 
 export const getOrganizationLogics = [getOrganization];
