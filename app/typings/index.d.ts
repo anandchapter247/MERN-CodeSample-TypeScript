@@ -10,4 +10,5 @@ declare namespace Express {
   }
 }
 
-declare module 'node-excel-export';
+declare module "node-excel-export";
+declare module "swagger-ui-express";

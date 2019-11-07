@@ -1,2 +1,2 @@
-import "Array";
-import "String";
+import "./Array";
+import "./String";

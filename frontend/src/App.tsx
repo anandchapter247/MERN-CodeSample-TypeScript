@@ -8,12 +8,20 @@ import configureStore from "./store";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
+import { logger } from "./helper";
+import "./extend-definitions";
 const AppRoutesComponent = React.lazy(() => import("./routes"));
 
 const history = createBrowserHistory();
 const store: Store = configureStore(history);
-
+logger(
+  [
+    {
+      key: "fasdfasdf"
+    },
+    { key: "fasdfasdf" }
+  ].group("key")
+);
 const App: React.FC = () => {
   return (
     <>
