@@ -8,7 +8,7 @@
     "dev": "nodemon build/app.js",
     "dev:ts": "ts-node-dev --respawn --transpileOnly ./app/app.ts",
     "build": "webpack --progress",
-    "dev:webpack": "webpack --progress --watch --mode development",
+    "dev:watch": "webpack --progress --watch --mode development",
     "prod": "npm run build && node build/app.js",
     "gen:doc": "npm run build && ./node_modules/.bin/apidoc - build/ -o api-docs/ -e node_modules/"
   },
