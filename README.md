@@ -1,11 +1,13 @@
 # Sample Code
 
 ## Frontend:
+
 ```
 React + Redux + Redux-Logic + TypeScript
 ```
 
 ## Backend
+
 ```
 NodeJS + ExpressJS + TypeScript with Webpack
 ```
@@ -19,7 +21,8 @@ NodeJS + ExpressJS + TypeScript with Webpack
 ```
 yarn start
 ```
-or 
+
+or
 
 ```
 npm start
@@ -30,7 +33,9 @@ npm start
 ```
 yarn build
 ```
-or 
+
+or
+
 ```
 npm run build
 ```
@@ -42,7 +47,9 @@ npm run build
 ```
 npm run dev:watch
 ```
+
 and then in other terminal
+
 ```
 npm run dev
 ```
@@ -64,6 +71,7 @@ npm run prod
 ```
 npm run gen:doc
 ```
+
 <ul>
 <li>
 Read more about <a href="https://apidocjs.com/">apiDoc</a>

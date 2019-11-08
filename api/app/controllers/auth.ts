@@ -18,33 +18,23 @@ import { message } from "../common/messages";
 const { validationResult } = require("express-validator/check");
 
 /**
- * @api {post} admin/login  Admin Login
- * @apiVersion 1.0.0
- * @apiName PostAdmin
- * @apiGroup Admin
+ * @api {post} /login  Admin Login
+ * @apiName Admin Login
+ * @apiGroup Authentication
  * @apiPermission none
- *
- * @apiExample Example usage:
- * curl -i /admin/login
- *
  * @apiDescription In this case "apiErrorStructure" is defined and used.
  * Define blocks with params that will be used in several functions, so you dont have to rewrite them.
- *
- * @apiParam {String} email        Email of the Admin.
- * @apiParam {String} password     Password of the Admin.
- * @apiParam {Boolean} isDeleted    If Admin is deleted then it will be true otherwise false.
+ * @apiParam {String} email Email of the Admin.
+ * @apiParam {String} password Password of the Admin.
  * @apiSuccessExample {json} Success
  * HTTP/1.1 200 OK
  * {
- *   "id": 1,
- *   "title": "Study",
- *   "done": false
- *   "updated_at": "2016-02-10T15:46:51.778Z",
- *   "created_at": "2016-02-10T15:46:51.778Z"
+ *   "_id": 1,
+ *   "email": "Study",
+ *   "createdAt": "2016-02-10T15:46:51.778Z"
  * }
  * @apiErrorExample {json} List error
  *    HTTP/1.1 500 Internal Server Error
- *
  */
 const login = async (req: Request, res: Response): Promise<any> => {
   const errors = validationResult(req);

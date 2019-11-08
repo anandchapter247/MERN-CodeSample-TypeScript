@@ -13,7 +13,7 @@ module.exports = {
     __filename: false
   },
   output: {
-    path: path.resolve(__dirname, "..", "build"),
+    path: path.resolve(__dirname, "build"),
     filename: "app.js"
   },
   resolve: {
@@ -34,6 +34,6 @@ module.exports = {
     ]),
     new CopyWebpackPlugin([{ from: "app/uploads", to: "uploads" }]),
     new CopyWebpackPlugin([{ from: "./package.json", to: "./" }]),
-    new CopyWebpackPlugin([{ from: "./.gitignore", to: "./" }])
+    new CopyWebpackPlugin([{ from: "./swagger.json", to: "./" }])
   ]
 };
