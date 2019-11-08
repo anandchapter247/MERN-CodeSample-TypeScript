@@ -1,7 +1,7 @@
 {
-  "name": "example",
-  "version": "0.1.0",
-  "description": "apiDoc basic example",
-  "title": "Custom apiDoc browser title",
+  "name": "NodeJS App",
+  "version": "1.0.0",
+  "description": "API Doc for Application",
+  "title": "API Doc",
   "url": "http://localhost:8080/v1/"
 }

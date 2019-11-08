@@ -33,7 +33,6 @@ module.exports = {
       { from: "app/emailtemplates", to: "emailtemplates" }
     ]),
     new CopyWebpackPlugin([{ from: "app/uploads", to: "uploads" }]),
-    new CopyWebpackPlugin([{ from: "./package.json", to: "./" }]),
-    new CopyWebpackPlugin([{ from: "./.gitignore", to: "./" }])
+    new CopyWebpackPlugin([{ from: "./package.json", to: "./" }])
   ]
 };
