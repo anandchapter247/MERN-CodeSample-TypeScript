@@ -5,7 +5,7 @@ import router from "./routes";
 import { connect } from "mongoose";
 import path from "path";
 import * as swaggerUi from "swagger-ui-express";
-import * as swaggerDocument from "./../swagger.json";
+import * as swaggerDocument from "./swagger.json";
 
 // Create a new express application instance
 const app: express.Application = express();
