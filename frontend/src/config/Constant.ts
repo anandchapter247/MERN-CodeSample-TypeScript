@@ -6,3 +6,5 @@ export const AcceptedImageFormat = [
     'image/svg+xml',
     'image/gif',
   ];
+
+export const DateTimeFormat = "LLL"

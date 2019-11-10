@@ -32,12 +32,11 @@ class Email {
     this.adminURL = '';
   }
 
-  async setTemplate(templateName: string, replaceObject: any): Promise<any> {
+  async setTemplate(subject: string, content:any, replaceObject: any): Promise<any> {
     // if (!templateName) {
     //   throw new Error('Please provide template name');
     // }
-    let content: any = templateName;
-
+    this.subject = subject;
     // To replace variables dynamically
     for (const key in replaceObject) {
       if (replaceObject.hasOwnProperty(key)) {

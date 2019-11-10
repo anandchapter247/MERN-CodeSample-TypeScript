@@ -8,7 +8,7 @@ export const AppRoutes: IAppRoutes = {
   ORGANIZATION: '/organization',
   EMAILTEMPLATE: '/email-template',
   ADD_TEMPLATE: '/email-template/add',
-  EDIT_TEMPLATE: '/email-template/add/:id',
+  EDIT_TEMPLATE: '/email-template/edit/:id',
     //Home Page
     ADD_HOME_PAGE: '/homepage'
 };

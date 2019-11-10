@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserModel, AdminModel } from "../models";
+import { UserModel, AdminModel, EmailTemplateModel } from "../models";
 import {
   encryptPassword,
   comparePassword,
@@ -246,6 +246,68 @@ const adminChangePassword = async (
   }
 };
 
+const signup = async (req: Request, res: Response): Promise<any> => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      message: ValidationFormatter(errors.mapped()),
+      success: false,
+    });
+  }
+  try {
+    const { body } = req;
+    const { firstName, lastName, email, password } = body;
+    const user: Document | null | any = await UserModel.findOne({
+      email,
+      isDeleted: false,
+    });
+    if (user) {
+      return res.status(400).json({
+        code: 400,
+        message: message.emailExist,
+        success: false,
+      });
+    }
+
+    const salt: string = generateSalt(10);
+    const encryptedPassword:string = encryptPassword(password, salt);
+    const data: object = {
+      firstName,
+      lastName,
+      email,
+      password: encryptedPassword,
+    };
+    const studentData: Document = new UserModel(data);
+    const result: any = await studentData.save();
+
+    // email template for registration
+    const availabelTemplate:any = await EmailTemplateModel.findOne({
+      templateName: {
+        $regex: new RegExp('registration'.trim(), 'i'),
+      }
+    })
+    if (availabelTemplate) {
+      console.log('in iffff');
+      const emailInstance: any = new Email(req);
+      await emailInstance.setTemplate(availabelTemplate.subject,availabelTemplate.htmlContent, {
+        firstName
+      });
+      await emailInstance.sendEmail(email);
+    }
+    return res.status(200).json({
+      responseCode: 200,
+      data: result,
+      message: 'Student Added Successfully.',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
+    });
+  }
+};
+
 /**
  * Organization Login
  */
@@ -370,18 +432,18 @@ const forgotPassword = async (req: Request, res: Response): Promise<any> => {
         verifyToken: body.verifyToken
       }
     );
-    const email = new Email(req);
-    await email.setTemplate("FORGOTPASSWORD", {
-      firstName: result.firstName,
-      lastName: result.lastName,
-      email: body.email,
-      _id: body.id,
-      verifyToken: body.verifyToken,
-      WebURL: webURL
-    });
-    console.log("email", email);
+    // const email = new Email(req);
+    // await email.setTemplate("FORGOTPASSWORD", {
+    //   firstName: result.firstName,
+    //   lastName: result.lastName,
+    //   email: body.email,
+    //   _id: body.id,
+    //   verifyToken: body.verifyToken,
+    //   WebURL: webURL
+    // });
+    // console.log("email", email);
 
-    await email.sendEmail(result.email);
+    // await email.sendEmail(result.email);
     return res.status(200).json({
       message: message.emaiSent,
       data: updateToken,
@@ -560,95 +622,6 @@ const adminProxyLogin = async (req: Request, res: Response): Promise<any> => {
 };
 
 /**
-|--------------------------------------------------
-| Student Login
-|--------------------------------------------------
-*/
-
-const studentLogin = async (req: Request, res: Response): Promise<any> => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({
-      message: ValidationFormatter(errors.mapped()),
-      success: false
-    });
-  }
-  try {
-    const { body } = req;
-    const { email, password } = body;
-    const result: Document | null | any = await UserModel.findOne({
-      email: email,
-      isDeleted: false
-    });
-    if (result == null) {
-      throw {
-        code: 404,
-        message: "Email address not found",
-        success: false
-      };
-    }
-    if (!result.isActive) {
-      throw {
-        code: 400,
-        message: "Account has been deactivated by Organization.",
-        success: false
-      };
-    }
-    if (!comparePassword(password, result.password)) {
-      throw {
-        code: 400,
-        message: "Password did not match",
-        success: false
-      };
-    }
-    result.set({
-      loggedInIp: getIpAddress(req),
-      loginToken: generateSalt(20)
-    });
-    const tokenData = await result.save();
-    const token = JWTSign(
-      {
-        id: result.id,
-        loginToken: tokenData.loginToken,
-        email: email,
-        firstName: result.firstName,
-        lastName: result.lastName,
-        phoneNumber: result.phoneNumber
-      },
-      JWTSecrete,
-      {
-        expiresIn: 86400
-      }
-    );
-    const users: Document = await UserModel.update(
-      {
-        _id: result.id,
-        email: result.email
-      },
-      {
-        $set: {
-          lastLogin: new Date(Date.now())
-        }
-      }
-    );
-    return res.status(200).json({
-      responseCode: 200,
-      message: "Loggedin Successfully",
-      data: result,
-      token: token
-    });
-  } catch (error) {
-    console.log(error);
-    const code = error.code ? error.code : 500;
-    res.status(code).json({
-      code: code,
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
-    });
-  }
-};
-
-/**
  * User ChangePassword
  */
 const userChangePassword = async (
@@ -715,11 +688,11 @@ export {
   adminDetails,
   adminProfile,
   adminChangePassword,
+  signup,
   userLogin,
   forgotPassword,
   linkVerified,
   resetPassword,
   adminProxyLogin,
-  studentLogin,
   userChangePassword
 };

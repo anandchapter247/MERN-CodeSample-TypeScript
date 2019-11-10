@@ -5,7 +5,7 @@ import router from "./routes";
 import { connect } from "mongoose";
 import path from "path";
 import * as swaggerUi from "swagger-ui-express";
-import * as swaggerDocument from "./swagger.json";
+import * as swaggerDocument from "../swagger.json";
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // path for API
 app.use("/api/v1", router);
 
-// rooute for home page
+// route for home page
 app.get("**", function(req, res) {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
