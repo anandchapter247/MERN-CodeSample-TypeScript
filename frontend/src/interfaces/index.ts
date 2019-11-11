@@ -6,5 +6,5 @@ export * from './Store';
 export * from './Login';
 export * from './Profile';
 export * from './EmailTemplate';
-export * from './Organization';
+export * from './User';
 export * from './CMS';

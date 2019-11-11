@@ -1,5 +1,5 @@
 import express from "express";
-import UserRouter from "./users";
+import UserRouter from "./user";
 import AuthRouter from "./auth";
 import EmailTemplateRouter from "./emailTemplate";
 

@@ -1,6 +1,6 @@
 import { ILoginModal } from './Login';
 import { IChangePasswordModal, IProfileModal } from './Profile';
-import { IOrganizationModel } from './Organization';
+import { IUserModel } from './User';
 import { ITemplateModal } from './EmailTemplate';
 
 export interface ImainState {
@@ -12,7 +12,7 @@ export interface IRootState {
   profileInfoReducer: IProfileModal;
   mainReducer: ImainState;
   changePasswordReducer: IChangePasswordModal;
-  OrganizationReducer: IOrganizationModel;
+  userReducer: IUserModel;
   TemplateReducer:ITemplateModal;
   ProxyLoginReducer:ILoginModal;
   homePageReducer:ILoginModal;

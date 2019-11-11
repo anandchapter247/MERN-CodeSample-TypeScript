@@ -4,7 +4,7 @@ import { loginReducer } from './Login';
 import { handleActions } from 'redux-actions';
 import { profileInfoReducer } from './ProfileInfo';
 import { changePasswordReducer } from './ChangePassword';
-import { organizationReducer } from './Organization';
+import { userReducer } from './User';
 import { templateReducer } from './EmailTemplate';
 import { proxyLoginReducer } from './ProxyLogin';
 import { homePageReducer } from './CMS';
@@ -30,7 +30,7 @@ export const RootReducer: Reducer<IRootState, AnyAction> = combineReducers<
   loginReducer: loginReducer as any,
   profileInfoReducer: profileInfoReducer as any,
   changePasswordReducer: changePasswordReducer as any,
-  OrganizationReducer: organizationReducer as any,
+  userReducer: userReducer as any,
   TemplateReducer: templateReducer as any,
   ProxyLoginReducer: proxyLoginReducer as any,
   homePageReducer: homePageReducer as any,

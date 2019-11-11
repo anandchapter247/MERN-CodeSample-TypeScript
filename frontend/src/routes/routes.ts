@@ -1,10 +1,10 @@
 import React from 'react';
 import { AppRoutes } from '../config';
-import Organization from '../app/containers/Organization';
-// import EmailTemplates from '../app/containers/EmailTemplates';
 import AddTemplate from '../app/containers/EmailTemplates/AddTemplate';
 import EmailTemplates from '../app/containers/EmailTemplates';
 import HomePage from '../app/containers/CMS/HomePage';
+import User from '../app/containers/User';
+import AddUser from '../app/containers/User/AddUser';
 
 const Home = React.lazy(() => import('../app/containers/Home'));
 const Login = React.lazy(() => import('../app/containers/Auth'));
@@ -31,9 +31,21 @@ const routes = [
     exact: true,
   },
   {
-    path: AppRoutes.ORGANIZATION,
-    name: 'Organization',
-    component: Organization,
+    path: AppRoutes.USER,
+    name: 'User',
+    component: User,
+    exact: true,
+  },
+  {
+    path: AppRoutes.ADD_USER,
+    name: 'Add User',
+    component: AddUser,
+    exact: true,
+  },
+  {
+    path: AppRoutes.EDIT_USER,
+    name: 'Update User',
+    component: AddUser,
     exact: true,
   },
   {

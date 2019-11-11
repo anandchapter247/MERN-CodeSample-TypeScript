@@ -2,6 +2,18 @@ import bcrypt from "bcrypt";
 import crypto, { Cipher, Decipher } from "crypto";
 
 /**
+ * Generate Password
+ */
+const generatePassword = (length = 8) => {
+  var text = '';
+  var possible =
+    'abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  for (var i = 0; i < length; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+};
+
+/**
  * Encrypt the password using bcrypt algo
  */
 const encryptPassword = (password: string, salt: string): string => {
@@ -65,4 +77,4 @@ const getIpAddress = (req: Request | any )=> {
   return ip;
 };
 
-export { encryptPassword, comparePassword, generateSalt, encrypt, decrypt, JWTSecrete, getIpAddress };
+export { generatePassword, encryptPassword, comparePassword, generateSalt, encrypt, decrypt, JWTSecrete, getIpAddress };

@@ -10,7 +10,7 @@ export default {
     {
       name: "Users",
       icon: "fa fa-users",
-      url: AppRoutes.ORGANIZATION
+      url: AppRoutes.USER
     },
     {
       name: "Email Templates",
@@ -18,7 +18,7 @@ export default {
       url: AppRoutes.EMAILTEMPLATE
     },
     {
-      name: "CMS",
+      name: "Content management",
       icon: "icon-grid",
       url: AppRoutes.ADD_HOME_PAGE,
       children: [

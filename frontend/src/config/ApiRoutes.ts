@@ -33,17 +33,35 @@ export const ApiRoutes: IApiRoutes = {
     authenticate: true,
   },
 
-  // Oragnization Module related APIs
-  GET_ORGANIZATION: {
-    service: '/organization',
-    url: '/get-organization',
+  // User Module related APIs
+  GET_USER: {
+    service: '/user',
+    url: '/get',
     method: 'GET',
     authenticate: true,
   },
-  ADD_ORGANIZATION: {
-    service: '/organization',
-    url: '/add-organization',
+  ADD_USER: {
+    service: '/user',
+    url: '/add',
     method: 'POST',
+    authenticate: true,
+  },
+  UPDATE_USER: {
+    service: '/user',
+    url: '/update',
+    method: 'PUT',
+    authenticate: true,
+  },
+  VIEW_USER: {
+    service: '/user',
+    url: '/view',
+    method: 'GET',
+    authenticate: true,
+  },
+  UPDATE_USER_STATUS: {
+    service: '/user',
+    url: '/update-status',
+    method: 'PUT',
     authenticate: true,
   },
 

@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions';
 export * from './Login';
 export * from './ProfileInfo';
 export * from './ChangePassword';
-export * from './Organization';
+export * from './User';
 export * from './EmailTemplate';
 export * from './Report';
 export * from './ProxyLogin';
