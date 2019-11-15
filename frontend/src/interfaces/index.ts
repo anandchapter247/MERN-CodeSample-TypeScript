@@ -8,3 +8,4 @@ export * from './Profile';
 export * from './EmailTemplate';
 export * from './User';
 export * from './CMS';
+export * from './FAQ';

@@ -20,4 +20,5 @@ export interface IAppRoutes {
   ADD_TEMPLATE: string;
   EDIT_TEMPLATE: string;
   ADD_HOME_PAGE: string;
+  ADD_FAQ:string;
 }

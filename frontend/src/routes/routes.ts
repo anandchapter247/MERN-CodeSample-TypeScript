@@ -1,14 +1,15 @@
 import React from 'react';
 import { AppRoutes } from '../config';
-import AddTemplate from '../app/containers/EmailTemplates/AddTemplate';
-import EmailTemplates from '../app/containers/EmailTemplates';
-import HomePage from '../app/containers/CMS/HomePage';
-import User from '../app/containers/User';
-import AddUser from '../app/containers/User/AddUser';
 
 const Home = React.lazy(() => import('../app/containers/Home'));
 const Login = React.lazy(() => import('../app/containers/Auth'));
 const MyProfile = React.lazy(() => import('../app/containers/MyProfile'));
+const EmailTemplates = React.lazy(() => import('../app/containers/EmailTemplates'));
+const AddTemplate = React.lazy(() => import('../app/containers/EmailTemplates/AddTemplate'));
+const HomePage = React.lazy(() => import('../app/containers/CMS/HomePage'));
+const User = React.lazy(() => import('../app/containers/User'));
+const AddUser = React.lazy(() => import('../app/containers/User/AddUser'));
+const AddFaq = React.lazy(() => import('../app/containers/CMS/FAQ/AddFaq'));
 
 const routes = [
   { path: AppRoutes.MAIN, exact: true, name: 'Home' },
@@ -70,6 +71,12 @@ const routes = [
     path: AppRoutes.ADD_HOME_PAGE,
     name: 'Home Page',
     component: HomePage,
+    exact: true
+  },
+  {
+    path: AppRoutes.ADD_FAQ,
+    name: 'Add Faq',
+    component: AddFaq,
     exact: true
   },
 ];

@@ -26,6 +26,11 @@ export default {
           name: "Home Page",
           url: AppRoutes.ADD_HOME_PAGE,
           icon: "icon-home"
+        }, 
+        {
+          name: "FAQ",
+          url: AppRoutes.ADD_HOME_PAGE,
+          icon: "icon-home"
         }
       ]
     }
