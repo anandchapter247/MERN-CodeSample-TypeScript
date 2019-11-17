@@ -9,6 +9,7 @@ const AddTemplate = React.lazy(() => import('../app/containers/EmailTemplates/Ad
 const HomePage = React.lazy(() => import('../app/containers/CMS/HomePage'));
 const User = React.lazy(() => import('../app/containers/User'));
 const AddUser = React.lazy(() => import('../app/containers/User/AddUser'));
+const Faq = React.lazy(() => import('../app/containers/CMS/FAQ'));
 const AddFaq = React.lazy(() => import('../app/containers/CMS/FAQ/AddFaq'));
 
 const routes = [
@@ -71,6 +72,12 @@ const routes = [
     path: AppRoutes.ADD_HOME_PAGE,
     name: 'Home Page',
     component: HomePage,
+    exact: true
+  },
+  {
+    path: AppRoutes.FAQ,
+    name: 'Faq',
+    component: Faq,
     exact: true
   },
   {

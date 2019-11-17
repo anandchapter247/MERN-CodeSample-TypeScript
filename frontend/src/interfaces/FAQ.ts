@@ -8,3 +8,17 @@ export interface IAddFAQState{
         order:string;
     }
 }
+
+export interface IFaqModel {
+    isLoading: boolean;
+    faqData: any;
+    faqInfo: any;
+    isError: boolean;
+}
+
+export interface IFaqState {
+    totalRecords: number;
+    currentPage: number;
+    pageLimit: number;
+    pageNeighbours: number;
+  }

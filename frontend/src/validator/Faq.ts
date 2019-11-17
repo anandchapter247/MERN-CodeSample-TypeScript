@@ -10,19 +10,21 @@ export const FaqValidator = (data: any) => {
       required: true
     },
     order: {
-      required: true
+      required: true,
+      numeric:true
     },
   };
 
   const messages = {
     question: {
-        required: true
+        required: message.RequiredQuestion
       },
       answer: {
-        required: true
+        required: message.RequiredAnswer
       },
       order: {
-        required: true
+        required: message.RequiredOrder,
+        numeric:message.InvalidOrder
       },
   };
   const { isValid, errors } = Validator(data, validations, messages);

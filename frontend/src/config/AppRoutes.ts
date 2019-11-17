@@ -13,5 +13,6 @@ export const AppRoutes: IAppRoutes = {
   EDIT_TEMPLATE: '/email-template/edit/:id',
   //Home Page
   ADD_HOME_PAGE: '/homepage',
-  ADD_FAQ:'/faq/add'
+  ADD_FAQ:'/faq/add',
+  FAQ:'/faq'
 };

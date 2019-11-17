@@ -32,4 +32,10 @@ export interface IApiRoutes {
   ADD_HOME_PAGE: IApiRoutesValues;
   VIEW_HOME_PAGE: IApiRoutesValues;
   UPDATE_HOME_PAGE: IApiRoutesValues;
+
+  // Faq
+  ADD_FAQ:IApiRoutesValues;
+  GET_FAQ:IApiRoutesValues;
+  UPDATE_FAQ_STATUS:IApiRoutesValues;
+  UPDATE_FAQ:IApiRoutesValues;
 }

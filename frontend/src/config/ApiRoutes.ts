@@ -99,23 +99,47 @@ export const ApiRoutes: IApiRoutes = {
   },
 
     // Home Page
-
-    ADD_HOME_PAGE: {
-      service: '/homepage',
-      url: '/add',
-      method: 'POST',
-      authenticate: true,
-    },
-    VIEW_HOME_PAGE: {
-      service: '/homepage',
-      url: '/view-homepage',
-      method: 'GET',
-      authenticate: true,
-    },
-    UPDATE_HOME_PAGE: {
-      service: '/homepage',
-      url: '/update-homepage',
-      method: 'PUT',
-      authenticate: true,
-    },
+  ADD_HOME_PAGE: {
+    service: '/homepage',
+    url: '/add',
+    method: 'POST',
+    authenticate: true,
+  },
+  VIEW_HOME_PAGE: {
+    service: '/homepage',
+    url: '/view-homepage',
+    method: 'GET',
+    authenticate: true,
+  },
+  UPDATE_HOME_PAGE: {
+    service: '/homepage',
+    url: '/update-homepage',
+    method: 'PUT',
+    authenticate: true,
+  },
+  // Faq Routes
+  ADD_FAQ: {
+    service: '/faq',
+    url: '/add',
+    method: 'POST',
+    authenticate: true,
+  },
+  GET_FAQ: {
+    service: '/faq',
+    url: '/get',
+    method: 'GET',
+    authenticate: true,
+  },
+  UPDATE_FAQ_STATUS: {
+    service: '/faq',
+    url: '/update-status',
+    method: 'PUT',
+    authenticate: true,
+  },
+  UPDATE_FAQ: {
+    service: '/faq',
+    url: '/uodate',
+    method: 'PUT',
+    authenticate: true,
+  },
 };

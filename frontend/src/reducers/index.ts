@@ -8,6 +8,7 @@ import { userReducer } from './User';
 import { templateReducer } from './EmailTemplate';
 import { proxyLoginReducer } from './ProxyLogin';
 import { homePageReducer } from './CMS';
+import { faqReducer } from "./Faq";
 
 export const mainReducer = handleActions(
   {
@@ -34,4 +35,5 @@ export const RootReducer: Reducer<IRootState, AnyAction> = combineReducers<
   TemplateReducer: templateReducer as any,
   ProxyLoginReducer: proxyLoginReducer as any,
   homePageReducer: homePageReducer as any,
+  faqReducer:faqReducer as any,
 });

@@ -8,6 +8,7 @@ export * from './EmailTemplate';
 export * from './Report';
 export * from './ProxyLogin';
 export * from './CMS';
+export * from './Faq';
 
 //
 export const redirectTo = createAction('REDIRET_TO');

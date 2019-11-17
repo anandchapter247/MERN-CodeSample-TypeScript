@@ -4,7 +4,11 @@ import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
-import { IAddFAQState } from "../../../../interfaces";
+import { IAddFAQState, IRootState } from "../../../../interfaces";
+import { FaqValidator } from "../../../../validator";
+import { Dispatch } from "redux";
+import { addFAQRequest } from "../../../../actions";
+import { connect } from "react-redux";
 
 class AddFaq extends Component<any, IAddFAQState>{
   constructor(props: any) {
@@ -36,6 +40,28 @@ class AddFaq extends Component<any, IAddFAQState>{
       answer:content
     });
   };
+  handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const {
+      question,
+      answer,
+      order,
+    } = this.state;
+    const data = {
+      question,
+      answer:answer ? draftToHtml(convertToRaw(answer.getCurrentContent())) : '',
+      order,
+    }
+    const { isValid, errors } = FaqValidator(data);
+    if (isValid) {
+      this.props.addFaq(data);
+    }else{
+      this.setState({
+        errors
+      });
+      return;
+    }
+  }
     render(){
       const {question,
       answer,
@@ -54,7 +80,7 @@ class AddFaq extends Component<any, IAddFAQState>{
               <Card.Body>
                 <div className='row'>
                   <div className='col-md-12  my-4'>
-                    <Form className='row'>
+                    <Form className='row' onSubmit={this.handleSubmit}>
                       <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Question<span className={'mandatory'}>*</span>
@@ -161,4 +187,19 @@ class AddFaq extends Component<any, IAddFAQState>{
     }
 }
 
-export default AddFaq;
+const mapStateToProps: any = (state: IRootState) => ({
+  homePageReducer: state.homePageReducer
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    addFaq: (data:any) => {
+      dispatch(addFAQRequest(data));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddFaq);
