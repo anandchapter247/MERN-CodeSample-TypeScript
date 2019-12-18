@@ -18,6 +18,7 @@ export interface IApiRoutes {
   UPDATE_USER: IApiRoutesValues;
   VIEW_USER: IApiRoutesValues;
   UPDATE_USER_STATUS: IApiRoutesValues;
+  DELETE_USER: IApiRoutesValues;
   ADD_TEMPLATE: IApiRoutesValues;
   UPDATE_TEMPLATE: IApiRoutesValues;
   GET_TEMPLATE: IApiRoutesValues;
@@ -25,7 +26,7 @@ export interface IApiRoutes {
 
   EXPORT_REPORT: IApiRoutesValues;
 
-    /**
+  /**
    * CMS Page
    */
 

@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import { UserModel, EmailTemplateModel } from '../models';
-import { generatePassword, encryptPassword, generateSalt, message } from '../common';
+import {
+  generatePassword,
+  encryptPassword,
+  generateSalt,
+  message,
+} from '../common';
 import { Document, Types } from 'mongoose';
 import excel from 'node-excel-export';
 import { validationResult } from 'express-validator';
@@ -44,20 +49,24 @@ const addUser = async (req: Request, res: Response): Promise<any> => {
     const result: any = await userData.save();
 
     // email template for registration
-    const availabelTemplate:any = await EmailTemplateModel.findOne({
+    const availabelTemplate: any = await EmailTemplateModel.findOne({
       templateName: {
         $regex: new RegExp('registration'.trim(), 'i'),
-      }
-    })
+      },
+    });
     if (availabelTemplate) {
       console.log('in iffff');
       const emailInstance: any = new Email(req);
-      await emailInstance.setTemplate(availabelTemplate.subject,availabelTemplate.htmlContent, {
-        firstName
-      });
+      await emailInstance.setTemplate(
+        availabelTemplate.subject,
+        availabelTemplate.htmlContent,
+        {
+          firstName,
+        },
+      );
       await emailInstance.sendEmail(email);
     }
-    
+
     return res.status(200).json({
       responseCode: 200,
       data: result,
@@ -182,7 +191,7 @@ const viewUser = async (req: Request, res: Response): Promise<any> => {
   try {
     const { query } = req;
     const { id }: string | any = query;
-    const result: Document | null | any = await UserModel.findById(id)
+    const result: Document | null | any = await UserModel.findById(id);
     if (result == null) {
       return res.status(404).json({
         responseCode: 404,
@@ -268,17 +277,18 @@ const updateUser = async (req: Request, res: Response): Promise<any> => {
 
 /**
 |--------------------------------------------------
-| Update Student Status(Active/Deactive)
+| Update single or multiple users Status(Active/Deactive)
 |--------------------------------------------------
 */
 
 const updateStatus = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { body } = req;
-    const { id, isActive } = body;
-    const result: Document = await UserModel.update(
+    const {
+      body: { isActive, ids },
+    } = req;
+    const result: Document = await UserModel.updateMany(
       {
-        _id: {$in:id},
+        _id: { $in: ids },
       },
       {
         $set: {
@@ -305,11 +315,40 @@ const updateStatus = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
+/**
+|--------------------------------------------------
+| Delete single or multiple users Status(Active/Deactive)
+|--------------------------------------------------
+*/
 
-export {
-  addUser,
-  getUsers,
-  viewUser,
-  updateUser,
-  updateStatus
-}
+const deleteUser = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const {
+      body: { ids },
+    } = req;
+    const result: Document = await UserModel.updateMany(
+      {
+        _id: { $in: ids },
+      },
+      {
+        $set: {
+          isDeleted: true,
+        },
+      },
+    );
+    return res.status(200).json({
+      responseCode: 200,
+      data: result,
+      message: 'User deleted successfully',
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
+    });
+  }
+};
+
+export { addUser, getUsers, viewUser, updateUser, updateStatus, deleteUser };

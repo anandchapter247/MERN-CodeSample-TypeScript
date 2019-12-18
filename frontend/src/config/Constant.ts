@@ -23,3 +23,5 @@ export const TemplateTypes = [
     value: 'Forget password',
   },
 ];
+
+export const pageLimit = 10;

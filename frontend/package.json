@@ -38,6 +38,7 @@
     "html-to-draftjs": "^1.4.0",
     "js-object-validation": "^1.0.16",
     "node-sass": "^4.12.0",
+    "query-string": "^6.9.0",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.9",
     "react-chartjs-2": "^2.8.0",

@@ -1,16 +1,32 @@
-import { createLogic } from "redux-logic";
-import { toast } from "react-toastify";
-import { ApiHelper } from "../helper/ApiHelper";
-import { ApiRoutes, AppRoutes } from "../config";
-import { UserActionTypes, showLoader, hideLoader, getUserSuccess, getUserFailed, addUserSuccess, addUserFailed, userInfoSuccess, userInfoFailed, redirectTo, updateUserSuccess, updateUserFailed, getUserRequest, userStatusSuccess, userStatusFailed } from "../actions";
-import { IRootState } from "../interfaces";
+import { createLogic } from 'redux-logic';
+import { toast } from 'react-toastify';
+import { ApiHelper } from '../helper/ApiHelper';
+import { ApiRoutes, AppRoutes, pageLimit } from '../config';
+import {
+  UserActionTypes,
+  showLoader,
+  hideLoader,
+  getUserSuccess,
+  getUserFailed,
+  addUserSuccess,
+  addUserFailed,
+  userInfoSuccess,
+  userInfoFailed,
+  redirectTo,
+  updateUserSuccess,
+  updateUserFailed,
+  getUserRequest,
+  userStatusSuccess,
+  userStatusFailed,
+} from '../actions';
+import { IRootState } from '../interfaces';
 
 let toastId: any = null;
 
 const getUsers = createLogic({
   type: UserActionTypes.GET_USER_REQUEST,
   async process(data, dispatch: any, done) {
-    console.log("******************");
+    console.log('******************');
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
       ApiRoutes.GET_USER.service,
@@ -18,16 +34,16 @@ const getUsers = createLogic({
       ApiRoutes.GET_USER.method,
       ApiRoutes.GET_USER.authenticate,
       undefined,
-      undefined
+      undefined,
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log("dfdsfdfds");
+      console.log('dfdsfdfds');
       dispatch(hideLoader());
       dispatch(
         getUserSuccess({
-          userData: response.data.data
-        })
+          userData: response.data.data,
+        }),
       );
       done();
     } else {
@@ -39,14 +55,14 @@ const getUsers = createLogic({
       dispatch(getUserFailed());
       done();
     }
-  }
+  },
 });
 
 const addUser = createLogic({
   type: UserActionTypes.ADD_USER_REQUEST,
   async process(data, dispatch: any, done) {
     const action: any = data.action;
-    console.log("******************");
+    console.log('******************');
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
       ApiRoutes.ADD_USER.service,
@@ -54,7 +70,7 @@ const addUser = createLogic({
       ApiRoutes.ADD_USER.method,
       ApiRoutes.ADD_USER.authenticate,
       undefined,
-      action.payload
+      action.payload,
     );
     console.log(response);
     if (response && !response.isError) {
@@ -64,12 +80,14 @@ const addUser = createLogic({
       dispatch(hideLoader());
       dispatch(
         addUserSuccess({
-          userData: response.data.data
-        })
+          userData: response.data.data,
+        }),
       );
-      dispatch(redirectTo({
-        path:AppRoutes.USER
-      }))
+      dispatch(
+        redirectTo({
+          path: AppRoutes.USER,
+        }),
+      );
       done();
     } else {
       console.log(response);
@@ -80,14 +98,14 @@ const addUser = createLogic({
       dispatch(addUserFailed());
       done();
     }
-  }
+  },
 });
 
 const updateUser = createLogic({
   type: UserActionTypes.UPDATE_USER_REQUEST,
   async process(data, dispatch: any, done) {
     const action: any = data.action;
-    console.log("******************");
+    console.log('******************');
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
       ApiRoutes.UPDATE_USER.service,
@@ -95,7 +113,7 @@ const updateUser = createLogic({
       ApiRoutes.UPDATE_USER.method,
       ApiRoutes.UPDATE_USER.authenticate,
       undefined,
-      action.payload
+      action.payload,
     );
     console.log(response);
     if (response && !response.isError) {
@@ -105,12 +123,14 @@ const updateUser = createLogic({
       dispatch(hideLoader());
       dispatch(
         updateUserSuccess({
-          userInfo: response.data.data
-        })
+          userInfo: response.data.data,
+        }),
       );
-      dispatch(redirectTo({
-        path:AppRoutes.USER
-      }))
+      dispatch(
+        redirectTo({
+          path: AppRoutes.USER,
+        }),
+      );
       done();
     } else {
       console.log(response);
@@ -121,13 +141,13 @@ const updateUser = createLogic({
       dispatch(updateUserFailed());
       done();
     }
-  }
+  },
 });
 
 const viewUser = createLogic({
   type: UserActionTypes.USER_INFO_REQUEST,
   async process(data, dispatch: any, done) {
-    console.log("******************");
+    console.log('******************');
     const action: any = data.action;
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
@@ -136,16 +156,16 @@ const viewUser = createLogic({
       ApiRoutes.VIEW_USER.method,
       ApiRoutes.VIEW_USER.authenticate,
       action.payload,
-      undefined
+      undefined,
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log("dfdsfdfds");
+      console.log('dfdsfdfds');
       dispatch(hideLoader());
       dispatch(
         userInfoSuccess({
-          userInfo: response.data.data
-        })
+          userInfo: response.data.data,
+        }),
       );
       done();
     } else {
@@ -157,9 +177,8 @@ const viewUser = createLogic({
       dispatch(userInfoFailed());
       done();
     }
-  }
+  },
 });
-
 
 /**
 |--------------------------------------------------
@@ -170,7 +189,7 @@ const viewUser = createLogic({
 const updateUserStatus = createLogic({
   type: UserActionTypes.UPDATE_USER_STATUS_REQUEST,
   async process(data, dispatch: any, done) {
-    const action: any = data.action
+    const action: any = data.action;
     toast.dismiss();
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
@@ -180,12 +199,12 @@ const updateUserStatus = createLogic({
       ApiRoutes.UPDATE_USER_STATUS.authenticate,
       undefined,
       action.payload,
-    )
+    );
     if (response && !response.isError) {
-      dispatch(hideLoader())
+      dispatch(hideLoader());
       if (!toast.isActive(toastId)) {
-        toastId = toast.success(response.messages[0])
-        dispatch(userStatusSuccess())
+        toastId = toast.success(response.messages[0]);
+        dispatch(userStatusSuccess());
       }
       const state: IRootState = data.getState() as IRootState;
       dispatch(
@@ -197,8 +216,7 @@ const updateUserStatus = createLogic({
         }),
       );
       dispatch(getUserRequest({ skip: 0, limit: 10 }));
-    }
-    else {
+    } else {
       if (!toast.isActive(toastId)) {
         toastId = toast.error(response.messages[0]);
       }
@@ -210,7 +228,47 @@ const updateUserStatus = createLogic({
       );
       done();
     }
-  }
-})
+  },
+});
 
-export const userLogics = [getUsers, addUser, viewUser, updateUser, updateUserStatus];
+const deleteUser = createLogic({
+  type: UserActionTypes.DELETE_USER_REQUEST,
+  async process(data, dispatch: any, done) {
+    const action: any = data.action;
+    toast.dismiss();
+    dispatch(showLoader());
+    const response = await new ApiHelper().FetchFromServer(
+      ApiRoutes.DELETE_USER.service,
+      ApiRoutes.DELETE_USER.url,
+      ApiRoutes.DELETE_USER.method,
+      ApiRoutes.DELETE_USER.authenticate,
+      undefined,
+      action.payload,
+    );
+    if (response && !response.isError) {
+      dispatch(hideLoader());
+      if (!toast.isActive(toastId)) {
+        toastId = toast.success(response.messages[0]);
+      }
+      dispatch(redirectTo({ path: AppRoutes.USER }));
+      let skip = pageLimit * (action.payload.page - 1);
+      dispatch(getUserRequest({ skip, limit: pageLimit }));
+      done();
+    } else {
+      if (!toast.isActive(toastId)) {
+        toastId = toast.error(response.messages[0]);
+      }
+      dispatch(hideLoader());
+      done();
+    }
+  },
+});
+
+export const userLogics = [
+  getUsers,
+  addUser,
+  viewUser,
+  updateUser,
+  updateUserStatus,
+  deleteUser,
+];

@@ -1,5 +1,5 @@
-import { IProxyLoginActionData } from "./Login";
-import { RouteComponentProps } from "react-router";
+import { IProxyLoginActionData } from './Login';
+import { RouteComponentProps } from 'react-router';
 
 export interface IUserData {
   firstName: string;
@@ -7,7 +7,7 @@ export interface IUserData {
   email: string;
   isActive: boolean;
   _id?: string;
-  createdAt?:any;
+  createdAt?: any;
 }
 
 export interface IUserModel {
@@ -22,33 +22,35 @@ export interface IUserState {
   currentPage: number;
   pageLimit: number;
   pageNeighbours: number;
-  selectedUser:any;
+  selectedUser: any;
 }
 
-export interface IUserProps extends RouteComponentProps{
+export interface IUserProps extends RouteComponentProps {
   userReducer?: IUserModel;
   getUsers: () => void;
-  updateUserStatus: (data:any) => void;
+  updateUserStatus: (data: any) => void;
+  deleteUser: (data: any) => void;
 }
 
-export interface IAddUserState{
-  firstName:string;
-  lastName:string;
-  email:string;
-  isEditable: boolean,
-  id: string,
+export interface IAddUserState {
+  firstName: string;
+  lastName: string;
+  email: string;
+  isEditable: boolean;
+  id: string;
   errors: {
-    firstName: string,
-    lastName: string,
-    email: string,
-  },
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
 }
 
-export interface IAddUserProps extends RouteComponentProps<{
-  id:string
-}>{
-  userReducer:IUserModel;
-  addUser:(data:any)=>void;
-  updateUser:(data:any)=>void;
-  viewUser:(data:any)=>void;
+export interface IAddUserProps
+  extends RouteComponentProps<{
+    id: string;
+  }> {
+  userReducer: IUserModel;
+  addUser: (data: any) => void;
+  updateUser: (data: any) => void;
+  viewUser: (data: any) => void;
 }

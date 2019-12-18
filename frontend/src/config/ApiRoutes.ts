@@ -64,6 +64,12 @@ export const ApiRoutes: IApiRoutes = {
     method: 'PUT',
     authenticate: true,
   },
+  DELETE_USER: {
+    service: '/user',
+    url: '/delete',
+    method: 'DELETE',
+    authenticate: true,
+  },
 
   // Email Template
   ADD_TEMPLATE: {
@@ -98,24 +104,24 @@ export const ApiRoutes: IApiRoutes = {
     authenticate: true,
   },
 
-    // Home Page
+  // Home Page
 
-    ADD_HOME_PAGE: {
-      service: '/homepage',
-      url: '/add',
-      method: 'POST',
-      authenticate: true,
-    },
-    VIEW_HOME_PAGE: {
-      service: '/homepage',
-      url: '/view-homepage',
-      method: 'GET',
-      authenticate: true,
-    },
-    UPDATE_HOME_PAGE: {
-      service: '/homepage',
-      url: '/update-homepage',
-      method: 'PUT',
-      authenticate: true,
-    },
+  ADD_HOME_PAGE: {
+    service: '/homepage',
+    url: '/add',
+    method: 'POST',
+    authenticate: true,
+  },
+  VIEW_HOME_PAGE: {
+    service: '/homepage',
+    url: '/view-homepage',
+    method: 'GET',
+    authenticate: true,
+  },
+  UPDATE_HOME_PAGE: {
+    service: '/homepage',
+    url: '/update-homepage',
+    method: 'PUT',
+    authenticate: true,
+  },
 };
