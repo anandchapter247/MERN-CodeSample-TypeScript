@@ -1,14 +1,13 @@
-import classNames from 'classnames';
 import React from 'react';
 import './Loader.scss';
 
 const Loader = () => {
   return (
-    <div className={classNames('loader-block')}>
-      <div className={classNames('loader')}>
-        <svg className={classNames('circular-loader')} viewBox='25 25 50 50'>
+    <div className={'loader-block'}>
+      <div className={'loader'}>
+        <svg className={'circular-loader'} viewBox='25 25 50 50'>
           <circle
-            className={classNames('loader-path')}
+            className={'loader-path'}
             cx='50'
             cy='50'
             r='20'

@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import { Button, Row, Col, Form, InputGroup } from "react-bootstrap";
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { Button, Row, Col, Form, InputGroup } from 'react-bootstrap';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import {
   IRootState,
   IChangePasswordState,
   IChangePasswordProps,
-  IChangePassword
-} from "../../../interfaces";
-import { changePasswordRequest } from "../../../actions";
-import { passwordValidator } from "../../../validator";
+  IChangePassword,
+} from '../../../interfaces';
+import { changePasswordRequest } from '../../../actions';
+import { passwordValidator } from '../../../validator';
 
 class ChangePassword extends Component<
   IChangePasswordProps,
@@ -18,15 +18,15 @@ class ChangePassword extends Component<
   constructor(props: IChangePasswordProps) {
     super(props);
     this.state = {
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-      errors: { oldPassword: "", newPassword: "", confirmPassword: "" }
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+      errors: { oldPassword: '', newPassword: '', confirmPassword: '' },
     };
   }
   componentDidUpdate = (prevProps: IChangePasswordProps) => {
-    console.log(prevProps, "*************");
-    console.log(this.props, "//////////////////");
+    console.log(prevProps, '*************');
+    console.log(this.props, '//////////////////');
     if (
       prevProps &&
       prevProps.changePasswordReducer &&
@@ -37,9 +37,9 @@ class ChangePassword extends Component<
         this.props.changePasswordReducer.isLoading
     ) {
       this.setState({
-        oldPassword: "",
-        newPassword: "",
-        confirmPassword: ""
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: '',
       });
     }
   };
@@ -50,8 +50,8 @@ class ChangePassword extends Component<
       [name]: value,
       errors: {
         ...this.state.errors,
-        [name]: ""
-      }
+        [name]: '',
+      },
     });
   };
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,7 +60,7 @@ class ChangePassword extends Component<
     const data = {
       oldPassword,
       newPassword,
-      confirmPassword
+      confirmPassword,
     };
     // To validate form fields
     const { isValid, errors } = passwordValidator(data);
@@ -68,7 +68,7 @@ class ChangePassword extends Component<
       await this.props.changePassword(data);
     } else {
       this.setState({
-        errors
+        errors,
       });
       return;
     }
@@ -78,58 +78,64 @@ class ChangePassword extends Component<
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group>
-          <Form.Label>
-            Old Password<span className={"mandatory"}>*</span>&nbsp;
-          </Form.Label>
           <InputGroup>
             <input
-              type={"password"}
-              name={"oldPassword"}
+              type={'password'}
+              name={'oldPassword'}
               value={oldPassword}
-              className={"form-control"}
-              placeholder={"Enter Old Password"}
+              className={'form-control floating-input'}
+              placeholder={' '}
               onChange={this.handleChange}
             />
+            <Form.Label
+              className={`floating-label ${oldPassword ? 'top-label' : ''}`}
+            >
+              Old Password<span className={'mandatory'}>*</span>&nbsp;
+            </Form.Label>
           </InputGroup>
-          <div className={"text-danger"}>{errors && errors.oldPassword}</div>
+          <div className={'text-danger'}>{errors && errors.oldPassword}</div>
         </Form.Group>
         <Form.Group>
-          <Form.Label>
-            New Password<span className={"mandatory"}>*</span>&nbsp;
-          </Form.Label>
           <InputGroup>
             <input
-              type={"password"}
-              name={"newPassword"}
+              type={'password'}
+              name={'newPassword'}
               value={newPassword}
-              className={"form-control"}
-              placeholder={"Enter New Password"}
+              className={'form-control floating-input'}
+              placeholder={' '}
               onChange={this.handleChange}
             />
+            <Form.Label
+              className={`floating-label ${newPassword ? 'top-label' : ''}`}
+            >
+              New Password<span className={'mandatory'}>*</span>&nbsp;
+            </Form.Label>
           </InputGroup>
-          <div className={"text-danger"}>{errors && errors.newPassword}</div>
+          <div className={'text-danger'}>{errors && errors.newPassword}</div>
         </Form.Group>
         <Form.Group>
-          <Form.Label>
-            Confirm Password<span className={"mandatory"}>*</span>&nbsp;
-          </Form.Label>
           <InputGroup>
             <input
-              type={"password"}
-              name={"confirmPassword"}
+              type={'password'}
+              name={'confirmPassword'}
               value={confirmPassword}
-              className={"form-control"}
-              placeholder={"Enter Confirm Password"}
+              className={'form-control floating-input'}
+              placeholder={' '}
               onChange={this.handleChange}
             />
+            <Form.Label
+              className={`floating-label ${confirmPassword ? 'top-label' : ''}`}
+            >
+              Confirm Password<span className={'mandatory'}>*</span>&nbsp;
+            </Form.Label>
           </InputGroup>
-          <div className={"text-danger"}>
+          <div className={'text-danger'}>
             {errors && errors.confirmPassword}
           </div>
         </Form.Group>
         <Row>
-          <Col xs="6">
-            <Button type={"submit"} className="px-4 btn-submit">
+          <Col xs='6'>
+            <Button type={'submit'} className='px-4 btn-submit'>
               Update Password
             </Button>
           </Col>
@@ -141,18 +147,15 @@ class ChangePassword extends Component<
 
 const mapStateToProps: any = (state: IRootState) => ({
   profileInfoReducer: state.profileInfoReducer,
-  changePasswordReducer: state.changePasswordReducer
+  changePasswordReducer: state.changePasswordReducer,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     changePassword: (data: IChangePassword) => {
       dispatch(changePasswordRequest(data));
-    }
+    },
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChangePassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangePassword);

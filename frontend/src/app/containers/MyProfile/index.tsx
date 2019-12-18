@@ -1,41 +1,41 @@
-import React, { Component } from "react";
-import { Button, Card, Row, Col, Form, InputGroup } from "react-bootstrap";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { Button, Card, Row, Col, Form, InputGroup } from 'react-bootstrap';
+import { connect } from 'react-redux';
 import {
   IRootState,
   IProfileState,
   IProfileProps,
-  IProfileInfo
-} from "../../../interfaces";
-import { profileupdateRequest } from "../../../actions";
-import { Dispatch } from "redux";
-import { profileValidator } from "../../../validator/Profile";
-import ChangePassword from "../ChangePassword";
+  IProfileInfo,
+} from '../../../interfaces';
+import { profileupdateRequest } from '../../../actions';
+import { Dispatch } from 'redux';
+import { profileValidator } from '../../../validator/Profile';
+import ChangePassword from '../ChangePassword';
 
 class MyProfile extends Component<IProfileProps, IProfileState> {
   constructor(props: IProfileProps) {
     super(props);
     this.state = {
-      email: "",
-      firstName: "",
-      lastName: "",
+      email: '',
+      firstName: '',
+      lastName: '',
       errors: {
-        email: "",
-        firstName: "",
-        lastName: ""
-      }
+        email: '',
+        firstName: '',
+        lastName: '',
+      },
     };
   }
   componentDidMount = () => {
     const { profileInfoReducer } = this.props;
     if (profileInfoReducer) {
       const { profileInfo } = profileInfoReducer;
-      console.log("///////////////////////");
+      console.log('///////////////////////');
       const { email, firstName, lastName } = profileInfo;
       this.setState({
         email,
         firstName,
-        lastName
+        lastName,
       });
     }
   };
@@ -50,11 +50,11 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
         profileInfoReducer.profileInfo
     ) {
       const { email, firstName, lastName } = profileInfoReducer.profileInfo;
-      console.log("///////////////////////");
+      console.log('///////////////////////');
       this.setState({
         email,
         firstName,
-        lastName
+        lastName,
       });
     }
   };
@@ -62,7 +62,7 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
     const { name, value } = event.target;
     this.setState({
       ...this.state,
-      [name]: value
+      [name]: value,
     });
   };
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +71,7 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
     const data = {
       email,
       firstName,
-      lastName
+      lastName,
     };
     // To validate form fields
     const { isValid, errors } = profileValidator(data);
@@ -79,87 +79,97 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
       this.props.updateProfile(data);
     } else {
       this.setState({
-        errors
+        errors,
       });
       return;
     }
   };
   render() {
     console.log(this.props.profileInfoReducer);
-    console.log("this.props.profileInfoReducer*****************");
+    console.log('this.props.profileInfoReducer*****************');
     const { firstName, lastName, email, errors } = this.state;
-    console.log(firstName, "*********");
+    console.log(firstName, '*********');
     return (
-      <div className="cr-page px-3 min-height650 my-profile-section">
+      <div className='cr-page px-3 min-height650 my-profile-section'>
         <Row>
-          <Col xs="6" sm="6" lg="6">
+          <Col xs='6' sm='6' lg='6'>
             <Card>
               <Card.Header>
                 <h4>
-                  <i className="fa fa-edit" />
+                  <i className='fa fa-edit' />
                   &nbsp;My Profile
                 </h4>
               </Card.Header>
               <Card.Body>
                 <Form onSubmit={this.handleSubmit}>
                   <Form.Group>
-                    <Form.Label>
-                      First Name<span className={"mandatory"}>*</span>&nbsp;
-                    </Form.Label>
                     <InputGroup>
                       <input
-                        type={"text"}
-                        name={"firstName"}
+                        type={'text'}
+                        name={'firstName'}
                         value={firstName}
-                        className={"form-control"}
-                        placeholder={"Enter First Name"}
+                        className={'form-control floating-input'}
+                        placeholder={' '}
                         onChange={this.handleChange}
                       />
+                      <Form.Label
+                        className={`floating-label ${
+                          firstName ? 'top-label' : ''
+                        }`}
+                      >
+                        First Name<span className={'mandatory'}>*</span>&nbsp;
+                      </Form.Label>
                     </InputGroup>
-                    <div className={"text-danger"}>
+                    <div className={'text-danger'}>
                       {errors && errors.firstName}
                     </div>
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      Last Name<span className={"mandatory"}>*</span>&nbsp;
-                    </Form.Label>
                     <InputGroup>
                       <input
-                        type={"text"}
-                        name={"lastName"}
+                        type={'text'}
+                        name={'lastName'}
                         value={lastName}
-                        className={"form-control"}
-                        placeholder={"Enter Last Name"}
+                        className={'form-control floating-input'}
+                        placeholder={' '}
                         onChange={this.handleChange}
                       />
+                      <Form.Label
+                        className={`floating-label ${
+                          lastName ? 'top-label' : ''
+                        }`}
+                      >
+                        Last Name<span className={'mandatory'}>*</span>&nbsp;
+                      </Form.Label>
                     </InputGroup>
-                    <div className={"text-danger"}>
+                    <div className={'text-danger'}>
                       {errors && errors.lastName}
                     </div>
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>
-                      Email<span className={"mandatory"}>*</span>&nbsp;
-                    </Form.Label>
                     <InputGroup>
                       <input
-                        type={"text"}
-                        name={"email"}
+                        type={'text'}
+                        name={'email'}
                         value={email}
-                        className={"form-control"}
-                        placeholder={"Enter Email"}
+                        className={'form-control floating-input'}
+                        placeholder={' '}
                         onChange={this.handleChange}
                         disabled={true}
                       />
+                      <Form.Label
+                        className={`floating-label ${email ? 'top-label' : ''}`}
+                      >
+                        Email<span className={'mandatory'}>*</span>&nbsp;
+                      </Form.Label>
                     </InputGroup>
-                    <div className={"text-danger"}>
+                    <div className={'text-danger'}>
                       {errors && errors.email}
                     </div>
                   </Form.Group>
                   <Row>
-                    <Col xs="6">
-                      <Button type={"submit"} className="px-4 btn-submit">
+                    <Col xs='6'>
+                      <Button type={'submit'} className='px-4 btn-submit'>
                         Update
                       </Button>
                     </Col>
@@ -168,11 +178,11 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
               </Card.Body>
             </Card>
           </Col>
-          <Col xs="6" sm="6" lg="6">
+          <Col xs='6' sm='6' lg='6'>
             <Card>
               <Card.Header>
                 <h4>
-                  <i className="fa fa-edit" />
+                  <i className='fa fa-edit' />
                   &nbsp;Change Password
                 </h4>
               </Card.Header>
@@ -188,18 +198,15 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
 }
 
 const mapStateToProps: any = (state: IRootState) => ({
-  profileInfoReducer: state.profileInfoReducer
+  profileInfoReducer: state.profileInfoReducer,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     updateProfile: (data: IProfileInfo) => {
       dispatch(profileupdateRequest(data));
-    }
+    },
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MyProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

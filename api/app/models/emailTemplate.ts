@@ -4,6 +4,10 @@ const EmailTemplateSchema: Schema = new Schema({
   templateName: {
     type: String,
   },
+  templateType: {
+    type: String,
+    enum: ['Registration', 'Login', 'Forget password'],
+  },
   subject: {
     type: String,
   },

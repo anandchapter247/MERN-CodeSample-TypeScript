@@ -1,7 +1,7 @@
-import Axios, { AxiosRequestConfig, AxiosResponse, Method } from "axios";
-import { API_ENDPOINT } from "../config/AppConfig";
-import { ErrorHandlerHelper } from "./ErrorHandlerHelper";
-import { SuccessHandlerHelper } from "./SuccessHandlerHelper";
+import Axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
+import { API_ENDPOINT } from '../config/AppConfig';
+import { ErrorHandlerHelper } from './ErrorHandlerHelper';
+import { SuccessHandlerHelper } from './SuccessHandlerHelper';
 
 /**
  * ApiHelper Class - For making Api Requests
@@ -12,7 +12,7 @@ export class ApiHelper {
 
   constructor() {
     this._portalGateway = API_ENDPOINT;
-    this._apiVersion = "";
+    this._apiVersion = '';
   }
   setHost = (host: string) => {
     this._portalGateway = host;
@@ -37,26 +37,26 @@ export class ApiHelper {
     authenticated: boolean = false,
     queryOptions?: string,
     body?: any,
-    responseType?: any
+    responseType?: any,
   ) {
     let options: AxiosRequestConfig = { method: method };
     let url: string = this._apiVersion + service + endpoint;
-    options.headers = { "Content-Type": "application/json" };
-    if (responseType === "blob") {
-      options.responseType = "blob";
+    options.headers = { 'Content-Type': 'application/json' };
+    if (responseType === 'blob') {
+      options.responseType = 'blob';
     }
     if (authenticated) {
-      const storageSession = localStorage.getItem("token");
+      const storageSession = localStorage.getItem('token');
       options.headers.Authorization = storageSession;
     }
     // html query for "GET", json body for others.
-    if (queryOptions && typeof queryOptions === "object") {
+    if (queryOptions && typeof queryOptions === 'object') {
       let queryParams = [] as string[];
       Object.keys(queryOptions).map(key => {
         queryParams.push(`${key}=${(queryOptions as any)[key]}`);
         return key;
       });
-      url += `?${queryParams.join("&")}`;
+      url += `?${queryParams.join('&')}`;
     }
 
     if (body) {
@@ -65,27 +65,27 @@ export class ApiHelper {
     try {
       let response: AxiosResponse<any> = await Axios({
         ...options,
-        url: `${this._portalGateway}${url}`
+        url: `${this._portalGateway}${url}`,
       });
 
       if (response.status < 200 || response.status >= 300) {
         let errorObject: any = {
           code: response.status,
-          response: response.data
+          response: response.data,
         };
 
         throw errorObject;
       }
       const data: SuccessHandlerHelper = new SuccessHandlerHelper(
-        response.data
+        response.data,
       );
       return data.data;
     } catch (err) {
       if (Axios.isCancel(err)) {
-        console.log("%s Req Cancelled", err);
+        console.log('%s Req Cancelled', err);
       }
       const errorHelper: ErrorHandlerHelper = new ErrorHandlerHelper(
-        err.response
+        err.response,
       );
       return errorHelper.error;
     }
@@ -96,7 +96,7 @@ export class ApiHelper {
     service: string,
     endpoint: string,
     body: any,
-    jsonData: string[] = []
+    jsonData: string[] = [],
   ) => {
     let fd = new FormData();
 
@@ -104,14 +104,14 @@ export class ApiHelper {
       if (body.hasOwnProperty(k)) {
         const element = body[k];
         if (
-          k === "characteristic" ||
-          k === "audio" ||
-          k === "video" ||
-          k === "removedAttachments" ||
-          k === "courseId" ||
-          k === "moduleId" ||
-          k === "organizationId" ||
-          k === "text" ||
+          k === 'characteristic' ||
+          k === 'audio' ||
+          k === 'video' ||
+          k === 'removedAttachments' ||
+          k === 'courseId' ||
+          k === 'moduleId' ||
+          k === 'organizationId' ||
+          k === 'text' ||
           jsonData.indexOf(k) > -1
         ) {
           fd.append(k, JSON.stringify(element));
@@ -121,9 +121,9 @@ export class ApiHelper {
       }
     }
     let url: string = this._apiVersion + service + endpoint;
-    let options: AxiosRequestConfig = { method: "POST" };
+    let options: AxiosRequestConfig = { method: 'POST' };
     options.headers = {};
-    const storageSession = localStorage.getItem("token");
+    const storageSession = localStorage.getItem('token');
     options.headers.Authorization = storageSession;
 
     try {
@@ -131,27 +131,27 @@ export class ApiHelper {
         `${this._portalGateway}${url}`,
         fd,
         {
-          headers: options.headers
-        }
+          headers: options.headers,
+        },
       );
 
       if (response.status < 200 || response.status >= 300) {
         let errorObject: any = {
           code: response.status,
-          response: response.data
+          response: response.data,
         };
 
         throw errorObject;
       }
       const data: SuccessHandlerHelper = new SuccessHandlerHelper(
-        response.data
+        response.data,
       );
       return data.data;
     } catch (err) {
       if (Axios.isCancel(err)) {
       }
       const errorHelper: ErrorHandlerHelper = new ErrorHandlerHelper(
-        err.response
+        err.response,
       );
       return errorHelper.error;
     }

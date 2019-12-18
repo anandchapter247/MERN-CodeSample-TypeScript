@@ -48,6 +48,7 @@ export const templateReducer = handleActions<any, any>(
     [TemplateActionTypes.VIEW_TEMPLATE_REQUEST]: (state, action) => ({
       ...state,
       isLoading: true,
+      templateInfo: '',
     }),
     [TemplateActionTypes.VIEW_TEMPLATE_SUCCESS]: (state, action) => ({
       ...state,

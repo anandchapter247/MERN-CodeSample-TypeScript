@@ -1,22 +1,40 @@
 import React, { Component } from 'react';
-import { Form, InputGroup, Row, Col, Button } from 'react-bootstrap';
+import { Form, InputGroup, Row, Col, Button, Card } from 'react-bootstrap';
 import EmailEditor from 'react-email-editor';
-import { ITemplateState, IRootState, ITemplateProps } from '../../../interfaces';
+import Select from 'react-select';
+import {
+  ITemplateState,
+  IRootState,
+  ITemplateProps,
+} from '../../../interfaces';
 import { Dispatch } from 'redux';
-import { addTemplateRequest, viewTemplateRequest, updateTemplateRequest } from '../../../actions';
+import {
+  addTemplateRequest,
+  viewTemplateRequest,
+  updateTemplateRequest,
+} from '../../../actions';
 import { connect } from 'react-redux';
+import { TemplateTypes } from '../../../config';
 
 class AddTemplate extends Component<ITemplateProps, ITemplateState> {
   editor: any;
+  isEditorLoaded: boolean;
   constructor(props: ITemplateProps) {
     super(props);
     this.editor = null;
+    this.isEditorLoaded = false;
     this.state = {
       name: '',
       subject: '',
       content: '',
       isEditable: false,
-      id:''
+      id: '',
+      errors: {
+        name: '',
+        subject: '',
+        content: '',
+        type: '',
+      },
     };
   }
   componentDidMount = () => {
@@ -39,13 +57,20 @@ class AddTemplate extends Component<ITemplateProps, ITemplateState> {
       const { templateInfo } = this.props.templateReducer;
       const { templateName, subject, designContent, _id } = templateInfo;
       const { isEditable } = this.state;
-      if (isEditable) {
-        this.setState({
-          name: templateName,
-          subject,
-          content: designContent,
-          id:_id
-        },() => this.onLoad());
+      if (isEditable && designContent) {
+        this.setState(
+          {
+            name: templateName,
+            subject,
+            content: designContent,
+            id: _id,
+          },
+          () => {
+            if (this.editor && this.isEditorLoaded) {
+              this.onLoad();
+            }
+          },
+        );
       }
     }
   };
@@ -56,14 +81,19 @@ class AddTemplate extends Component<ITemplateProps, ITemplateState> {
       [name]: value,
     });
   };
+  handleSelect = (selectedOption: any) => {
+    this.setState({
+      type: selectedOption,
+    });
+  };
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { name, subject, isEditable, id } = this.state;
+    const { name, type, subject, isEditable, id } = this.state;
     await this.editor.exportHtml(async (data: any) => {
       const { design, html } = data;
-      console.log('exportHtml', html, design);
       const templateData: any = {
         templateName: name,
+        templateType: type ? type.value : '',
         subject,
         htmlContent: html,
         designContent: design,
@@ -71,70 +101,124 @@ class AddTemplate extends Component<ITemplateProps, ITemplateState> {
       this.setState({
         content: design,
       });
-      console.log(templateData);
       if (isEditable) {
-        this.props.updateTemplate({...templateData, id})
-      }else{
+        this.props.updateTemplate({ ...templateData, id });
+      } else {
         this.props.addTemplate(templateData);
-      }     
+      }
     });
   };
   onLoad = () => {
+    this.isEditorLoaded = true;
+    this.loadTemplate();
+  };
+  loadTemplate = () => {
     const { content } = this.state; /* DESIGN JSON GOES HERE */
-    if (!this.editor) return;
-    this.editor.loadDesign(content);
+    if (!this.isEditorLoaded || !this.editor) return;
+    else {
+      this.editor.loadDesign(content);
+    }
   };
   render() {
-    const { name, subject, isEditable } = this.state;
+    const { name, type, subject, errors, isEditable } = this.state;
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group>
-          <Form.Label>
-            Template Name<span className={'mandatory'}>*</span>&nbsp;
-          </Form.Label>
-          <InputGroup>
-            <input
-              type={'text'}
-              name={'name'}
-              value={name}
-              className={'form-control'}
-              placeholder={'Enter Email Subject'}
-              onChange={this.handleChange}
-            />
-          </InputGroup>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>
-            Template Subject<span className={'mandatory'}>*</span>&nbsp;
-          </Form.Label>
-          <InputGroup>
-            <input
-              type={'text'}
-              name={'subject'}
-              value={subject}
-              className={'form-control'}
-              placeholder={'Enter Email Subject'}
-              onChange={this.handleChange}
-            />
-          </InputGroup>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>
-            Email Template Body<span className={'mandatory'}>*</span>&nbsp;
-          </Form.Label>
-          <EmailEditor
-            ref={editor => (this.editor = editor)}
-            onLoad={this.onLoad}
-          />
-        </Form.Group>
-        <Row>
-          <Col xs='6'>
-            <Button type={'submit'} className='px-4 btn-submit'>
-              {isEditable ? 'Update' :'Save' }
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+      <Card>
+        <Card.Header>
+          <h4>
+            <i className='icon-note' />
+            &nbsp;{!isEditable ? 'Add' : 'Update'} Template
+          </h4>
+        </Card.Header>
+        <Card.Body>
+          <div className='row'>
+            <div className='col-md-12 my-4 lesson-form'>
+              <Form onSubmit={this.handleSubmit} className='row'>
+                <Form.Group className={'col-sm-6'}>
+                  <InputGroup>
+                    <input
+                      type={'text'}
+                      name={'name'}
+                      value={name}
+                      className={'form-control floating-input'}
+                      placeholder={' '}
+                      onChange={this.handleChange}
+                    />
+                    <Form.Label
+                      className={`floating-label ${name ? 'top-label' : ''}`}
+                    >
+                      Template Name<span className={'mandatory'}>*</span>&nbsp;
+                    </Form.Label>
+                    {errors && errors.name ? (
+                      <div className={'text-danger error-text'}>
+                        {errors.name}
+                      </div>
+                    ) : null}
+                  </InputGroup>
+                </Form.Group>
+                <Form.Group
+                  controlId='exampleForm.ControlSelect1'
+                  className='mb-0 col-md-6 margin-n'
+                >
+                  <Form.Label className={'blue-label font-weight-bold'}>
+                    Template Type
+                  </Form.Label>
+                  <Select
+                    placeholder='Select skill tag'
+                    value={type}
+                    onChange={this.handleSelect}
+                    options={TemplateTypes}
+                  />
+                  {errors && errors.type ? (
+                    <div className={'text-danger error-text'}>
+                      {errors.type}
+                    </div>
+                  ) : null}
+                </Form.Group>
+                <Form.Group className={'col-md-12'}>
+                  <InputGroup>
+                    <input
+                      type={'text'}
+                      name={'subject'}
+                      value={subject}
+                      className={'form-control floating-input'}
+                      placeholder={' '}
+                      onChange={this.handleChange}
+                    />
+                    <Form.Label
+                      className={`floating-label ${subject ? 'top-label' : ''}`}
+                    >
+                      Template Subject<span className={'mandatory'}>*</span>
+                      &nbsp;
+                    </Form.Label>
+                    {errors && errors.subject ? (
+                      <div className={'text-danger error-text'}>
+                        {errors.subject}
+                      </div>
+                    ) : null}
+                  </InputGroup>
+                </Form.Group>
+                <Form.Group className={'col-md-12'}>
+                  <Form.Label>
+                    Email Template Body<span className={'mandatory'}>*</span>
+                    &nbsp;
+                  </Form.Label>
+                  <EmailEditor
+                    ref={editor => (this.editor = editor)}
+                    onLoad={this.onLoad}
+                  />
+                </Form.Group>
+                <Row>
+                  <Col xs='6'>
+                    <Button type={'submit'} className='px-4 btn-submit'>
+                      {isEditable ? 'Update' : 'Save'}
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+          </div>
+        </Card.Body>
+      </Card>
     );
   }
 }
@@ -157,7 +241,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddTemplate);
+export default connect(mapStateToProps, mapDispatchToProps)(AddTemplate);

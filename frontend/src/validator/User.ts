@@ -1,30 +1,30 @@
-import Validator, { ValidationTypes } from 'js-object-validation';
+import Validator from 'js-object-validation';
 import { message } from '../app/common';
 
 export const userValidator = (data: any) => {
   const validations = {
     firstName: {
-      [ValidationTypes.REQUIRED]: true,
+      required: true,
     },
     lastName: {
-      [ValidationTypes.REQUIRED]: true,
+      required: true,
     },
     email: {
-      [ValidationTypes.REQUIRED]: true,
-      [ValidationTypes.EMAIL]: true,
+      required: true,
+      email: true,
     },
   };
   // Error messages
   const messages = {
     firstName: {
-      [ValidationTypes.REQUIRED]: message.RequiredFirstName,
+      required: message.RequiredFirstName,
     },
     lastName: {
-      [ValidationTypes.REQUIRED]: message.RequiredLastName,
+      required: message.RequiredLastName,
     },
     email: {
-      [ValidationTypes.REQUIRED]: message.RequiredEmail,
-      [ValidationTypes.EMAIL]: message.InvalidEmail,
+      required: message.RequiredEmail,
+      email: message.InvalidEmail,
     },
   };
 

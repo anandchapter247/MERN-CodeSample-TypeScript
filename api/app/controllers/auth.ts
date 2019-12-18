@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { UserModel, AdminModel, EmailTemplateModel } from "../models";
+import { Request, Response } from 'express';
+import { UserModel, AdminModel, EmailTemplateModel } from '../models';
 import {
   encryptPassword,
   comparePassword,
@@ -9,13 +9,13 @@ import {
   Email,
   encrypt,
   decrypt,
-  getIpAddress
-} from "../common";
-import { sign as JWTSign } from "jsonwebtoken";
-import { Document } from "mongoose";
-import { webURL } from "../config";
-import { message } from "../common/messages";
-const { validationResult } = require("express-validator/check");
+  getIpAddress,
+} from '../common';
+import { sign as JWTSign } from 'jsonwebtoken';
+import { Document } from 'mongoose';
+import { webURL } from '../config';
+import { message } from '../common/messages';
+const { validationResult } = require('express-validator/check');
 
 /**
  * @api {post} /login  Admin Login
@@ -41,27 +41,27 @@ const login = async (req: Request, res: Response): Promise<any> => {
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: ValidationFormatter(errors.mapped()),
-      success: false
+      success: false,
     });
   }
   try {
     const { body } = req;
     const { email, password } = body;
     const result: Document | null | any = await AdminModel.findOne({
-      email: email
+      email: email,
     });
     if (result == null) {
       throw {
         code: 404,
         message: message.emailNotFound,
-        success: false
+        success: false,
       };
     }
     if (!comparePassword(password, result.password)) {
       throw {
         code: 400,
-        message: "Password did not match",
-        success: false
+        message: 'Password did not match',
+        success: false,
       };
     }
     const token = JWTSign(
@@ -70,26 +70,26 @@ const login = async (req: Request, res: Response): Promise<any> => {
         randomKey: generateSalt(8),
         email: email,
         firstName: result.firstName,
-        lastName: result.lastName
+        lastName: result.lastName,
       },
       JWTSecrete,
       {
-        expiresIn: 86400
-      }
+        expiresIn: 86400,
+      },
     );
     return res.status(200).json({
       responseCode: 200,
-      message: "Logged in Successfully",
+      message: 'Logged in Successfully',
       data: result,
-      token: token
+      token: token,
     });
   } catch (error) {
     console.log(error);
     const code = error.code ? error.code : 500;
     res.status(code).json({
       code: code,
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -102,24 +102,24 @@ const adminDetails = async (req: Request, res: Response): Promise<any> => {
     const { currentUser } = req;
     if (currentUser) {
       const result = await AdminModel.findById(currentUser.id);
-      console.log(result, "+++++++++++");
+      console.log(result, '+++++++++++');
 
       return res.status(200).json({
         responseCode: 200,
         data: result,
-        success: true
+        success: true,
       });
     } else {
       return res.status(404).json({
         responseCode: 404,
-        message: "User not found.",
-        success: true
+        message: 'User not found.',
+        success: true,
       });
     }
   } catch (error) {
     res.status(500).json({
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -132,7 +132,7 @@ const adminProfile = async (req: Request, res: Response): Promise<any> => {
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: ValidationFormatter(errors.mapped()),
-      success: false
+      success: false,
     });
   }
   try {
@@ -141,45 +141,45 @@ const adminProfile = async (req: Request, res: Response): Promise<any> => {
       const users = await AdminModel.find({
         email: body.email,
         _id: {
-          $ne: currentUser.id
-        }
+          $ne: currentUser.id,
+        },
       });
       if (users.length > 0) {
         return res.status(401).json({
           message: message.emailExist,
-          success: false
+          success: false,
         });
       }
       const result = await UserModel.update(
         {
-          _id: currentUser.id
+          _id: currentUser.id,
         },
         {
           $set: {
             firstName: body.firstName,
             lastName: body.lastName,
-            email: body.email
-          }
-        }
+            email: body.email,
+          },
+        },
       );
       return res.status(200).json({
         responseCode: 200,
-        message: "Admin profile updated successfully",
+        message: 'Admin profile updated successfully',
         data: result,
-        success: true
+        success: true,
       });
     } else {
       return res.status(404).json({
         responseCode: 404,
-        message: "User not found",
-        success: false
+        message: 'User not found',
+        success: false,
       });
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -189,25 +189,25 @@ const adminProfile = async (req: Request, res: Response): Promise<any> => {
  */
 const adminChangePassword = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<any> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: ValidationFormatter(errors.mapped()),
-      success: false
+      success: false,
     });
   }
   try {
     const { body, currentUser } = req;
     const users: Document | null | any = await AdminModel.findOne({
-      _id: currentUser ? currentUser.id : undefined
+      _id: currentUser ? currentUser.id : undefined,
     });
     if (!comparePassword(body.oldPassword, users.password)) {
       throw {
         code: 400,
-        message: "Old Password did not match.",
-        success: false
+        message: 'Old Password did not match.',
+        success: false,
       };
     }
     const salt = generateSalt();
@@ -215,33 +215,33 @@ const adminChangePassword = async (
     if (currentUser) {
       const result = await AdminModel.update(
         {
-          _id: currentUser.id
+          _id: currentUser.id,
         },
         {
           $set: {
             password: body.newPassword,
-            salt: salt
-          }
-        }
+            salt: salt,
+          },
+        },
       );
       return res.status(200).json({
         responseCode: 200,
-        message: "Password updated successfully.",
+        message: 'Password updated successfully.',
         data: result,
-        success: true
+        success: true,
       });
     } else {
       return res.status(404).json({
         responseCode: 404,
-        message: "User not found",
-        success: false
+        message: 'User not found',
+        success: false,
       });
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -270,7 +270,7 @@ const signup = async (req: Request, res: Response): Promise<any> => {
     }
 
     const salt: string = generateSalt(10);
-    const encryptedPassword:string = encryptPassword(password, salt);
+    const encryptedPassword: string = encryptPassword(password, salt);
     const data: object = {
       firstName,
       lastName,
@@ -281,17 +281,18 @@ const signup = async (req: Request, res: Response): Promise<any> => {
     const result: any = await studentData.save();
 
     // email template for registration
-    const availabelTemplate:any = await EmailTemplateModel.findOne({
-      templateName: {
-        $regex: new RegExp('registration'.trim(), 'i'),
-      }
-    })
+    const availabelTemplate: any = await EmailTemplateModel.findOne({
+      templateName: 'Registration',
+    });
     if (availabelTemplate) {
-      console.log('in iffff');
       const emailInstance: any = new Email(req);
-      await emailInstance.setTemplate(availabelTemplate.subject,availabelTemplate.htmlContent, {
-        firstName
-      });
+      await emailInstance.setTemplate(
+        availabelTemplate.subject,
+        availabelTemplate.htmlContent,
+        {
+          firstName,
+        },
+      );
       await emailInstance.sendEmail(email);
     }
     return res.status(200).json({
@@ -316,7 +317,7 @@ const userLogin = async (req: Request, res: Response): Promise<any> => {
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: ValidationFormatter(errors.mapped()),
-      success: false
+      success: false,
     });
   }
   try {
@@ -324,32 +325,32 @@ const userLogin = async (req: Request, res: Response): Promise<any> => {
     const { email, password } = body;
     const result: Document | null | any = await UserModel.findOne({
       email: email,
-      isDeleted: false
+      isDeleted: false,
     });
     if (result == null) {
       throw {
         code: 404,
-        message: "Email address not found",
-        success: false
+        message: 'Email address not found',
+        success: false,
       };
     }
     if (!result.isActive) {
       throw {
         code: 400,
-        message: "Account has been deactivated by super admin.",
-        success: false
+        message: 'Account has been deactivated by super admin.',
+        success: false,
       };
     }
     if (!comparePassword(password, result.password)) {
       throw {
         code: 400,
-        message: "Password did not match",
-        success: false
+        message: 'Password did not match',
+        success: false,
       };
     }
     result.set({
       loggedInIp: getIpAddress(req),
-      loginToken: generateSalt(20)
+      loginToken: generateSalt(20),
     });
     const tokenData = await result.save();
     const token = JWTSign(
@@ -359,40 +360,40 @@ const userLogin = async (req: Request, res: Response): Promise<any> => {
         email: email,
         firstName: result.firstName,
         lastName: result.lastName,
-        phoneNumber: result.phoneNumber
+        phoneNumber: result.phoneNumber,
         // courseId: result.courseId,
       },
       JWTSecrete,
       {
-        expiresIn: 86400
-      }
+        expiresIn: 86400,
+      },
     );
     const users: Document = await UserModel.update(
       {
         _id: result.id,
-        email: result.email
+        email: result.email,
       },
       {
         $set: {
-          lastLogin: new Date(Date.now())
-        }
-      }
+          lastLogin: new Date(Date.now()),
+        },
+      },
     );
-    console.log("curent", req.currentUser);
+    console.log('curent', req.currentUser);
 
     return res.status(200).json({
       responseCode: 200,
-      message: "Loggedin Successfully",
+      message: 'Loggedin Successfully',
       data: result,
-      token: token
+      token: token,
     });
   } catch (error) {
     console.log(error);
     const code = error.code ? error.code : 500;
     res.status(code).json({
       code: code,
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -405,33 +406,49 @@ const forgotPassword = async (req: Request, res: Response): Promise<any> => {
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: ValidationFormatter(errors.mapped()),
-      success: false
+      success: false,
     });
   }
   try {
     const { body } = req;
     const result: any = await UserModel.findOne({
       email: body.email,
-      isDeleted: false
+      isDeleted: false,
     });
     if (result === null) {
       throw {
         code: 400,
-        message: message.emailNotFound
+        message: message.emailNotFound,
       };
     }
-    body.email = encrypt(result.email);
+    const { email, firstName } = result;
+    body.email = encrypt(email);
     body.id = encrypt(result._id);
-    body.verifyToken = encrypt(result.email + result.id);
+    body.verifyToken = encrypt(email + result.id);
     const updateToken: Document = await UserModel.update(
       {
-        email: result.email,
-        _id: result._id
+        email: email,
+        _id: result._id,
       },
       {
-        verifyToken: body.verifyToken
-      }
+        verifyToken: body.verifyToken,
+      },
     );
+    // email template for forgot password
+    const availabelTemplate: any = await EmailTemplateModel.findOne({
+      templateType: 'Forget password',
+    });
+    if (availabelTemplate) {
+      const emailInstance: any = new Email(req);
+      await emailInstance.setTemplate(
+        availabelTemplate.subject,
+        availabelTemplate.htmlContent,
+        {
+          firstName,
+        },
+      );
+      await emailInstance.sendEmail(email);
+    }
     // const email = new Email(req);
     // await email.setTemplate("FORGOTPASSWORD", {
     //   firstName: result.firstName,
@@ -447,7 +464,7 @@ const forgotPassword = async (req: Request, res: Response): Promise<any> => {
     return res.status(200).json({
       message: message.emaiSent,
       data: updateToken,
-      success: true
+      success: true,
     });
 
     // Fetch email template from db
@@ -468,8 +485,8 @@ const forgotPassword = async (req: Request, res: Response): Promise<any> => {
     const code = error.code ? error.code : 500;
     res.status(code).json({
       code: code,
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -486,26 +503,26 @@ const linkVerified = async (req: Request, res: Response): Promise<any> => {
       email: query.email,
       _id: query.id,
       verifyToken: query.token,
-      isDeleted: false
+      isDeleted: false,
     });
     if (result === null) {
       throw {
         code: 400,
-        message: "Your verification link has been expired.",
-        success: false
+        message: 'Your verification link has been expired.',
+        success: false,
       };
     }
     return res.status(200).json({
-      message: "Link verified successfully!",
+      message: 'Link verified successfully!',
       data: result,
-      success: true
+      success: true,
     });
   } catch (error) {
     const code = error.code ? error.code : 500;
     res.status(code).json({
       code: code,
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -518,7 +535,7 @@ const resetPassword = async (req: Request, res: Response): Promise<any> => {
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: ValidationFormatter(errors.mapped()),
-      success: false
+      success: false,
     });
   }
   try {
@@ -533,30 +550,30 @@ const resetPassword = async (req: Request, res: Response): Promise<any> => {
       {
         _id: id,
         email: email,
-        verifyToken: verifyToken
+        verifyToken: verifyToken,
       },
       {
         $set: {
           password: body.password,
           // salt: body.salt,
-          verifyToken: ""
-        }
+          verifyToken: '',
+        },
       },
       {
-        new: true
-      }
+        new: true,
+      },
     );
     return res.status(200).json({
       responseCode: 200,
       data: result,
       message: message.passwordChanged,
-      success: true
+      success: true,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      error: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      error: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -573,20 +590,20 @@ const adminProxyLogin = async (req: Request, res: Response): Promise<any> => {
   try {
     const result: Document | null | any = await UserModel.findOne({
       _id: id,
-      isDeleted: false
+      isDeleted: false,
     });
     console.log(result);
 
     if (!result) {
       return res.status(404).json({
         responseCode: 404,
-        message: "Data not found.",
-        success: true
+        message: 'Data not found.',
+        success: true,
       });
     }
     result.set({
       loggedInIp: getIpAddress(req),
-      loginToken: generateSalt(20)
+      loginToken: generateSalt(20),
     });
     const tokenData = await result.save();
     const token = JWTSign(
@@ -597,26 +614,26 @@ const adminProxyLogin = async (req: Request, res: Response): Promise<any> => {
         firstName: result.firstName,
         lastName: result.lastName,
         phoneNumber: result.phoneNumber,
-        courseId: result.courseId
+        courseId: result.courseId,
       },
       JWTSecrete,
       {
-        expiresIn: 86400
-      }
+        expiresIn: 86400,
+      },
     );
     return res.status(200).json({
       responseCode: 200,
       token: token,
       data: result,
-      message: "Login Successful.",
-      success: true
+      message: 'Login Successful.',
+      success: true,
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       responsecode: 500,
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -626,25 +643,25 @@ const adminProxyLogin = async (req: Request, res: Response): Promise<any> => {
  */
 const userChangePassword = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<any> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: ValidationFormatter(errors.mapped()),
-      success: false
+      success: false,
     });
   }
   try {
     const { body, currentUser } = req;
     const users: Document | null | any = await UserModel.findOne({
-      _id: currentUser ? currentUser.id : undefined
+      _id: currentUser ? currentUser.id : undefined,
     });
     if (!comparePassword(body.oldPassword, users.password)) {
       throw {
         code: 400,
-        message: "Old Password did not match.",
-        success: false
+        message: 'Old Password did not match.',
+        success: false,
       };
     }
     const salt = generateSalt();
@@ -652,33 +669,33 @@ const userChangePassword = async (
     if (currentUser) {
       const result = await UserModel.update(
         {
-          _id: currentUser.id
+          _id: currentUser.id,
         },
         {
           $set: {
             password: body.newPassword,
-            salt: salt
-          }
-        }
+            salt: salt,
+          },
+        },
       );
       return res.status(200).json({
         responseCode: 200,
-        message: "Password updated successfully.",
+        message: 'Password updated successfully.',
         data: result,
-        success: true
+        success: true,
       });
     } else {
       return res.status(404).json({
         responseCode: 404,
-        message: "User not found",
-        success: false
+        message: 'User not found',
+        success: false,
       });
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: error.message ? error.message : "Unexpected error occure.",
-      success: false
+      message: error.message ? error.message : 'Unexpected error occure.',
+      success: false,
     });
   }
 };
@@ -694,5 +711,5 @@ export {
   linkVerified,
   resetPassword,
   adminProxyLogin,
-  userChangePassword
+  userChangePassword,
 };

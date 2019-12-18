@@ -15,10 +15,17 @@ const addTemplate = async (req: Request, res: Response): Promise<any> => {
   }
   try {
     const { body, currentUser } = req;
-    const { templateName, subject, htmlContent, designContent } = body;
+    const {
+      templateName,
+      templateType,
+      subject,
+      htmlContent,
+      designContent,
+    } = body;
     const id: string = currentUser ? currentUser.id : '';
     const data: object = {
       templateName,
+      templateType,
       subject,
       htmlContent,
       designContent,
@@ -58,7 +65,7 @@ const updateTemplate = async (req: Request, res: Response): Promise<any> => {
     const { id } = body;
     const result: Document = await EmailTemplateModel.update(
       {
-        _id:id,
+        _id: id,
       },
       {
         $set: { ...body, updatedAt: Date.now() },
