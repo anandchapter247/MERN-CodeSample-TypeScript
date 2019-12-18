@@ -15,6 +15,7 @@ import { sign as JWTSign } from 'jsonwebtoken';
 import { Document } from 'mongoose';
 import { webURL } from '../config';
 import { message } from '../common/messages';
+import { generateSlug } from '../common';
 const { validationResult } = require('express-validator/check');
 
 /**
@@ -255,8 +256,9 @@ const signup = async (req: Request, res: Response): Promise<any> => {
     });
   }
   try {
-    const { body } = req;
-    const { firstName, lastName, email, password } = body;
+    const {
+      body: { firstName, lastName, email, password },
+    } = req;
     const user: Document | null | any = await UserModel.findOne({
       email,
       isDeleted: false,
@@ -268,6 +270,10 @@ const signup = async (req: Request, res: Response): Promise<any> => {
         success: false,
       });
     }
+    const userName: string = await generateSlug(
+      [firstName, lastName].join(' '),
+      'user',
+    );
 
     const salt: string = generateSalt(10);
     const encryptedPassword: string = encryptPassword(password, salt);
@@ -275,6 +281,7 @@ const signup = async (req: Request, res: Response): Promise<any> => {
       firstName,
       lastName,
       email,
+      userName,
       password: encryptedPassword,
     };
     const studentData: Document = new UserModel(data);
@@ -298,7 +305,7 @@ const signup = async (req: Request, res: Response): Promise<any> => {
     return res.status(200).json({
       responseCode: 200,
       data: result,
-      message: 'Student Added Successfully.',
+      message: 'User Added Successfully.',
     });
   } catch (error) {
     console.log(error);

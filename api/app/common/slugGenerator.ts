@@ -3,7 +3,13 @@ import { UserModel } from '../models';
 
 const checkUniqueData = async (slug: string, modelName: string) => {
   let result: Document | null | any;
-  result = await UserModel.findOne({ lessonSlug: slug });
+  switch (modelName) {
+    case 'user':
+      result = await UserModel.findOne({ userName: slug });
+      break;
+    default:
+      break;
+  }
   if (!result) {
     return true;
   } else {

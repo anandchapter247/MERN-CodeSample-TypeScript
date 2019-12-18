@@ -10,6 +10,9 @@ const UserSchema = new Schema({
   email: {
     type: String,
   },
+  userName: {
+    type: String,
+  },
   password: {
     type: String,
   },
@@ -39,25 +42,12 @@ const UserSchema = new Schema({
   verifyToken: {
     type: String,
   },
-  userRole: {
-    type: String,
-    enum: ['Organization', 'Student'],
-  },
   loggedInIp: {
-    type: String,
-  },
-  loginToken: {
     type: String,
   },
   lastLogin: {
     type: Date,
     default: Date.now,
-  },
-  createdBy: {
-    type: Schema.Types.ObjectId,
-  },
-  updatedBy: {
-    type: Schema.Types.ObjectId,
   },
   createdAt: {
     type: Date,
@@ -70,4 +60,3 @@ const UserSchema = new Schema({
 });
 
 export const UserModel = model('user', UserSchema);
-

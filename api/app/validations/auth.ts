@@ -1,35 +1,131 @@
-import { body, ValidationChain } from "express-validator";
+import { body, check, ValidationChain } from 'express-validator/check';
+import { message } from '../common';
 /**
  *
  */
 export const LoginValidation: ValidationChain[] = [
-  body("email").not().isEmpty().withMessage("Please enter email address.").trim().isEmail().withMessage("Please enter valid email address"),
-  body("password").not().isEmpty().withMessage("Please enter password.").trim().isLength({ min: 6 }).withMessage("Password must be at least 6 character long.")
+  body('email')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredEmail)
+    .trim()
+    .isEmail()
+    .withMessage(message.InvalidEmail),
+  body('password')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredPassword)
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage(message.MinPasswordLength),
 ];
 
 export const SignupValidation: ValidationChain[] = [
-  body("firstName").not().isEmpty().withMessage("Please enter first name.").trim(),
-  body("lastName").not().isEmpty().withMessage("Please enter last name.").trim(),
-  body("email").not().isEmpty().withMessage("Please enter email address.").trim().isEmail().withMessage("Please enter valid email address"),
-  body("password").not().isEmpty().withMessage("Please enter password.").trim().isLength({ min: 6 }).withMessage("Password must be at least 6 character long.")
+  body('firstName')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredFirstName)
+    .trim(),
+  body('lastName')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredLastName)
+    .trim(),
+  body('email')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredEmail)
+    .trim()
+    .isEmail()
+    .withMessage(message.InvalidEmail),
+  body('password')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredPassword)
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage(message.MinPasswordLength),
+  check('confirmPassword')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredRePassword)
+    .trim()
+    .isLength({ min: 6 })
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error(message.PasswordMatchError);
+      } else {
+        return value;
+      }
+    }),
 ];
 
 export const ProfileValidation: ValidationChain[] = [
-  body("firstName").not().isEmpty().withMessage("Please enter first name.").trim(),
-  body("lastName").not().isEmpty().withMessage("Please enter last name").trim(),
-  body("email").not().isEmpty().withMessage("Please enter email address.").trim().isEmail().withMessage("Please enter valid email address"),
+  body('firstName')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredFirstName)
+    .trim(),
+  body('lastName')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredLastName)
+    .trim(),
+  body('email')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredEmail)
+    .trim()
+    .isEmail()
+    .withMessage(message.InvalidEmail),
 ];
 
 export const ChangePasswordValidation: ValidationChain[] = [
-  body("oldPassword").not().isEmpty().withMessage("Please enter old password.").trim().isLength({ min: 6 }).withMessage("Password must be at least 6 character long."),
-  body("newPassword").not().isEmpty().withMessage("Please enter password.").trim().isLength({ min: 6 }).withMessage("Password must be at least 6 character long.")
+  body('oldPassword')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredOldPassword)
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage(message.MinPasswordLength),
+  body('newPassword')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredPassword)
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage(message.MinPasswordLength),
 ];
 
 export const ForgotPassValidation: ValidationChain[] = [
-  body("email").not().isEmpty().withMessage("Please enter email address.").trim().isEmail().withMessage("Please enter valid email address"),
+  body('email')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredEmail)
+    .trim()
+    .isEmail()
+    .withMessage(message.InvalidEmail),
 ];
 
-
 export const ResetPasswordValidation: ValidationChain[] = [
-  body("password").not().isEmpty().withMessage("Please enter old password.").trim().isLength({ min: 6 }).withMessage("Password must be at least 6 character long."),
+  body('password')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredOldPassword)
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage(message.MinPasswordLength),
+  check('confirmPassword')
+    .not()
+    .isEmpty()
+    .withMessage(message.RequiredOldPassword)
+    .trim()
+    .isLength({ min: 6 })
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error(message.PasswordMatchError);
+      } else {
+        return value;
+      }
+    }),
 ];
