@@ -27,13 +27,14 @@ const getUsers = createLogic({
   type: UserActionTypes.GET_USER_REQUEST,
   async process(data, dispatch: any, done) {
     console.log('******************');
+    const action: any = data.action;
     dispatch(showLoader());
     const response = await new ApiHelper().FetchFromServer(
       ApiRoutes.GET_USER.service,
       ApiRoutes.GET_USER.url,
       ApiRoutes.GET_USER.method,
       ApiRoutes.GET_USER.authenticate,
-      undefined,
+      action.payload,
       undefined,
     );
     console.log(response);

@@ -13,6 +13,7 @@ export interface IUserData {
 export interface IUserModel {
   isLoading: boolean;
   userData: IUserData[];
+  totalRecords: number;
   userInfo: IUserData;
   isError: boolean;
 }
@@ -23,13 +24,19 @@ export interface IUserState {
   pageLimit: number;
   pageNeighbours: number;
   selectedUser: any;
+  // Search filters states
+  searchValue: string;
+  isActive: any;
+  sortBy: any;
+  isFilterApplied: boolean;
 }
 
 export interface IUserProps extends RouteComponentProps {
   userReducer?: IUserModel;
-  getUsers: () => void;
+  getUsers: (data: any) => void;
   updateUserStatus: (data: any) => void;
   deleteUser: (data: any) => void;
+  redirectTo: (data: any) => void;
 }
 
 export interface IAddUserState {

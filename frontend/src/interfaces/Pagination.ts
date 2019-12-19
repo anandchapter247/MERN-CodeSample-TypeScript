@@ -1,9 +1,11 @@
 export interface IPaginationProps {
   totalRecords: number;
   onPageChanged: (currentPage: number) => void;
-  currentPag: number;
+  currentPage: number;
+  pageLimit?: number;
+  pageNeighbours?: number;
 }
 
 export interface IPaginationState {
-  pageLimit: number;
+  currentPage: number;
 }
