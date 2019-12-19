@@ -92,8 +92,10 @@ class ChangePassword extends Component<
             >
               Old Password<span className={'mandatory'}>*</span>&nbsp;
             </Form.Label>
+            <div className={'text-danger error-text'}>
+              {errors && errors.oldPassword}
+            </div>
           </InputGroup>
-          <div className={'text-danger'}>{errors && errors.oldPassword}</div>
         </Form.Group>
         <Form.Group>
           <InputGroup>
@@ -110,8 +112,10 @@ class ChangePassword extends Component<
             >
               New Password<span className={'mandatory'}>*</span>&nbsp;
             </Form.Label>
+            <div className={'error-text text-danger'}>
+              {errors && errors.newPassword}
+            </div>
           </InputGroup>
-          <div className={'text-danger'}>{errors && errors.newPassword}</div>
         </Form.Group>
         <Form.Group>
           <InputGroup>
@@ -128,10 +132,10 @@ class ChangePassword extends Component<
             >
               Confirm Password<span className={'mandatory'}>*</span>&nbsp;
             </Form.Label>
+            <div className={'text-danger error-text'}>
+              {errors && errors.confirmPassword}
+            </div>
           </InputGroup>
-          <div className={'text-danger'}>
-            {errors && errors.confirmPassword}
-          </div>
         </Form.Group>
         <Row>
           <Col xs='6'>

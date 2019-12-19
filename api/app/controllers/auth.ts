@@ -151,7 +151,7 @@ const adminProfile = async (req: Request, res: Response): Promise<any> => {
           success: false,
         });
       }
-      const result = await UserModel.update(
+      const result = await AdminModel.update(
         {
           _id: currentUser.id,
         },

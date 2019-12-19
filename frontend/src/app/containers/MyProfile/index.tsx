@@ -119,10 +119,10 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
                       >
                         First Name<span className={'mandatory'}>*</span>&nbsp;
                       </Form.Label>
+                      <div className={'text-danger'}>
+                        {errors && errors.firstName}
+                      </div>
                     </InputGroup>
-                    <div className={'text-danger'}>
-                      {errors && errors.firstName}
-                    </div>
                   </Form.Group>
                   <Form.Group>
                     <InputGroup>
@@ -141,10 +141,10 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
                       >
                         Last Name<span className={'mandatory'}>*</span>&nbsp;
                       </Form.Label>
+                      <div className={'text-danger'}>
+                        {errors && errors.lastName}
+                      </div>
                     </InputGroup>
-                    <div className={'text-danger'}>
-                      {errors && errors.lastName}
-                    </div>
                   </Form.Group>
                   <Form.Group>
                     <InputGroup>
@@ -162,10 +162,10 @@ class MyProfile extends Component<IProfileProps, IProfileState> {
                       >
                         Email<span className={'mandatory'}>*</span>&nbsp;
                       </Form.Label>
+                      <div className={'text-danger'}>
+                        {errors && errors.email}
+                      </div>
                     </InputGroup>
-                    <div className={'text-danger'}>
-                      {errors && errors.email}
-                    </div>
                   </Form.Group>
                   <Row>
                     <Col xs='6'>

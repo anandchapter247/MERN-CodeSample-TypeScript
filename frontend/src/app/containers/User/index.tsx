@@ -153,12 +153,12 @@ class User extends Component<IUserProps, IUserState> {
                   variant={'link'}
                   className={'pull-right theme-btn add-btn'}
                   id={'add-new-pm-tooltip'}
-                  // onClick={() => {
-                  //   this.props.history.push(AppRoutes.ADD_LESSON);
-                  // }}
+                  onClick={() => {
+                    this.props.history.push(AppRoutes.ADD_USER);
+                  }}
                 >
                   <i className={'fa fa-plus'} />
-                  &nbsp; Add New Uer
+                  &nbsp; Add New User
                 </Button>
               }
             />

@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import { Button, Card, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { IAddUserState, IAddUserProps, IRootState, IUserData } from '../../../interfaces';
+import {
+  IAddUserState,
+  IAddUserProps,
+  IRootState,
+  IUserData,
+} from '../../../interfaces';
 import { AppRoutes } from '../../../config';
-import { addUserRequest, userInfoRequest, updateUserRequest } from '../../../actions';
+import {
+  addUserRequest,
+  userInfoRequest,
+  updateUserRequest,
+} from '../../../actions';
 import { userValidator } from '../../../validator';
 
 class AddUser extends Component<IAddUserProps, IAddUserState> {
@@ -40,18 +49,13 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
       this.props.userReducer.userInfo
     ) {
       const { userInfo } = this.props.userReducer;
-      const {
-        firstName,
-        lastName,
-        email,
-        _id,
-      } = userInfo;
+      const { firstName, lastName, email, _id } = userInfo;
 
       this.setState({
         firstName,
         lastName,
         email,
-        id:_id ? _id : '',
+        id: _id ? _id : '',
       });
     }
   };
@@ -72,19 +76,13 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
     e.preventDefault();
     const { location } = this.props;
     const { state } = location;
-    const {
-      firstName,
-      lastName,
-      email,
-      isEditable,
-      id,
-    } = this.state;
+    const { firstName, lastName, email, isEditable, id } = this.state;
 
     const data = {
       firstName,
       lastName,
       email: email ? email.trim().toLowerCase() : '',
-      _id:id,
+      _id: id,
     };
 
     // To validate form fields
@@ -93,7 +91,10 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
     });
     if (isValid) {
       if (isEditable) {
-        this.props.updateUser({ ...data, currentPage: state && state.currentPage ? state.currentPage : 1, });
+        this.props.updateUser({
+          ...data,
+          currentPage: state && state.currentPage ? state.currentPage : 1,
+        });
       } else {
         this.props.addUser(data);
       }
@@ -106,13 +107,7 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
   };
 
   render() {
-    const {
-      firstName,
-      lastName,
-      email,
-      errors,
-      isEditable,
-    } = this.state;
+    const { firstName, lastName, email, errors, isEditable } = this.state;
 
     return (
       <div className='cr-page px-3 min-height650 my-profile-section'>
@@ -130,10 +125,6 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
                   <div className='col-md-12  my-4'>
                     <Form onSubmit={this.handleSubmit} className='row'>
                       <Form.Group className='col-sm-6'>
-                        <Form.Label className='floating-label'>
-                          First Name<span className={'mandatory'}>*</span>
-                          &nbsp;
-                        </Form.Label>
                         <InputGroup>
                           <input
                             type={'text'}
@@ -143,6 +134,14 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
                             placeholder={' '}
                             onChange={this.handleChange}
                           />
+                          <Form.Label
+                            className={`floating-label ${
+                              firstName ? 'top-label' : ''
+                            }`}
+                          >
+                            First Name<span className={'mandatory'}>*</span>
+                            &nbsp;
+                          </Form.Label>
                         </InputGroup>
                         <div className={'text-danger error-text'}>
                           {errors && errors.firstName}
@@ -150,10 +149,6 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
                       </Form.Group>
 
                       <Form.Group className='col-sm-6'>
-                        <Form.Label className='floating-label'>
-                          Last Name<span className={'mandatory '}>*</span>
-                          &nbsp;
-                        </Form.Label>
                         <InputGroup>
                           <input
                             type={'text'}
@@ -163,6 +158,14 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
                             placeholder={' '}
                             onChange={this.handleChange}
                           />
+                          <Form.Label
+                            className={`floating-label ${
+                              lastName ? 'top-label' : ''
+                            }`}
+                          >
+                            Last Name<span className={'mandatory '}>*</span>
+                            &nbsp;
+                          </Form.Label>
                         </InputGroup>
                         <div className={'text-danger error-text'}>
                           {errors && errors.lastName}
@@ -170,10 +173,6 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
                       </Form.Group>
 
                       <Form.Group className='col-sm-6'>
-                        <Form.Label className='floating-label'>
-                          Email Address<span className={'mandatory'}>*</span>
-                          &nbsp;
-                        </Form.Label>
                         <InputGroup>
                           <input
                             type={'text'}
@@ -183,6 +182,14 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
                             placeholder={' '}
                             onChange={this.handleChange}
                           />
+                          <Form.Label
+                            className={`floating-label ${
+                              email ? 'top-label' : ''
+                            }`}
+                          >
+                            Email Address<span className={'mandatory'}>*</span>
+                            &nbsp;
+                          </Form.Label>
                         </InputGroup>
                         <div className={'text-danger error-text'}>
                           {errors && errors.email}
@@ -238,7 +245,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddUser);
+export default connect(mapStateToProps, mapDispatchToProps)(AddUser);
