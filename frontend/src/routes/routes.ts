@@ -1,14 +1,16 @@
 import React from 'react';
 import { AppRoutes } from '../config';
-import Organization from '../app/containers/Organization';
-// import EmailTemplates from '../app/containers/EmailTemplates';
-import AddTemplate from '../app/containers/EmailTemplates/AddTemplate';
-import EmailTemplates from '../app/containers/EmailTemplates';
-import HomePage from '../app/containers/CMS/HomePage';
 
 const Home = React.lazy(() => import('../app/containers/Home'));
 const Login = React.lazy(() => import('../app/containers/Auth'));
 const MyProfile = React.lazy(() => import('../app/containers/MyProfile'));
+const EmailTemplates = React.lazy(() => import('../app/containers/EmailTemplates'));
+const AddTemplate = React.lazy(() => import('../app/containers/EmailTemplates/AddTemplate'));
+const HomePage = React.lazy(() => import('../app/containers/CMS/HomePage'));
+const User = React.lazy(() => import('../app/containers/User'));
+const AddUser = React.lazy(() => import('../app/containers/User/AddUser'));
+const Faq = React.lazy(() => import('../app/containers/CMS/FAQ'));
+const AddFaq = React.lazy(() => import('../app/containers/CMS/FAQ/AddFaq'));
 
 const routes = [
   { path: AppRoutes.MAIN, exact: true, name: 'Home' },
@@ -31,9 +33,21 @@ const routes = [
     exact: true,
   },
   {
-    path: AppRoutes.ORGANIZATION,
-    name: 'Organization',
-    component: Organization,
+    path: AppRoutes.USER,
+    name: 'User',
+    component: User,
+    exact: true,
+  },
+  {
+    path: AppRoutes.ADD_USER,
+    name: 'Add User',
+    component: AddUser,
+    exact: true,
+  },
+  {
+    path: AppRoutes.EDIT_USER,
+    name: 'Update User',
+    component: AddUser,
     exact: true,
   },
   {
@@ -58,6 +72,18 @@ const routes = [
     path: AppRoutes.ADD_HOME_PAGE,
     name: 'Home Page',
     component: HomePage,
+    exact: true
+  },
+  {
+    path: AppRoutes.FAQ,
+    name: 'Faq',
+    component: Faq,
+    exact: true
+  },
+  {
+    path: AppRoutes.ADD_FAQ,
+    name: 'Add Faq',
+    component: AddFaq,
     exact: true
   },
 ];

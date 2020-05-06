@@ -152,7 +152,7 @@ class HomeComponent extends Component<any, any> {
                         <div className={"view-link"} style={{ marginTop: '15px' }}
                           onClick={() => {
                             this.props.history.push(
-                              AppRoutes.ORGANIZATION
+                              AppRoutes.USER
                             );
                           }}
                         >View List</div>
@@ -170,7 +170,7 @@ class HomeComponent extends Component<any, any> {
                         <div className={"view-link"} style={{ marginTop: '15px' }}
                           onClick={() => {
                             this.props.history.push(
-                              AppRoutes.ORGANIZATION
+                              AppRoutes.USER
                             );
                           }}>View List</div>
                       </div>
@@ -188,7 +188,7 @@ class HomeComponent extends Component<any, any> {
                         <div className={"view-link"} style={{ marginTop: '15px' }}
                           onClick={() => {
                             this.props.history.push(
-                              AppRoutes.ORGANIZATION
+                              AppRoutes.USER
                             );
                           }}
                         >View List</div>

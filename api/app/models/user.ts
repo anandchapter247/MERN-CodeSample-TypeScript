@@ -13,9 +13,6 @@ const UserSchema = new Schema({
   password: {
     type: String,
   },
-  salt: {
-    type: String,
-  },
   phoneNumber: {
     type: String,
   },

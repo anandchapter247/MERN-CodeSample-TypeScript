@@ -3,8 +3,9 @@ import { push } from 'react-router-redux';
 import { LoginLogics } from './Login';
 import { ProfileInfoLogics } from './ProfileInfo';
 import { ChangePasswordLogics } from './ChangePassword';
-import { getOrganizationLogics } from './Organization';
+import { userLogics } from './User';
 import { TemplateLogics } from './EmailTemplate';
+import { FaqLogics } from "./Faq";
 
 export const redirectToLogic = createLogic({
   type: 'REDIRET_TO',
@@ -19,7 +20,8 @@ export const AllLogics: Logic[] = [
   ...LoginLogics,
   ...ProfileInfoLogics,
   ...ChangePasswordLogics,
-  ...getOrganizationLogics,
+  ...userLogics,
+  ...FaqLogics,
   ...TemplateLogics,
   redirectToLogic,
 ];

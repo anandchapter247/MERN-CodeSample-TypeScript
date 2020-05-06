@@ -34,10 +34,16 @@ export const message = {
   RequiredCvv: 'Please enter valid CVV',
   RequiredExpireDate: 'Please enter valid expiration date',
 
-    //Home Page Section
-    Title: "Please enter title",
-    buttonText: "Please enter button text",
-    content: "Please enter description",
-    image: "Please enter image",
-    VideoURL: "Please enter video url"
+  //Home Page Section
+  Title: "Please enter title",
+  buttonText: "Please enter button text",
+  content: "Please enter description",
+  image: "Please enter image",
+  VideoURL: "Please enter video url",
+
+  // Faq Page validation
+  RequiredQuestion:"Please enter question",
+  RequiredAnswer:"Please enter answer",
+  RequiredOrder:"Please enter order sequence",
+  InvalidOrder:"Order sequence should be numeric"
 };

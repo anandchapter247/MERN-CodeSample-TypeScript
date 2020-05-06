@@ -13,9 +13,13 @@ export interface IAppRoutes {
   LOGIN: string;
   HOME: string;
   MY_PROFILE: string;
-  ORGANIZATION: string;
+  USER: string;
+  ADD_USER: string;
+  EDIT_USER: string;
   EMAILTEMPLATE: string;
   ADD_TEMPLATE: string;
   EDIT_TEMPLATE: string;
   ADD_HOME_PAGE: string;
+  FAQ:string;
+  ADD_FAQ:string;
 }

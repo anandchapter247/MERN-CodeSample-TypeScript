@@ -10,10 +10,11 @@ import {
   updateTemplateFailed,
   viewTemplateSuccess,
   getTemplateSuccess,
-  getTemplateFailed
+  getTemplateFailed,
+  redirectTo
 } from "../actions";
 import { ApiHelper } from "../helper/ApiHelper";
-import { ApiRoutes } from "../config";
+import { ApiRoutes, AppRoutes } from "../config";
 
 let toastId: any = null;
 
@@ -33,13 +34,16 @@ const addTemplate = createLogic({
     );
     console.log(response);
     if (response && !response.isError) {
-      console.log("dfdsfdfds");
+      if (!toast.isActive(toastId)) {
+        toastId = toast.success(response.messages[0]);
+      }
       dispatch(hideLoader());
       dispatch(
         addTemplateSuccess({
           templateInfo: response.data.data
         })
       );
+      dispatch(redirectTo({ path: AppRoutes.EMAILTEMPLATE }));
       done();
     } else {
       console.log(response);
@@ -67,15 +71,17 @@ const updateTemplate = createLogic({
       undefined,
       action.payload
     );
-    console.log(response);
     if (response && !response.isError) {
-      console.log("dfdsfdfds");
+      if (!toast.isActive(toastId)) {
+        toastId = toast.success(response.messages[0]);
+      }
       dispatch(hideLoader());
       dispatch(
         updateTemplateSuccess({
           templateInfo: response.data.data
         })
       );
+      dispatch(redirectTo({ path: AppRoutes.EMAILTEMPLATE }));
       done();
     } else {
       console.log(response);

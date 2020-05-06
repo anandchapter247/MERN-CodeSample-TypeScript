@@ -5,9 +5,10 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { getTemplateRequest } from '../../../actions';
-import { AppRoutes } from '../../../config';
+import { AppRoutes, DateTimeFormat } from '../../../config';
 import TooltipComponent from '../../components/ToolTipComponent';
 import { TooltipText } from '../../common/TooltipText';
+import moment from 'moment';
 
 class EmailTemplates extends Component<any, any> {
   constructor(props: any) {
@@ -68,6 +69,7 @@ class EmailTemplates extends Component<any, any> {
                   <th>#</th>
                   <th>Template Name</th>
                   <th>Subject</th>
+                  <th>Created Date</th>
                   <th className='action-width'>Action</th>
                 </tr>
               </thead>
@@ -89,6 +91,7 @@ class EmailTemplates extends Component<any, any> {
                               <td>{index + 1}</td>
                               <td>{template.templateName}</td>
                               <td>{template.subject}</td>
+                              <td>{template.createdAt ? moment(template.createdAt).format(DateTimeFormat):'-'}</td>
                               <td className='overflow-hidden'>
                                 <div className='action-buttons'>
                                   <TooltipComponent

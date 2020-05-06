@@ -55,9 +55,10 @@ const updateTemplate = async (req: Request, res: Response): Promise<any> => {
   }
   try {
     const { body } = req;
+    const { id } = body;
     const result: Document = await EmailTemplateModel.update(
       {
-        _id: body._id,
+        _id:id,
       },
       {
         $set: { ...body, updatedAt: Date.now() },
