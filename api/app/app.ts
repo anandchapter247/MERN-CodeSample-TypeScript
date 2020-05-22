@@ -9,7 +9,7 @@ import * as swaggerDocument from "../swagger.json";
 
 // Create a new express application instance
 const app: express.Application = express();
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 connect(
   "mongodb://localhost/Codesample-db",
