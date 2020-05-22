@@ -4,13 +4,23 @@ import { AppRoutes } from '../config';
 const Home = React.lazy(() => import('../app/containers/Home'));
 const Login = React.lazy(() => import('../app/containers/Auth'));
 const MyProfile = React.lazy(() => import('../app/containers/MyProfile'));
-const EmailTemplates = React.lazy(() => import('../app/containers/EmailTemplates'));
-const AddTemplate = React.lazy(() => import('../app/containers/EmailTemplates/AddTemplate'));
+const EmailTemplates = React.lazy(() =>
+  import('../app/containers/EmailTemplates')
+);
+const AddTemplate = React.lazy(() =>
+  import('../app/containers/EmailTemplates/AddTemplate')
+);
 const HomePage = React.lazy(() => import('../app/containers/CMS/HomePage'));
 const User = React.lazy(() => import('../app/containers/User'));
 const AddUser = React.lazy(() => import('../app/containers/User/AddUser'));
 const Faq = React.lazy(() => import('../app/containers/CMS/FAQ'));
 const AddFaq = React.lazy(() => import('../app/containers/CMS/FAQ/AddFaq'));
+// const GlobalSetting = React.lazy(() =>
+//   import('../app/containers/GlobalSetting/index')
+// );
+const GlobalSetting = React.lazy(() =>
+  import('../app/containers/GlobalSetting')
+);
 
 const routes = [
   { path: AppRoutes.MAIN, exact: true, name: 'Home' },
@@ -72,19 +82,25 @@ const routes = [
     path: AppRoutes.ADD_HOME_PAGE,
     name: 'Home Page',
     component: HomePage,
-    exact: true
+    exact: true,
   },
   {
     path: AppRoutes.FAQ,
     name: 'Faq',
     component: Faq,
-    exact: true
+    exact: true,
   },
   {
     path: AppRoutes.ADD_FAQ,
     name: 'Add Faq',
     component: AddFaq,
-    exact: true
+    exact: true,
+  },
+  {
+    path: AppRoutes.GLOBAL_SETTING,
+    name: 'GLOBAL SETTING',
+    component: GlobalSetting,
+    exact: true,
   },
 ];
 

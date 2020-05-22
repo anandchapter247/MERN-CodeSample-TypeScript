@@ -14,5 +14,6 @@ export const AppRoutes: IAppRoutes = {
   //Home Page
   ADD_HOME_PAGE: '/homepage',
   ADD_FAQ:'/faq/add',
-  FAQ:'/faq'
+  FAQ:'/faq',
+  GLOBAL_SETTING:'/global-setting'
 };

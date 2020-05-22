@@ -45,14 +45,14 @@ class DefaultLayout extends Component<
 
   componentDidMount() {
     console.log('gggggggggggggggggggggggggggg');
-    console.log(localStorage.getItem('token'));
-    if (!localStorage.getItem('token')) {
-      console.log('ggggggggggggggggg');
-      this.props.redirectTo({ path: AppRoutes.LOGIN });
-    } else {
-      console.log('fdfgjdfjgdskfj');
-      this.props.profileInfo();
-    }
+    // console.log(localStorage.getItem('token'));
+    // if (!localStorage.getItem('token')) {
+    //   console.log('ggggggggggggggggg');
+    //   this.props.redirectTo({ path: AppRoutes.LOGIN });
+    // } else {
+    //   console.log('fdfgjdfjgdskfj');
+    //   this.props.profileInfo();
+    // }
   }
 
   componentDidUpdate = async (prevProps: RouteComponentProps) => {

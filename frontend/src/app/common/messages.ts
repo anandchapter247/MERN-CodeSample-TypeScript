@@ -35,15 +35,23 @@ export const message = {
   RequiredExpireDate: 'Please enter valid expiration date',
 
   //Home Page Section
-  Title: "Please enter title",
-  buttonText: "Please enter button text",
-  content: "Please enter description",
-  image: "Please enter image",
-  VideoURL: "Please enter video url",
+  Title: 'Please enter title',
+  buttonText: 'Please enter button text',
+  content: 'Please enter description',
+  image: 'Please enter image',
+  VideoURL: 'Please enter video url',
 
   // Faq Page validation
-  RequiredQuestion:"Please enter question",
-  RequiredAnswer:"Please enter answer",
-  RequiredOrder:"Please enter order sequence",
-  InvalidOrder:"Order sequence should be numeric"
+  RequiredQuestion: 'Please enter question',
+  RequiredAnswer: 'Please enter answer',
+  RequiredOrder: 'Please enter order sequence',
+  InvalidOrder: 'Order sequence should be numeric',
+
+  // Global setting
+  URLValid: 'Must be a valid URL',
+  ValidEMail: 'Must be a valid email id',
+  MaxLengthAddress: 'Address must be less than 100 characters',
+  Numeric: 'Must be a number',
+  MinLengthNumber: 'Phone number must be greater than 7 numbers',
+  MaxLengthNumber: 'Phone number must be less than 14 numbers',
 };

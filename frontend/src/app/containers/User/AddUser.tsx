@@ -93,7 +93,7 @@ class AddUser extends Component<IAddUserProps, IAddUserState> {
     });
     if (isValid) {
       if (isEditable) {
-        this.props.updateUser({ ...data, currentPage: state && state.currentPage ? state.currentPage : 1, });
+        this.props.updateUser({ ...data, currentPage:1, });
       } else {
         this.props.addUser(data);
       }
