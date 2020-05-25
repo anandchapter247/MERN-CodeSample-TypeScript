@@ -98,7 +98,7 @@ export const ApiRoutes: IApiRoutes = {
     authenticate: true,
   },
 
-    // Home Page
+  // Home Page
   ADD_HOME_PAGE: {
     service: '/homepage',
     url: '/add',
@@ -140,6 +140,12 @@ export const ApiRoutes: IApiRoutes = {
     service: '/faq',
     url: '/uodate',
     method: 'PUT',
+    authenticate: true,
+  },
+  ADD_SETTINGS: {
+    service: '/settings',
+    url: '/add',
+    method: 'POST',
     authenticate: true,
   },
 };

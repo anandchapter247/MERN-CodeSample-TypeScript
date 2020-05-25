@@ -36,9 +36,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1", router);
 
 // route for home page
-app.get("**", function(req, res) {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// app.get("**", function(req, res) {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 app.listen(8080, function() {
   console.log("Example app listening on port 8080!");

@@ -11,19 +11,19 @@ export interface IAddGlobalSetting {
   address: string;
   website: string;
   phone: string;
-  noOfDays: string;
-  adminEmail: string;
-  siteId: string;
-  travelInfluenser: string;
-  incrediblePlaces: string;
-  extraordinaryDestination: string;
-  beachDestination: string;
-  urbanDestination: string;
-  trendingArticle: string;
-  trendingVideo: string;
-  trendingPodcast: string;
-  trendingShops: string;
-  showYourFlow: string;
+  // noOfDays: string;
+  // adminEmail: string;
+  // siteId: string;
+  // travelInfluenser: string;
+  // incrediblePlaces: string;
+  // extraordinaryDestination: string;
+  // beachDestination: string;
+  // urbanDestination: string;
+  // trendingArticle: string;
+  // trendingVideo: string;
+  // trendingPodcast: string;
+  // trendingShops: string;
+  // showYourFlow: string;
   errors: {
     facebookURL: string;
     twitterURL: string;
@@ -37,7 +37,7 @@ export interface IAddGlobalSetting {
     address: string;
     website: string;
     phone: string;
-    noOfDays: string;
-    adminEmail: string;
+    // noOfDays: string;
+    // adminEmail: string;
   };
 }

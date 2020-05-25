@@ -12,16 +12,19 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
             <Card>
               <Card.Header>
                 <h4>
-                  <i className='icon-note' />
-                  &nbsp;{true ? 'Add' : 'Update'} User
+                  <i className='fa fa-cogs' aria-hidden='true' />
+                  &nbsp;Global Settings
                 </h4>
               </Card.Header>
               <Card.Body>
                 <div className='row'>
                   <div className='col-md-12  my-4'>
+                    <h3>
+                      <i className='fa fa-comments-o' aria-hidden='true'></i>
+                      &nbsp;Social Media
+                    </h3>
                     <Form className='row' onSubmit={handleSubmit}>
-                      <h3>Social Media</h3>
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Facebook URL &nbsp;
                         </Form.Label>
@@ -39,7 +42,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.facebookURL}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Twitter URL &nbsp;
                         </Form.Label>
@@ -57,7 +60,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.twitterURL}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Instagram URL &nbsp;
                         </Form.Label>
@@ -75,7 +78,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.instaURL}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Youtube URL &nbsp;
                         </Form.Label>
@@ -93,7 +96,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.youtubeURL}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Pinterest URL &nbsp;
                         </Form.Label>
@@ -111,7 +114,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.pinterestURL}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Linkedin URL &nbsp;
                         </Form.Label>
@@ -129,7 +132,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.linkedinURL}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Shopify URL &nbsp;
                         </Form.Label>
@@ -147,8 +150,14 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.shopifyURL}
                         </div>
                       </Form.Group>
-                      <h3>Address</h3>
-                      <Form.Group className='col-sm-12'>
+                      <h3 className='col-sm-12'>
+                        <i
+                          className='fa fa-address-card-o'
+                          aria-hidden='true'
+                        ></i>
+                        &nbsp; Address
+                      </h3>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Email &nbsp;
                         </Form.Label>
@@ -166,7 +175,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.email}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Support Email &nbsp;
                         </Form.Label>
@@ -184,7 +193,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.supportEmail}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Address &nbsp;
                         </Form.Label>
@@ -202,7 +211,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.address}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Website &nbsp;
                         </Form.Label>
@@ -220,7 +229,7 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                           {errors && errors.website}
                         </div>
                       </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
+                      <Form.Group className='col-sm-6'>
                         <Form.Label className='floating-label'>
                           Phone &nbsp;
                         </Form.Label>
@@ -237,209 +246,6 @@ class GlobalSettingForm extends Component<any, IAddFAQState> {
                         <div className={'text-danger error-text'}>
                           {errors && errors.phone}
                         </div>
-                      </Form.Group>
-                      <h3>Basic Info</h3>
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Number of days &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'noOfDays'}
-                            value={state.noOfDays}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                        <div className={'text-danger error-text'}>
-                          {errors && errors.noOfDays}
-                        </div>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Admin email address &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'adminEmail'}
-                            value={state.adminEmail}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                        <div className={'text-danger error-text'}>
-                          {errors && errors.adminEmail}
-                        </div>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Site Id &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'siteId'}
-                            value={state.siteId}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>
-                      <h3>Home Page Rows</h3>
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Travel Influencers &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'travelInfluenser'}
-                            value={state.travelInfluenser}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Incredible Places &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'incrediblePlaces'}
-                            value={state.incrediblePlaces}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Extra ordinary destination &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'extraordinaryDestination'}
-                            value={state.extraordinaryDestination}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Beach destination &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'beachDestination'}
-                            value={state.beachDestination}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Urban destination &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'urbanDestination'}
-                            value={state.urbanDestination}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Trending Articles &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'trendingArticle'}
-                            value={state.trendingArticle}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Trending Videos &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'trendingVideo'}
-                            value={state.trendingVideo}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Trending Podcasts &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'trendingPodcast'}
-                            value={state.trendingPodcast}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Trending Shops &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'trendingShops'}
-                            value={state.trendingShops}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
-                      </Form.Group>{' '}
-                      <Form.Group className='col-sm-12'>
-                        <Form.Label className='floating-label'>
-                          Show your flow &nbsp;
-                        </Form.Label>
-                        <InputGroup>
-                          <input
-                            type={'text'}
-                            name={'showYourFlow'}
-                            value={state.showYourFlow}
-                            className={'form-control floating-input'}
-                            placeholder={' '}
-                            onChange={handleChange}
-                          />
-                        </InputGroup>
                       </Form.Group>
                       <Col xs='12' className='text-right'>
                         <Button variant='link' className='btn btn-cancel'>

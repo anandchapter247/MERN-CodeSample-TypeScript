@@ -25,7 +25,7 @@ export interface IApiRoutes {
 
   EXPORT_REPORT: IApiRoutesValues;
 
-    /**
+  /**
    * CMS Page
    */
 
@@ -34,8 +34,11 @@ export interface IApiRoutes {
   UPDATE_HOME_PAGE: IApiRoutesValues;
 
   // Faq
-  ADD_FAQ:IApiRoutesValues;
-  GET_FAQ:IApiRoutesValues;
-  UPDATE_FAQ_STATUS:IApiRoutesValues;
-  UPDATE_FAQ:IApiRoutesValues;
+  ADD_FAQ: IApiRoutesValues;
+  GET_FAQ: IApiRoutesValues;
+  UPDATE_FAQ_STATUS: IApiRoutesValues;
+  UPDATE_FAQ: IApiRoutesValues;
+
+  //settings
+  ADD_SETTINGS: IApiRoutesValues;
 }
